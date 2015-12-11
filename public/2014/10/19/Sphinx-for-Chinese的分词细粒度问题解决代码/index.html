@@ -1,0 +1,633 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Sphinx-for-Chinese的分词细粒度问题解决代码 | 邓世龙的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="robinjia">
+    
+
+    
+    <meta name="description" content="感觉上，这段代码不贴上来，仿佛欠别人钱似的。趁现在还有些精力，以后很长一段时间都不会接触Sphinx了，赶紧把这件事给做了。具体为什么这样改，可以看前面的文章。以下修改是基于sphinx-for-chinese-2.2.1-dev-r4311版本，之需要修改sphinx.cpp即可。
+在2296行后面添加如下代码：123456789101112131415161718192021222324252">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sphinx-for-Chinese的分词细粒度问题解决代码">
+<meta property="og:url" content="http://program.dengshiong.org/2014/10/19/Sphinx-for-Chinese的分词细粒度问题解决代码/index.html">
+<meta property="og:site_name" content="邓世龙的学习笔记">
+<meta property="og:description" content="感觉上，这段代码不贴上来，仿佛欠别人钱似的。趁现在还有些精力，以后很长一段时间都不会接触Sphinx了，赶紧把这件事给做了。具体为什么这样改，可以看前面的文章。以下修改是基于sphinx-for-chinese-2.2.1-dev-r4311版本，之需要修改sphinx.cpp即可。
+在2296行后面添加如下代码：123456789101112131415161718192021222324252">
+<meta property="og:updated_time" content="2015-12-10T06:07:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sphinx-for-Chinese的分词细粒度问题解决代码">
+<meta name="twitter:description" content="感觉上，这段代码不贴上来，仿佛欠别人钱似的。趁现在还有些精力，以后很长一段时间都不会接触Sphinx了，赶紧把这件事给做了。具体为什么这样改，可以看前面的文章。以下修改是基于sphinx-for-chinese-2.2.1-dev-r4311版本，之需要修改sphinx.cpp即可。
+在2296行后面添加如下代码：123456789101112131415161718192021222324252">
+
+    
+    <link rel="alternative" href="/atom.xml" title="邓世龙的学习笔记" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="邓世龙的学习笔记" title="邓世龙的学习笔记"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="邓世龙的学习笔记">邓世龙的学习笔记</a></h1>
+				<h2 class="blog-motto">兼济天下则达,独善其身则穷</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:program.dengshiong.org">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/10/19/Sphinx-for-Chinese的分词细粒度问题解决代码/" title="Sphinx-for-Chinese的分词细粒度问题解决代码" itemprop="url">Sphinx-for-Chinese的分词细粒度问题解决代码</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-10-19T09:12:44.000Z" itemprop="datePublished"> 發表於 2014-10-19</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			
+		
+		</div>
+		
+		<p>感觉上，这段代码不贴上来，仿佛欠别人钱似的。趁现在还有些精力，以后很长一段时间都不会接触Sphinx了，赶紧把这件事给做了。<br>具体为什么这样改，可以看前面的文章。以下修改是基于sphinx-for-chinese-2.2.1-dev-r4311版本，之需要修改sphinx.cpp即可。</p>
+<p>在2296行后面添加如下代码：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> CSphWord</span><br><span class="line">&#123;</span><br><span class="line">    BYTE m_sAccum[<span class="number">3</span> * SPH_MAX_WORD_LEN + <span class="number">3</span>];</span><br><span class="line">    <span class="keyword">int</span> length;</span><br><span class="line">    <span class="keyword">const</span> BYTE *m_pTokenStart;</span><br><span class="line">    <span class="keyword">const</span> BYTE *m_pTokenEnd;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> ISphWords</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">Length</span> <span class="params">()</span> <span class="keyword">const</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> m_dData.GetLength();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">const</span> CSphWord * <span class="title">First</span> <span class="params">()</span> <span class="keyword">const</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> m_dData.Begin();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">const</span> CSphWord * <span class="title">Last</span> <span class="params">()</span> <span class="keyword">const</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> &amp;m_dData.Last();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Clean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        m_dData.Reset();</span><br><span class="line">    &#125;     </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">AddWord</span> <span class="params">( BYTE * word, <span class="keyword">int</span> length, <span class="keyword">const</span> BYTE *start, <span class="keyword">const</span> BYTE *end)</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">            CSphWord &amp; tWord = m_dData.Add();</span><br><span class="line">            <span class="built_in">memcpy</span>(tWord.m_sAccum, word, length);</span><br><span class="line">            tWord.length = length;</span><br><span class="line">            tWord.m_pTokenStart = start;</span><br><span class="line">            tWord.m_pTokenEnd = end;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    CSphVector&lt;CSphWord&gt; m_dData;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>在2296行,virtual int GetMaxCodepointLength () const { return m_tLC.GetMaxCodepointLength(); }后面添加如下方法成员：<br><figure class="highlight"><figcaption><span>BYTE *              ProcessParsedWord();```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#22312;2303&#34892;&#65292;Darts::DoubleArray::result_pair_type    m_pResultPair[256];&#21518;&#38754;&#28155;&#21152;&#22914;&#19979;&#25968;&#25454;&#25104;&#21592;&#65306;&#10;``` c&#10;/*****add by luodongshan for indexer*****/&#10;        int totalParsedWordsNum; //&#24635;&#20849;&#38656;&#35201;&#22788;&#29702;&#30340;&#35789;&#10;        int processedParsedWordsNum; //&#24050;&#32463;&#22788;&#29702;&#30340;&#35789;&#10;        int isIndexer; //&#26159;&#21542;&#24320;&#21551;&#32454;&#31890;&#24230;&#20998;&#35789;&#10;        bool needMoreParser; //&#38656;&#35201;&#26356;&#32454;&#31890;&#24230;&#20998;&#35789;&#10;        const char * m_pTempCur;&#10;        char  m_BestWord[3 * SPH_MAX_WORD_LEN + 3];&#10;        int m_iBestWordLength;&#10;        ISphWords m_Words;&#10;        CSphWord *current;&#10;        bool isParserEnd;</span><br></pre></td></tr></table></figure></p>
+<p>在6448行，m_bHasBlend = false;后面添加如下初始化代码：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> *penv = getenv(<span class="string">"IS_INDEX"</span>);</span><br><span class="line"><span class="keyword">if</span> (penv != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        isIndexer = <span class="number">1</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        isIndexer = <span class="number">0</span>;</span><br><span class="line">&#125;     </span><br><span class="line">needMoreParser = <span class="literal">false</span>;</span><br><span class="line">current = <span class="literal">NULL</span>;</span><br><span class="line">isParserEnd = <span class="literal">false</span>;</span><br></pre></td></tr></table></figure></p>
+<p>在6743后面添加新增方法成员ProcessParsedWord的实现：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt; <span class="keyword">bool</span> IS_QUERY &gt;</span><br><span class="line">BYTE * CSphTokenizer_UTF8Chinese&lt;IS_QUERY&gt;::ProcessParsedWord() &#123;</span><br><span class="line">    <span class="keyword">for</span> (; current != <span class="literal">NULL</span> &amp;&amp; current &lt;= m_Words.Last(); ) &#123;</span><br><span class="line">        <span class="built_in">memcpy</span>(m_sAccum, current-&gt;m_sAccum, current-&gt;length);</span><br><span class="line">        m_pTokenStart = current-&gt;m_pTokenStart;</span><br><span class="line">        m_pTokenEnd = current-&gt;m_pTokenEnd;</span><br><span class="line">        current++;</span><br><span class="line">        <span class="keyword">return</span> m_sAccum;</span><br><span class="line">    &#125;</span><br><span class="line">    isParserEnd = <span class="literal">false</span>;</span><br><span class="line">    m_Words.Clean();</span><br><span class="line">    current = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在6785行， bool bGotSoft = false; // hey Beavis he said soft huh huhhuh 后面增加如下代码：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (isIndexer &amp;&amp; isParserEnd) &#123; <span class="comment">//使用MMSEG分词结束，处理细粒度分词得到的词</span></span><br><span class="line">        <span class="keyword">return</span> ProcessParsedWord();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在6791行， int iNum;后面增加如下代码：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/***add by dengsl 2014/06/24****/</span></span><br><span class="line"><span class="keyword">if</span>(isIndexer &amp;&amp; needMoreParser) &#123; <span class="comment">//对最优匹配进行细粒度分词</span></span><br><span class="line">        <span class="keyword">while</span> (m_pTempCur &lt; m_BestWord + m_iBestWordLength) &#123;</span><br><span class="line">                <span class="keyword">if</span>(processedParsedWordsNum == totalParsedWordsNum) &#123; <span class="comment">//此位置的前缀词已处理完，跳到下一位置</span></span><br><span class="line">                        <span class="keyword">size_t</span> minWordLength = m_pResultPair[<span class="number">0</span>].length;</span><br><span class="line">                        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; totalParsedWordsNum; i++) &#123;</span><br><span class="line">                                <span class="keyword">if</span>(m_pResultPair[i].length &lt; minWordLength) &#123;</span><br><span class="line">                                        minWordLength = m_pResultPair[i].length;</span><br><span class="line">                                &#125;     </span><br><span class="line">                        &#125;     </span><br><span class="line">                        m_pTempCur += minWordLength;</span><br><span class="line">                        m_pText=(Darts::DoubleArray::key_type *)(m_pCur + (m_pTempCur - m_BestWord));</span><br><span class="line">                        iNum = m_tDa.commonPrefixSearch(m_pText, m_pResultPair, <span class="number">256</span>, m_pBufferMax-(m_pCur+(m_pTempCur-m_BestWord)));</span><br><span class="line">                        totalParsedWordsNum = iNum;</span><br><span class="line">                        processedParsedWordsNum = <span class="number">0</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        iWordLength = m_pResultPair[processedParsedWordsNum].length;</span><br><span class="line">                        processedParsedWordsNum++;</span><br><span class="line">                        <span class="keyword">if</span> (m_pTempCur == m_BestWord &amp;&amp; iWordLength == m_iBestWordLength) &#123;</span><br><span class="line">                                <span class="keyword">continue</span>;</span><br><span class="line">                        &#125;     </span><br><span class="line">                        <span class="built_in">memcpy</span>(m_sAccum, m_pText, iWordLength);</span><br><span class="line">                        m_sAccum[iWordLength] = <span class="string">'\0'</span>;</span><br><span class="line">                        <span class="keyword">if</span>( <span class="number">3</span> * SPH_MAX_WORD_LEN + <span class="number">3</span> &gt;= iWordLength + <span class="number">2</span>) &#123;</span><br><span class="line">                                m_sAccum[iWordLength + <span class="number">1</span>] = <span class="string">'\0'</span>;</span><br><span class="line">                                <span class="keyword">if</span>(m_pTokenEnd == m_pBufferMax) &#123; <span class="comment">//是结尾，保存结尾符标志</span></span><br><span class="line">                                        m_sAccum[iWordLength + <span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">                                &#125;     </span><br><span class="line">                        &#125;     </span><br><span class="line">                        m_Words.AddWord(m_sAccum, iWordLength + <span class="number">2</span>, m_pCur + (m_pTempCur - m_BestWord), m_pCur + (m_pTempCur - m_BestWord) + iWordLength);</span><br><span class="line">                &#125;     </span><br><span class="line">        &#125;     </span><br><span class="line">        m_pCur += m_iBestWordLength;</span><br><span class="line">        needMoreParser = <span class="literal">false</span>;</span><br><span class="line">        iWordLength = <span class="number">0</span>;</span><br><span class="line">        current = <span class="keyword">const_cast</span>&lt; CSphWord * &gt; ( m_Words.First() );</span><br><span class="line">&#125;     </span><br><span class="line"><span class="comment">/***add end by dengsl 2014/06/24****/</span></span><br></pre></td></tr></table></figure></p>
+<p>在6832行，iNum = m_tDa.commonPrefixSearch(m_pText, m_pResultPair, 256, m_pBufferMax-m_pCur);后面增加如下代码：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/***add by dengsl 2014/06/24****/</span></span><br><span class="line"><span class="keyword">if</span>(isIndexer &amp;&amp; iNum &gt; <span class="number">1</span>) &#123;</span><br><span class="line">        m_iBestWordLength=getBestWordLength(m_pText, m_pBufferMax-m_pCur);</span><br><span class="line">        <span class="built_in">memcpy</span>(m_sAccum, m_pText, m_iBestWordLength);</span><br><span class="line">        m_sAccum[m_iBestWordLength]=<span class="string">'\0'</span>;</span><br><span class="line">        m_pTokenStart = m_pCur;</span><br><span class="line">        m_pTokenEnd = m_pCur + m_iBestWordLength;</span><br><span class="line"></span><br><span class="line">        totalParsedWordsNum = iNum;</span><br><span class="line">        needMoreParser = <span class="literal">true</span>;</span><br><span class="line">        processedParsedWordsNum = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">memcpy</span>(m_BestWord, m_pText, m_iBestWordLength);</span><br><span class="line">        m_BestWord[m_iBestWordLength]=<span class="string">'\0'</span>;</span><br><span class="line">        m_pTempCur = m_BestWord;</span><br><span class="line">        <span class="keyword">if</span>( <span class="number">3</span> * SPH_MAX_WORD_LEN + <span class="number">3</span> &gt;= m_iBestWordLength + <span class="number">2</span>) &#123;</span><br><span class="line">                m_sAccum[m_iBestWordLength + <span class="number">1</span>] = <span class="string">'\0'</span>;</span><br><span class="line">                <span class="keyword">if</span>(m_pTokenEnd == m_pBufferMax) &#123; <span class="comment">//是结尾，保存结尾符标志</span></span><br><span class="line">                        m_sAccum[m_iBestWordLength + <span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">                &#125;     </span><br><span class="line">        &#125;     </span><br><span class="line">        <span class="keyword">return</span> m_sAccum;</span><br><span class="line">&#125;     </span><br><span class="line"><span class="comment">/***add by dengsl 2014/06/24****/</span></span><br></pre></td></tr></table></figure></p>
+<p>在6903行，将<br><figure class="highlight"><figcaption><span>NULL;```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#20462;&#25913;&#20026;&#10;``` c&#10;/* dengsl */&#10;isParserEnd = true;&#10;return ProcessParsedWord();</span><br></pre></td></tr></table></figure></p>
+<p>在6914行，将<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if_const ( IS_BLEND &amp;&amp; !BlendAdjust ( pCur ) )</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure></p>
+<p>修改成：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* dengsl */</span></span><br><span class="line">if_const ( IS_BLEND &amp;&amp; !BlendAdjust ( pCur ) ) &#123;</span><br><span class="line">    isParserEnd = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">return</span> ProcessParsedWord();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在27210行，m_tHits.AddHit ( uDocid, iWord, m_tState.m_iHitPos );后面增加如下代码：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">///add by luodongshan 20140626</span></span><br><span class="line">    <span class="keyword">if</span>(sWord != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> sWord_len = <span class="built_in">strlen</span>((<span class="keyword">char</span>*)sWord);</span><br><span class="line">        <span class="keyword">if</span>(sWord_len + <span class="number">2</span> &lt;= <span class="number">3</span> * SPH_MAX_WORD_LEN + <span class="number">3</span> &amp;&amp; sWord[sWord_len + <span class="number">1</span>] == <span class="number">1</span> &amp;&amp;</span><br><span class="line">                getenv(<span class="string">"IS_INDEX"</span>) != <span class="literal">NULL</span> &amp;&amp; !bSkipEndMarker )  &#123;</span><br><span class="line">            CSphWordHit * pHit = <span class="keyword">const_cast</span> &lt; CSphWordHit * &gt; ( m_tHits.Last() );</span><br><span class="line">            HITMAN::SetEndMarker ( &amp;pHit-&gt;m_iWordPos );</span><br><span class="line"></span><br><span class="line">        &#125;     </span><br><span class="line">    &#125;     </span><br><span class="line">    <span class="comment">///add by luodongshan 20140626 end</span></span><br></pre></td></tr></table></figure></p>
+<p>将过上面的修改，重新编译源码，之后设置环境变量IS_INDEX,即运行export IS_INDEX=1,就可以支持细粒度的划分。</p>
+<p>一个需要注意的地方是,对于searchd,也变成细粒度分词了，这并不是我们想要的，所以对于searchd，需要使用未修改代码的searchd.因为我们想建索引时细粒度，搜索时粗粒度。</p>
+<p>之所以要这样，是因为如果不这样处理，很多结果会搜出来了。如有文章内容分别为中大酒店，中大假日酒店。如果搜索时也是细粒度，则有中大，酒店，中，大，大酒店，酒，店等查询词，而大酒店只在中大酒店中存在，所以只会搜出中大酒店，这并不是我们想要的。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Sphinx-for-chinese/">Sphinx-for-chinese</a><a href="/tags/分词/">分词</a><a href="/tags/细粒度/">细粒度</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://program.dengshiong.org/2014/10/19/Sphinx-for-Chinese的分词细粒度问题解决代码/" data-title="Sphinx-for-Chinese的分词细粒度问题解决代码 | 邓世龙的学习笔记" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/10/20/Solr分布式请求stage理解/" title="Solr分布式请求stage理解">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Solr分布式请求stage理解</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/10/19/Sphinx更新属性无法为负值/"  title="Sphinx更新属性无法为负值">
+ <strong>下一篇：</strong><br/> 
+ <span>Sphinx更新属性无法为负值
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Lucene/" title="Lucene">Lucene<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/搜索引擎/" title="搜索引擎">搜索引擎<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/搜索引擎/" title="搜索引擎">搜索引擎<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/" title="数学">数学<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/" title="数据结构">数据结构<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/未分类/" title="未分类">未分类<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/欧拉工程/" title="欧拉工程">欧拉工程<sup>60</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>21</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/算法/" title="算法">算法<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/编程/" title="编程">编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编程/" title="编程">编程<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络编程/" title="网络编程">网络编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件安装/" title="软件安装">软件安装<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/欧拉工程/" title="欧拉工程">欧拉工程<sup>58</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/C名题百则/" title="C名题百则">C名题百则<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/solr/" title="solr">solr<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/素数/" title="素数">素数<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx-for-chinese/" title="Sphinx-for-chinese">Sphinx-for-chinese<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx/" title="Sphinx">Sphinx<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/筛法/" title="筛法">筛法<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动态规划/" title="动态规划">动态规划<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/索引/" title="索引">索引<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/米勒-拉宾/" title="米勒-拉宾">米勒-拉宾<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/更新/" title="更新">更新<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/回文数/" title="回文数">回文数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/阶乘/" title="阶乘">阶乘<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/全位数/" title="全位数">全位数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/增量索引/" title="增量索引">增量索引<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Lucene/" title="Lucene">Lucene<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分布式/" title="分布式">分布式<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分词/" title="分词">分词<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/幂方/" title="幂方">幂方<sup>3</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 兼济天下则达 <br/>
+			独善其身则穷</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="robinjia">robinjia</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

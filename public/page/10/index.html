@@ -1,0 +1,1239 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>邓世龙的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="robinjia">
+    
+
+    
+    <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="邓世龙的学习笔记">
+<meta property="og:url" content="http://program.dengshiong.org/page/10/index.html">
+<meta property="og:site_name" content="邓世龙的学习笔记">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="邓世龙的学习笔记">
+<meta name="twitter:description">
+
+    
+    <link rel="alternative" href="/atom.xml" title="邓世龙的学习笔记" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="邓世龙的学习笔记" title="邓世龙的学习笔记"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="邓世龙的学习笔记">邓世龙的学习笔记</a></h1>
+				<h2 class="blog-motto">兼济天下则达,独善其身则穷</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:program.dengshiong.org">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/03/29/欧拉工程-问题59/" title="欧拉工程-问题59" itemprop="url">欧拉工程-问题59</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-03-29T12:56:59.000Z" itemprop="datePublished"> 發表於 2014-03-29</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>原题链接<a href="http://projecteuler.net/problem=59" target="_blank" rel="external">http://projecteuler.net/problem=59</a></p>
+<h2 id="XOR_decryption"><a href="#XOR_decryption" class="headerlink" title="XOR decryption"></a>XOR decryption</h2><p>Each character on a computer is assigned a unique code and the preferred standard is ASCII (American Standard Code for Information Interchange). For example, uppercase A = 65, asterisk (*) = 42, and lowercase k = 107.</p>
+<p>A modern encryption method is to take a text file, convert the bytes to ASCII, then XOR each byte with a given value, taken from a secret key. The advantage with the XOR function is that using the same encryption key on the cipher text, restores the plain text; for example, 65 XOR 42 = 107, then 107 XOR 42 = 65.</p>
+<p>For unbreakable encryption, the key is the same length as the plain text message, and the key is made up of random bytes. The user would keep the encrypted message and the encryption key in different locations, and without both “halves”, it is impossible to decrypt the message.</p>
+<p>Unfortunately, this method is impractical for most users, so the modified method is to use a password as a key. If the password is shorter than the message, which is likely, the key is repeated cyclically throughout the message. The balance for this method is using a sufficiently long password key for security, but short enough to be memorable.</p>
+<p>Your task has been made easy, as the encryption key consists of three lower case characters. Using <a href="http://projecteuler.net/project/cipher1.txt" target="_blank" rel="external">cipher1.txt</a> (right click and ‘Save Link/Target As…’), a file containing the encrypted ASCII codes, and the knowledge that the plain text must contain common English words, decrypt the message and find the sum of the ASCII values in the original text.</p>
+<p>异或加密<br>在计算机中的每个字符都被分配一个唯一的码值，最常用的标准是ASCII（美国标准信息交换码).例如，大写的A = 65，星号(*) = 42,小写的k = 107.</p>
+<p>有一种现代的加密方法是将文本文件转化成对应的ASCII,然后将每一个字节与密码中的一个值异或。使用异或方法加密的一个优点是，在密文中使用同样的密钥可以得到明文。例如, 65 XOR 42 = 107 , 之后 107 XOR 42 = 65.</p>
+<p>对于不可破解的加密，密钥的长度与明文一样长，并且密钥由随机的字节组成。一个用户将密文和密钥保存在不同的地方，如果没有同时拿到密文和密钥，将不可能破解信息。</p>
+<p>不幸的是，这种方法对于许多用户都不实际，因此一个改良的方法是使用密码作为密钥。如果密码的长度小于信息，这也是最常见的情况，那么密钥就要循环贯穿信息。综合考虑，这种方法为了保证安全，选择一个足够长的密钥，为了便于记忆，也必须足够短。</p>
+<p>你的任务已经简化了，因为密钥是由三个小写字母构成。使用<a href="http://projecteuler.net/project/cipher1.txt" target="_blank" rel="external">cipher1.txt</a>（右击，链接另存为），这是一个经过加密的ASCLL码，已经知道的是明文是由英文单词构成，请解密信息，并求原始信息中ASCLL码的总和.</p>
+<p>解答：<br>暴力破解，用常见的英文单词the来判断。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/欧拉工程/">欧拉工程</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/异或/">异或</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/03/25/crontab定时运行脚本/" title="crontab定时运行脚本" itemprop="url">crontab定时运行脚本</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-03-25T05:14:43.000Z" itemprop="datePublished"> 發表於 2014-03-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><div>在Linux上经常需要定时运行某个脚本，这是crontab就派上用场了。对于如何使用crontab,一般google。事实上，我一直很好奇的是，网上那些人关于crontab的知识到底从哪里得来的，知道man crontab后我才知道，原来他们也是看的手册。</div><br>man crontab后，没有关于如何编写crontab任务的说明，看到see also crontab(5)后,执行man 5 crontab,发现这里有说明如何编写crontab任务。这样以后就不需要遇到一个问题，就上网找，直接看手册就好了。</p>
+<p>一般说来，都是仿照晚上的例子写，如这里<a href="http://www.blogjava.net/xiaomage234/archive/2007/12/26/170490.html" target="_blank" rel="external">http://www.blogjava.net/xiaomage234/archive/2007/12/26/170490.html</a>后来才发现，给出的例子中有一个坑。</p>
+<p><div><em> </em>/1 <em> </em> * /usr/local/apache/bin/apachectl restart</div></p>
+<p><div>每小时重启apache</div><br>这个例子中说每小时重启apache，试着写了之后，才发现每一分钟都会重启。仔细分析后才发现原因,因为第一列是分钟的位置,而使用*号，则代表0-59分钟，于是在一个小时里，0-59分钟都会重启apache,等到59分钟重启apache后，已经过了一小时，于是又回到0分钟，于是apache又重启了。</p>
+<p>所以以后遇到位置的命令时，不要立马上网找，可以先看看手册的说明。或者找一个靠谱的网页看，后来才发现<a href="http://www.centos.bz/2011/03/auto-run-task-crontab/" target="_blank" rel="external">http://www.centos.bz/2011/03/auto-run-task-crontab/</a>这里写的比较靠谱。在找这些命令使用过程中发现，网上这般人经常抄来抄去的，浪费别人的时间，太无聊了。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/shell/">shell</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/crontab/">crontab</a><a href="/tags/shell/">shell</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/03/24/在C++的sort排序中永远让比较函数对相等的值返回false/" title="在C++的sort排序中永远让比较函数对相等的值返回false" itemprop="url">在C++的sort排序中永远让比较函数对相等的值返回false</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-03-24T13:16:05.000Z" itemprop="datePublished"> 發表於 2014-03-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>很久之前，线上的程序跑着跑着，莫名其妙的就coredump了，找了很久都不知道原因。因为coredump的次数不是很多，有时好几天了也才dump了一次，所以也很难确定是在哪个地方出错了。通过版本回溯，慢慢缩小了出错的范围，可是我还是不知道在哪里出错了，直到今天晚上组长和我说了可能出错的地方，才知道原来有这么一个坑存在。</p>
+<div></div><br><div>他说使用sort排序时，比较函数编写时，如果两个值相等返回true可能会存在问题，于是我看了自己写的，两个值相等时，正是返回true.</div><br><div>int cmp(const int &amp;a, const int &amp;b) {</div><br><div>    return a &gt;= b;</div><br><div>}</div><br><div>可是我还是看不出这里有什么错误，google之后找到了解答,在一篇文章里说到，当排序的个数超过16个时，且这些书数全部相等时，如果比较函数在两个值相等返回true时就会出错。这是因为sort行数的实现中，当超过16个数时，使用快速排序，而且假定一定存在两个数不相等。具体可参看<a href="http://blog.sina.com.cn/s/blog_79d599dc01012m7l.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_79d599dc01012m7l.html</a></div>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/C/">C++</a><a href="/tags/coredump/">coredump</a><a href="/tags/sort/">sort</a><a href="/tags/比较函数/">比较函数</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/03/08/安装Maven/" title="安装Maven" itemprop="url">安装Maven</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-03-08T04:10:01.000Z" itemprop="datePublished"> 發表於 2014-03-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>很早之前，在写第一个Servlet时，一直配置不成功，写一个Hello World!都成问题，于是转而奔向PHP，最近由于工作需要，要重新拾起Java那套东西。因为是用Maven做的管理，于是要安装Maven，到网上找参考资料，竟没安装好，于是到官网找解答，最终找到。</p>
+<p>安装Maven之前，已经假设你安装好JDK.有一点需要注意的是,Maven3.2要求JDK1.6及以上,Maven3.0/3.1则要求JDK1.5及以上，否则会出现版本错误</p>
+<p>1.下载Maven</p>
+<p>到官网<a href="http://maven.apache.org/下载Maven,当前最新稳定版本为3.2.1" target="_blank" rel="external">http://maven.apache.org/下载Maven,当前最新稳定版本为3.2.1</a></p>
+<p>对于Windows系统，下载Maven 3.2.1 (Binary zip)</p>
+<p>2.解压Maven,配置环境变量</p>
+<p>将Maven解压，这里假设放在d:\apache-maven-3.2.1</p>
+<p>之后进行环境变量配置，</p>
+<p>在系统变量中增加M2_HOME,值为d:\apache-maven-3.2.1</p>
+<p>在系统变量中增加M2,值为%M2_HOME%\bin</p>
+<p>如果已经存在用户变量Path，则在值的前面增加%M2%； 注意一定要加上这个分号</p>
+<p>如果不存在用户变量Path,则新建它，并赋值为%M2%</p>
+<p>3.测试Maven</p>
+<p>在命令行中执行mvn –version，在我的电脑上显示如下,</p>
+<p>Apache Maven 3.2.1 (ea8b2b07643dbb1b84b6d16e1f08391b666bc1e9; 2014-02-15T01:37:5</p>
+<p>2+08:00)</p>
+<p>Maven home: d:\apache-maven-3.2.1</p>
+<p>Java version: 1.6.0_15, vendor: Sun Microsystems Inc.</p>
+<p>Java home: D:\Java\jdk1.6.0\jre</p>
+<p>Default locale: zh_CN, platform encoding: GBK</p>
+<p>OS name: “windows 7”, version: “6.1”, arch: “x86”, family: “windows”</p>
+<p>如果不是这样，看看环境变量是否配置正确，以及JDK版本是否匹配</p>
+<p>4.Eclipse的Maven插件安装</p>
+<p>在插件安装上，网上的资料很多已经过时了，因为都是很早之前的链接。顺着官网找到了eclipse的Maven插件安装链接<a href="http://download.eclipse.org/technology/m2e/releases/" target="_blank" rel="external">http://download.eclipse.org/technology/m2e/releases/</a></p>
+<p>我用的是Eclipse Kepler.在Help-&gt;Install new software中，将以上安装链接加入，名字为Maven，之后即可下载插件</p>
+<p><a href="http://program.dengshilong.org/wp-content/uploads/2014/03/Maven插件安装.png" target="_blank" rel="external"><img src="http://program.dengshilong.org/wp-content/uploads/2014/03/Maven插件安装.png" alt="Maven插件安装"></a></p>
+<p>5.配置Maven插件</p>
+<p>在Window-&gt;Preferences中,选择Maven</p>
+<p><a href="http://program.dengshilong.org/wp-content/uploads/2014/03/Maven-Installations配置.png" target="_blank" rel="external"><img src="http://program.dengshilong.org/wp-content/uploads/2014/03/Maven-Installations配置.png" alt="Maven-Installations配置"></a></p>
+<p>点击Installations,此时还是用插件自带的Maven版本3.0.4,而且Global settings是空的我们需要添加自己安装的版本，点击Add,打开D:\apache-maven-3.2.1即可，最终结果如下：</p>
+<p><a href="http://program.dengshilong.org/wp-content/uploads/2014/03/Maven-Installations配置结果.png" target="_blank" rel="external"><img src="http://program.dengshilong.org/wp-content/uploads/2014/03/Maven-Installations配置结果.png" alt="Maven-Installations配置结果"></a></p>
+<p>此时Maven插件将会使用安装的Maven3.2.1版本</p>
+<p>之后点击User Settings,可以看到如下结果</p>
+<p>这里也许最让你迷惑的是这三个概念，Global Settings, User Settings,以及Local Repository。因为我也未深入理解，所以也只能在这里说说我的理解。简单来说，</p>
+<p>Global Settings就是一些全局设置，设置了中央jar仓库的位置等等.</p>
+<p>User Settings设置了用户私有jar仓库的位置等等.</p>
+<p>Local Repository是本地jar仓库的位置.</p>
+<p>假设你现在在开发一个应用，它需要使用一个jar,则Maven会先到Local Repository中寻找，如果没找到这个jar,则它会到User Settings中设置的用户私有jar仓库中查找，如果还是没找到，则到Global Settings设置的中央jar仓库中查找，如果还是没找到，Maven将报错，指示jar未找到。</p>
+<p>网上还有介绍另外一种方法，也就是先去下载Eclipse的Maven插件，之后再将插件导入到Eclipse, 只是因为直接用URL的方法已经解决了安装问题，所以没有尝试。</p>
+<p>6.Hello World例子</p>
+<p>之后用《Maven by Example》中的一个例子来介绍安装介绍。命令行进入Eclipse工作目录，我这里是d:\workspace,执行以下命令</p>
+<p>mvn archetype:generate -DgroupId=org.sonatype.mavenbook -DartifactId=simple -Dpackage=org.sonatype.mavenbook -Dversion=1.0-SNAPSHOT</p>
+<p>之后敲几次回车，一个最简单的HelloWorld项目就建立好了。</p>
+<p>之后cd simple进入simple目录，如果你有兴趣，可以看看Maven生成的内容，</p>
+<p>其目录结构如下</p>
+<p>simple/</p>
+<p>simple/pom.xml</p>
+<p>simple/src/main</p>
+<p>simple/src/main/java</p>
+<p>simple/src/test</p>
+<p>simple/src/test/java</p>
+<p>其中src/main存放源文件,src/test存放测试文件,pom.xml为Maven提供编译信息，</p>
+<p>执行mvn install，编译,测试，打包项目</p>
+<p>执行java -cp target/simple-1.0-SNAPSHOT.jar org.sonatype.mavenbook.App</p>
+<p>看到输出的 Hello World！</p>
+<p>事实上，在命令行中，一个困惑是如何选择新建项目的类型，命令行里一共列出了九百多种，而很难知道哪个编号对应的是哪一种项目类型。</p>
+<p>关于Maven的更多内容可以去sonatype官网下载《Maven by Example》,绝对值得一看。</p>
+<p>参考文章：</p>
+<p><a href="http://www.blogjava.net/fancydeepin/archive/2012/07/13/eclipse_maven3_plugin.html" target="_blank" rel="external">http://www.blogjava.net/fancydeepin/archive/2012/07/13/eclipse_maven3_plugin.html</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/软件安装/">软件安装</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Maven/">Maven</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/12/26/用select实现精确定时器/" title="用select实现精确定时器" itemprop="url">用select实现精确定时器</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2013-12-26T13:37:40.000Z" itemprop="datePublished"> 發表於 2013-12-26</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>之前为了找出Sphinx中index ‘test1’: search error: query too complex, not enough stack (thread_stack=1217498K or higher required)这个bug,大致看了一下Sphinx的源码，发现问题的原因是在计算线程使用的空间时出错，具体原因依然没有找到，还在努力当中。在这个过程中，看到以下这段程序<br><figure class="highlight"><figcaption><span>sphSleepMsec ( int iMsec )</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#10;    if ( iMsec&#60;0 )&#10;        return;&#10;&#10;#if USE_WINDOWS&#10;    Sleep ( iMsec );&#10;&#10;#else&#10;    struct timeval tvTimeout;&#10;    tvTimeout.tv_sec = iMsec / 1000; // full seconds&#10;    tvTimeout.tv_usec = ( iMsec % 1000 ) * 1000; // remainder is msec, so *1000 for usec&#10;&#10;    select ( 0, NULL, NULL, NULL, &#38;tvTimeout ); // FIXME? could handle EINTR&#10;#endif&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其实就是一个毫秒定时器，《UNIX环境编程》第14章的习题就要求实现一个这样的函数。看这段程序，又是令人恶心的匈牙利命名，把它改为正常点的比较好。程序中的注释”//FIXME?could handle EINR”说的是select会被SIGINT信号中断，那么这个定时器也会因为这个原因而被中断信号中断，看看能否提供不被中断的方法。立刻就想到了忽略中断信号，试了一下，其实还是挺容易的。难道这种直接忽略中断信号还是存在问题？<br><figure class="highlight"><figcaption><span><sys select.h=""></sys></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#include &#60;stdio.h&#62;&#10;#include &#60;stdlib.h&#62;&#10;#include &#60;signal.h&#62;&#10;void sleep_ms(int msec) &#123;//&#30561;&#30496;msec&#27627;&#31186;&#10;    if (msec &#60; 0)&#10;        return;&#10;    signal(SIGINT, SIG_IGN);&#10;    struct timeval tv; &#10;    tv.tv_sec = msec / 1000;//&#38500;&#20197;1000&#65292;&#24471;&#21040;&#31186;&#25968;&#10;    tv.tv_usec = (msec % 1000) * 1000;//&#24471;&#21040;&#21097;&#20313;&#30340;&#27627;&#31186;&#25968;&#65292;&#20043;&#21518;&#20056;&#20197;1000&#24471;&#21040;&#24494;&#31186;&#25968;&#10;    select(0, NULL, NULL, NULL, &#38;tv);&#10;&#125;&#10;int main() &#123;&#10;    printf(&#34;start sleeping\n&#34;);&#10;    sleep_ms(4000);&#10;    printf(&#34;finish sleeping\n&#34;);&#10;    return 0;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/SIGINT/">SIGINT</a><a href="/tags/select/">select</a><a href="/tags/sleep/">sleep</a><a href="/tags/中断/">中断</a><a href="/tags/定时器/">定时器</a><a href="/tags/忽略/">忽略</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/12/26/用epoll提供telnet服务的代码(续)/" title="用epoll提供telnet服务的代码(续)" itemprop="url">用epoll提供telnet服务的代码(续)</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2013-12-26T11:39:35.000Z" itemprop="datePublished"> 發表於 2013-12-26</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>最终的代码如下，这里修正了对nc命令无法处理的问题</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;sys/epoll.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;netinet/tcp.h&gt;</span> </span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;ctype.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> MAX_EVENTS <span class="number">10</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> PORT <span class="number">9999</span></span></span><br><span class="line"><span class="comment">//从buf中得到命令</span></span><br><span class="line"><span class="keyword">void</span> _get_command(<span class="keyword">char</span> *buf, <span class="keyword">char</span> *cmd) &#123;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (!<span class="built_in">isalpha</span>(buf[i]))</span><br><span class="line">		i++;</span><br><span class="line">	<span class="keyword">while</span> (buf[i] != <span class="string">'\0'</span> &amp;&amp; buf[i] != <span class="string">' '</span> &amp;&amp; buf[i] != <span class="string">'\r'</span> &amp;&amp; buf[i] != <span class="string">'\n'</span>) &#123;</span><br><span class="line">		cmd[j++] = buf[i];</span><br><span class="line">		i++;</span><br><span class="line">	&#125;</span><br><span class="line">	cmd[j] = <span class="string">'\0'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 返回成功发送的字节数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Send</span><span class="params">(<span class="keyword">int</span> sock, <span class="keyword">void</span> *buffer, <span class="keyword">int</span> size)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> nsend = <span class="number">0</span>, total = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> err;</span><br><span class="line">	<span class="keyword">if</span>(<span class="literal">NULL</span> == buffer || <span class="number">0</span> == size) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span>(size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">		nsend = write(sock, (<span class="keyword">char</span>*)buffer + total, size);</span><br><span class="line">		<span class="keyword">if</span>(nsend == -<span class="number">1</span>) &#123;</span><br><span class="line">			err = errno;</span><br><span class="line">			<span class="keyword">if</span>(EINTR == err) &#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"send data to socket[%d], error is %s[%d]\n"</span>, </span><br><span class="line">							sock, strerror(err), err);</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"Fail to send data to socket[%d], error is %s[%d]"</span>, </span><br><span class="line">							sock, strerror(err), err);</span><br><span class="line">				<span class="keyword">return</span> -<span class="number">1</span>;	</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			total += nsend;</span><br><span class="line">			size -= nsend;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> total;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//处理重置命令</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">process_reset</span><span class="params">(<span class="keyword">int</span> sock)</span></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> mess[] = <span class="string">"reset successful\r\n"</span>;</span><br><span class="line">	Send(sock, mess, <span class="built_in">strlen</span>(mess));</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//处理错误命令</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">process_error</span><span class="params">(<span class="keyword">int</span> sock)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">char</span> error[] = <span class="string">"ERROR\r\n"</span>;</span><br><span class="line">	Send(sock, error, <span class="built_in">strlen</span>(error));</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">process_stats</span><span class="params">(<span class="keyword">int</span> sock)</span></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> mess[] = <span class="string">"stats successful\r\n"</span>;</span><br><span class="line">	Send(sock, mess, <span class="built_in">strlen</span>(mess));</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//处理退出命令</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">process_quit</span><span class="params">(<span class="keyword">int</span> sock)</span> </span>&#123;</span><br><span class="line">	close(sock);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">process_command</span><span class="params">(<span class="keyword">int</span> sock, <span class="keyword">char</span> *buf)</span> </span>&#123;</span><br><span class="line">	assert(buf != <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*char cmd[BUFSIZ];</span><br><span class="line">	_get_command(buf, cmd);	</span><br><span class="line">	printf("command: %s\n", cmd);</span><br><span class="line"></span><br><span class="line">	if (strcmp("stats",cmd) == 0) &#123;</span><br><span class="line">		process_stats(sock);</span><br><span class="line">	&#125; else if (strcmp("reset", cmd) == 0) &#123;</span><br><span class="line">		process_reset(sock);</span><br><span class="line">	&#125; else if (strcmp("quit", cmd) == 0)&#123;</span><br><span class="line">		process_quit(sock);</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		process_error(sock);</span><br><span class="line">	&#125;*/</span></span><br><span class="line">	Send(sock, buf, <span class="built_in">strlen</span>(buf));</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置socket为非阻塞</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setnonblocking</span><span class="params">(<span class="keyword">int</span> sockfd)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> opts;</span><br><span class="line">	opts = fcntl(sockfd, F_GETFL);</span><br><span class="line">	<span class="keyword">if</span> (opts &lt; <span class="number">0</span>) &#123;</span><br><span class="line">		perror(<span class="string">"fcntl(F_GETFL)\n"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	opts = (opts | O_NONBLOCK);</span><br><span class="line">	<span class="keyword">if</span> (fcntl(sockfd, F_SETFL, opts) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">		perror(<span class="string">"fcntl(F_SETFL)\n"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> listenfd, conn_sock, epfd;</span><br><span class="line">	<span class="keyword">char</span> buf[BUFSIZ];</span><br><span class="line">	<span class="keyword">socklen_t</span> clilen;</span><br><span class="line">	<span class="keyword">struct</span> sockaddr_in cliaddr, servaddr;</span><br><span class="line">	<span class="keyword">struct</span> epoll_event ev, events[MAX_EVENTS];</span><br><span class="line">	listenfd = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">	<span class="keyword">if</span> (listenfd &lt; <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"create socket error\n"</span>);</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> on = <span class="number">1</span>;</span><br><span class="line">	setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &amp;on, <span class="keyword">sizeof</span>(on));</span><br><span class="line">	setnonblocking(listenfd);</span><br><span class="line">	bzero(&amp;servaddr, <span class="keyword">sizeof</span>(servaddr));</span><br><span class="line">	servaddr.sin_family = AF_INET;</span><br><span class="line">	servaddr.sin_addr.s_addr = htonl(INADDR_ANY);</span><br><span class="line">	servaddr.sin_port = htons(PORT);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(bind(listenfd,(<span class="keyword">struct</span> sockaddr*)&amp;servaddr,<span class="keyword">sizeof</span>(<span class="keyword">struct</span> sockaddr))&lt;<span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"bind error\n"</span>);</span><br><span class="line">		close(listenfd);</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(listen(listenfd, <span class="number">5</span>) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"listen error\n"</span>);</span><br><span class="line">		close(listenfd);</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>; </span><br><span class="line">	&#125;</span><br><span class="line">	epfd = epoll_create(MAX_EVENTS); <span class="comment">//生成epoll专用的文件描述符</span></span><br><span class="line">	<span class="keyword">if</span> (epfd == -<span class="number">1</span>) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"epoll_create\n"</span>);</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	ev.events = EPOLLIN | EPOLLET; <span class="comment">//设置处理的事件类型,设置为边沿触发</span></span><br><span class="line">	ev.data.fd = listenfd;</span><br><span class="line">	<span class="keyword">if</span> (epoll_ctl(epfd, EPOLL_CTL_ADD, listenfd, &amp;ev) == -<span class="number">1</span>) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"epoll_ctl add listen_sock fail\n"</span>);</span><br><span class="line">		close(listenfd);</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">		<span class="keyword">int</span> timeout = <span class="number">1000</span>; </span><br><span class="line">		<span class="keyword">int</span> nfds = epoll_wait(epfd, events, MAX_EVENTS, timeout);</span><br><span class="line">		<span class="keyword">if</span> (nfds == -<span class="number">1</span>) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"epoll_wait\n"</span>);</span><br><span class="line">			<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; nfds; ++i) &#123;</span><br><span class="line">			<span class="keyword">int</span> fd = events[i].data.fd;</span><br><span class="line">			<span class="keyword">if</span> (fd == listenfd) &#123; <span class="comment">//监听事件</span></span><br><span class="line">				<span class="keyword">while</span> ((conn_sock = accept(listenfd, <span class="literal">NULL</span>, <span class="literal">NULL</span>)) &gt; <span class="number">0</span>) &#123;<span class="comment">//循环处理accept,这样可以处理多个连接在就绪队列中的情况</span></span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">"accept %d\n"</span>, conn_sock);</span><br><span class="line">					setnonblocking(conn_sock);</span><br><span class="line">					ev.events = EPOLLIN | EPOLLET; <span class="comment">//设置为边沿触发</span></span><br><span class="line">					ev.data.fd = conn_sock;</span><br><span class="line">					<span class="keyword">if</span> (epoll_ctl(epfd, EPOLL_CTL_ADD, conn_sock, &amp;ev) == -<span class="number">1</span>) &#123;</span><br><span class="line">						<span class="built_in">printf</span>(<span class="string">"epoll_ctl: add fail\n"</span>);</span><br><span class="line">						close(conn_sock);</span><br><span class="line">						<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span> (events[i].events &amp; EPOLLIN) &#123;<span class="comment">//读事件，说明有数据从客户端发来</span></span><br><span class="line">				<span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">				<span class="keyword">int</span> nread = <span class="number">0</span>;</span><br><span class="line">				<span class="keyword">while</span> ((nread = read(fd, buf + n, BUFSIZ - n)) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">					n += nread;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="comment">//printf("n %d nread %d\n", n, nread);</span></span><br><span class="line">				<span class="keyword">if</span> (nread == -<span class="number">1</span> &amp;&amp; errno != EAGAIN) &#123;<span class="comment">//读数据错误,关闭描述符</span></span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">"read error\n"</span>);</span><br><span class="line">					close(fd); <span class="comment">//关闭一个描述符，它会从epoll描述符集合中自动删除</span></span><br><span class="line">					<span class="keyword">continue</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span>( n &gt; <span class="number">0</span>) &#123;</span><br><span class="line">					process_command(fd, buf);</span><br><span class="line">					<span class="built_in">memset</span>(buf, <span class="number">0</span>, <span class="keyword">sizeof</span>(buf));</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span>(nread == <span class="number">0</span>) &#123; <span class="comment">//客户端关闭连接，关闭相应的描述符</span></span><br><span class="line">					close(fd);</span><br><span class="line">					<span class="keyword">continue</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/epoll/">epoll</a><a href="/tags/telnet/">telnet</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/12/25/用epoll提供telnet服务的代码/" title="用epoll提供telnet服务的代码" itemprop="url">用epoll提供telnet服务的代码</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2013-12-25T14:03:54.000Z" itemprop="datePublished"> 發表於 2013-12-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>这是之前写的用epoll提供telnet服务的代码。</p>
+<p>[code lang=”c”]</p>
+<p>#include <stdio.h></stdio.h></p>
+<p>#include <unistd.h></unistd.h></p>
+<p>#include <string.h></string.h></p>
+<p>#include <errno.h></errno.h></p>
+<p>#include <sys socket.h=""></sys></p>
+<p>#include <sys types.h=""></sys></p>
+<p>#include <fcntl.h></fcntl.h></p>
+<p>#include <arpa inet.h=""></arpa></p>
+<p>#include <sys epoll.h=""></sys></p>
+<p>#include <stdlib.h></stdlib.h></p>
+<p>#include <netinet tcp.h=""> </netinet></p>
+<p>#include <ctype.h></ctype.h></p>
+<p>#include <assert.h></assert.h></p>
+<p>#define MAX_EVENTS 10</p>
+<p>#define PORT 9999<br>//从buf中得到命令<br>void _get_command(char <em>buf, char </em>cmd) {<br>    int i = 0;<br>    int j = 0;<br>    while (!isalpha(buf[i]))<br>        i++;<br>    while (buf[i] != ‘\0’ &amp;&amp; buf[i] != ‘ ‘ &amp;&amp; buf[i] != ‘\r’ &amp;&amp; buf[i] != ‘\n’) {<br>        cmd[j++] = buf[i];<br>        i++;<br>    }<br>    cmd[j] = ‘\0’;<br>}<br>// 返回成功发送的字节数<br>int Send(int sock, void <em>buffer, int size)<br>{<br>    int nsend = 0, total = 0;<br>    int err;<br>    if(NULL == buffer || 0 == size) {<br>        return 0;<br>    }<br>    while(size &gt; 0) {<br>        nsend = write(sock, (char</em>)buffer + total, size);<br>        if(nsend == -1) {<br>            err = errno;<br>            if(EINTR == err) {<br>                printf(“send data to socket[%d], error is %s[%d]\n”,<br>                            sock, strerror(err), err);<br>            } else {<br>                printf(“Fail to send data to socket[%d], error is %s[%d]”,<br>                            sock, strerror(err), err);<br>                return -1;<br>            }<br>        } else {<br>            total += nsend;<br>            size -= nsend;<br>        }<br>    }<br>    return total;<br>}<br>//处理重置命令<br>void process_reset(int sock){<br>    char mess[] = “reset successful\r\n”;<br>    Send(sock, mess, strlen(mess));<br>    return;<br>}<br>//处理错误命令<br>void process_error(int sock) {<br>    char error[] = “ERROR\r\n”;<br>    Send(sock, error, strlen(error));<br>    return;<br>}<br>void process_stats(int sock){<br>    char mess[] = “stats successful\r\n”;<br>    Send(sock, mess, strlen(mess));<br>    return;<br>}</p>
+<p>//处理退出命令<br>void process_quit(int sock) {<br>    close(sock);<br>}</p>
+<p>int process_command(int sock, char *buf) {<br>    assert(buf != NULL);</p>
+<pre><code>/*char cmd[BUFSIZ];
+_get_command(buf, cmd);    
+printf(&quot;command: %s\n&quot;, cmd);
+
+if (strcmp(&quot;stats&quot;,cmd) == 0) {
+    process_stats(sock);
+} else if (strcmp(&quot;reset&quot;, cmd) == 0) {
+    process_reset(sock);
+} else if (strcmp(&quot;quit&quot;, cmd) == 0){
+    process_quit(sock);
+} else {
+    process_error(sock);
+}*/
+Send(sock, buf, strlen(buf));
+
+return 0;
+</code></pre><p>}</p>
+<p>//设置socket为非阻塞<br>void setnonblocking(int sockfd) {<br>    int opts;<br>    opts = fcntl(sockfd, F_GETFL);<br>    if (opts &lt; 0) {<br>        perror(“fcntl(F_GETFL)\n”);<br>        exit(1);<br>    }<br>    opts = (opts | O_NONBLOCK);<br>    if (fcntl(sockfd, F_SETFL, opts) &lt; 0) {<br>        perror(“fcntl(F_SETFL)\n”);<br>        exit(1);<br>    }<br>}<br>int main() {<br>    int listenfd, conn_sock, epfd;<br>    char buf[BUFSIZ];<br>    socklen_t clilen;<br>    struct sockaddr_in cliaddr, servaddr;<br>    struct epoll_event ev, events[MAX_EVENTS];<br>    listenfd = socket(AF_INET, SOCK_STREAM, 0);<br>    if (listenfd &lt; 0) {<br>        printf(“create socket error\n”);<br>        return -1;<br>    }<br>    int on = 1;<br>    setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &amp;on, sizeof(on));<br>    setnonblocking(listenfd);<br>    struct linger {<br>        int l_onoff; /<em> 0 = off, nozero = on </em>/<br>        int l_linger; /<em> linger time </em>/<br>    }lin;<br>    lin.l_onoff = 1;<br>    lin.l_linger = 0;<br>    setsockopt(listenfd, SOL_SOCKET, SO_LINGER, (char*)&amp;lin, sizeof(lin));<br>    bzero(&amp;servaddr, sizeof(servaddr));<br>    servaddr.sin_family = AF_INET;<br>    servaddr.sin_addr.s_addr = htonl(INADDR_ANY);<br>    servaddr.sin_port = htons(PORT);</p>
+<pre><code>if(bind(listenfd,(struct sockaddr*)&amp;servaddr,sizeof(struct sockaddr))&lt;0){
+    printf(&quot;bind error\n&quot;);
+    close(listenfd);
+    return -1;
+}
+
+if(listen(listenfd, 5) &lt; 0) {
+    printf(&quot;listen error\n&quot;);
+    close(listenfd);
+    return -1; 
+}
+epfd = epoll_create(MAX_EVENTS); //生成epoll专用的文件描述符
+if (epfd == -1) {
+    printf(&quot;epoll_create\n&quot;);
+    return -1;
+}
+ev.events = EPOLLIN | EPOLLET; //设置处理的事件类型,设置为边沿触发
+ev.data.fd = listenfd;
+if (epoll_ctl(epfd, EPOLL_CTL_ADD, listenfd, &amp;ev) == -1) {
+    printf(&quot;epoll_ctl add listen_sock fail\n&quot;);
+    close(listenfd);
+    return -1;
+}
+while (1) {
+    int timeout = 1000; 
+    int nfds = epoll_wait(epfd, events, MAX_EVENTS, timeout);
+    if (nfds == -1) {
+        printf(&quot;epoll_wait\n&quot;);
+        return -1;
+    }
+    for (int i = 0;i &lt; nfds; ++i) {
+        int fd = events[i].data.fd;
+        if (fd == listenfd) { //监听事件
+            while ((conn_sock = accept(listenfd, NULL, NULL)) &gt; 0) {//循环处理accept,这样可以处理多个连接在就绪队列中的情况
+                printf(&quot;accept %d\n&quot;, conn_sock);
+                setnonblocking(conn_sock);
+                ev.events = EPOLLIN | EPOLLET; //设置为边沿触发
+                ev.data.fd = conn_sock;
+                if (epoll_ctl(epfd, EPOLL_CTL_ADD, conn_sock, &amp;ev) == -1) {
+                    printf(&quot;epoll_ctl: add fail\n&quot;);
+                    close(conn_sock);
+                    return -1;
+                }
+            }
+        } else if (events[i].events &amp; EPOLLIN) {//读事件，说明有数据从客户端发来
+            int n = 0;
+            int nread = 0;
+            while ((nread = read(fd, buf + n, BUFSIZ - n)) &gt; 0) {
+                n += nread;
+            }
+            if (nread == -1 &amp;&amp; errno != EAGAIN) {//读数据错误,关闭描述符
+                printf(&quot;read error\n&quot;);
+                close(fd); //关闭一个描述符，它会从epoll描述符集合中自动删除
+                continue;
+            }
+            if(nread == 0) { //客户端关闭连接，关闭相应的描述符
+                close(fd);
+                continue;
+            }
+            if( n &gt; 0) {
+                process_command(fd, buf);
+                memset(buf, 0, sizeof(buf));
+            }
+        }
+    }
+}
+</code></pre><p>}</p>
+<p>[/code]</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/epoll/">epoll</a><a href="/tags/telnet/">telnet</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/09/02/欧拉工程-问题58/" title="欧拉工程-问题58" itemprop="url">欧拉工程-问题58</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2013-09-02T05:10:13.000Z" itemprop="datePublished"> 發表於 2013-09-02</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <div>原题链接<a href="http://projecteuler.net/problem=58" target="_blank" rel="external">http://projecteuler.net/problem=58</a></div><br><div><br><br>## Spiral primes<br><br>Starting with 1 and spiralling anticlockwise in the following way, a square spiral with side length 7 is formed.<br><br><strong>37</strong> 36 35 34 33 32 <strong>31</strong><br>38 <strong>17</strong> 16 15 14 <strong>13</strong> 30<br>39 18  <strong>5</strong>  4  <strong>3</strong> 12 29<br>40 19  6  1  2 11 28<br>41 20  <strong>7</strong>  8  9 10 27<br>42 21 22 23 24 25 26<br><strong>43</strong> 44 45 46 47 48 49<br><br>It is interesting to note that the odd squares lie along the bottom right diagonal, but what is more interesting is that 8 out of the 13 numbers lying along both diagonals are prime; that is, a ratio of 8/13 ~ 62%.<br><br>If one complete new layer is wrapped around the spiral above, a square spiral with side length 9 will be formed. If this process is continued, what is the side length of the square spiral for which the ratio of primes along both diagonals first falls below 10%?<br><div></div><br><div>螺旋素数</div><br><div>从1开始以如下方式逆时针螺旋，可以得到一个大小为7的螺旋方块</div><br></div><br><div><strong>37</strong> 36 35 34 33 32 <strong>31</strong><br>38 <strong>17</strong> 16 15 14 <strong>13</strong> 30<br>39 18  <strong>5</strong>  4  <strong>3</strong> 12 29<br>40 19  6  1  2 11 28<br>41 20  <strong>7</strong>  8  9 10 27<br>42 21 22 23 24 25 26<br><strong>43</strong> 44 45 46 47 48 49<br><div></div><br><div>有趣的是奇数的平方都在对角线的右下角，更有趣的是，13个位于对角线的数中，有8个是素数；比率是8/13 约等于 62%。</div><br></div><br><div>如果像上面的螺旋那样再加一层螺旋，将得到一个大小为9的螺旋方块。如果这个步骤一直持续下去，当螺旋方块的大小为多少时，对角线上的素数比率会小于10%？</div><br><div></div><br><div>解答：</div><br><div>表示对角线上的数与第28题相同，最难的部分是判定一个数是否是素数，用动态生成素数表的方法不行，太大了。最后找到了米勒-拉宾素数测试法，很快。等以后有空时专门写一篇关于素数判定方法。</div>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/欧拉工程/">欧拉工程</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/欧拉工程/">欧拉工程</a><a href="/tags/米勒-拉宾/">米勒-拉宾</a><a href="/tags/素数/">素数</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/09/02/欧拉工程-问题57/" title="欧拉工程-问题57" itemprop="url">欧拉工程-问题57</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2013-09-02T05:04:15.000Z" itemprop="datePublished"> 發表於 2013-09-02</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <div>原题链接<a href="http://projecteuler.net/problem=57" target="_blank" rel="external">http://projecteuler.net/problem=57</a></div><br><div><br><br>## Square root convergents<br><br>It is possible to show that the square root of two can be expressed as an infinite continued fraction.<br><br>sqrt( 2) = 1 + 1/(2 + 1/(2 + 1/(2 + … ))) = 1.414213…<br><br>By expanding this for the first four iterations, we get:<br><br>1 + 1/2 = 3/2 = 1.5<br>1 + 1/(2 + 1/2) = 7/5 = 1.4<br>1 + 1/(2 + 1/(2 + 1/2)) = 17/12 = 1.41666…<br>1 + 1/(2 + 1/(2 + 1/(2 + 1/2))) = 41/29 = 1.41379…<br><br>The next three expansions are 99/70, 239/169, and 577/408, but the eighth expansion, 1393/985, is the first example where the number of digits in the numerator exceeds the number of digits in the denominator.<br><br>In the first one-thousand expansions, how many fractions contain a numerator with more digits than denominator?<br><br>&nbsp;<br><br>平方根收敛<br><br>有可能将2的平方根表示成无限分数：<br><br>sqrt(2) = 1 + 1/(2 + 1/(2 + 1/(2 + … ))) = 1.414213…<br><br>扩展这个式子的前四项，我们得到<br><br>1 + 1/2 = 3/2 = 1.5<br>1 + 1/(2 + 1/2) = 7/5 = 1.4<br>1 + 1/(2 + 1/(2 + 1/2)) = 17/12 = 1.41666…<br>1 + 1/(2 + 1/(2 + 1/(2 + 1/2))) = 41/29 = 1.41379…<br><br>之后的三项是99/70，239/169，和577/408，对于第八项，1393/985，是第一个分子中的数字个数超过分母中的数字个数的项<br><br>在前1000项中，一共有多少个分数是分子中的数字个数超过分母的？<br><br>解答：<br><br>就是如何表示分数，之后定义分数的加法，不难。<br><br></div>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/欧拉工程/">欧拉工程</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/分数加法/">分数加法</a><a href="/tags/欧拉工程/">欧拉工程</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/08/25/欧拉工程-问题56/" title="欧拉工程-问题56" itemprop="url">欧拉工程-问题56</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2013-08-25T02:18:39.000Z" itemprop="datePublished"> 發表於 2013-08-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><div>原题链接<a href="http://projecteuler.net/problem=56" target="_blank" rel="external">http://projecteuler.net/problem=56</a></div></p>
+<div>
+
+<h2 id="Powerful_digit_sum"><a href="#Powerful_digit_sum" class="headerlink" title="Powerful digit sum"></a>Powerful digit sum</h2><p>A googol (10<sup>100</sup>) is a massive number: one followed by one-hundred zeros; 100<sup>100</sup> is almost unimaginably large: one followed by two-hundred zeros. Despite their size, the sum of the digits in each number is only 1.</p>
+<p>Considering natural numbers of the form, <em>a<sup>b</sup></em>, where <em>a, b</em> <img src="http://projecteuler.net/images/symbol_lt.gif" alt="&lt;"> 100, what is the maximum digital sum?</p>
+<p>幂方数字和</p>
+<p><div>古戈尔 (10<sup>100</sup>)是一个天文数字：1后面跟着100个零；100<sup>100</sup>更是不可想象的大:1后面跟着200个零。尽管它们非常大，但是它们的数字和为1.</div><br></p></div><p></p>
+<p><div></div></p>
+<p><div>求幂方<em>a<sup>b</sup></em>中，a,b &lt; 100,最大的数字和</div><br>解法：<br>暴力吧。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/欧拉工程/">欧拉工程</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/幂方/">幂方</a><a href="/tags/欧拉工程/">欧拉工程</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <a class="extend prev" rel="prev" href="/page/9/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/11/">Next<span></span></a>
+  </nav>
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Lucene/" title="Lucene">Lucene<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/搜索引擎/" title="搜索引擎">搜索引擎<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/搜索引擎/" title="搜索引擎">搜索引擎<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/" title="数学">数学<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/" title="数据结构">数据结构<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/未分类/" title="未分类">未分类<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/欧拉工程/" title="欧拉工程">欧拉工程<sup>60</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>21</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/算法/" title="算法">算法<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/编程/" title="编程">编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编程/" title="编程">编程<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络编程/" title="网络编程">网络编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件安装/" title="软件安装">软件安装<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/欧拉工程/" title="欧拉工程">欧拉工程<sup>58</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/C名题百则/" title="C名题百则">C名题百则<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/solr/" title="solr">solr<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/素数/" title="素数">素数<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx-for-chinese/" title="Sphinx-for-chinese">Sphinx-for-chinese<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx/" title="Sphinx">Sphinx<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/筛法/" title="筛法">筛法<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动态规划/" title="动态规划">动态规划<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/索引/" title="索引">索引<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/米勒-拉宾/" title="米勒-拉宾">米勒-拉宾<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/更新/" title="更新">更新<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/回文数/" title="回文数">回文数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/阶乘/" title="阶乘">阶乘<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/全位数/" title="全位数">全位数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/增量索引/" title="增量索引">增量索引<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Lucene/" title="Lucene">Lucene<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分布式/" title="分布式">分布式<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分词/" title="分词">分词<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/幂方/" title="幂方">幂方<sup>3</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 兼济天下则达 <br/>
+			独善其身则穷</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="robinjia">robinjia</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>

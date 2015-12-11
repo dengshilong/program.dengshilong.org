@@ -1,0 +1,615 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>欧拉工程-问题11 | 邓世龙的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="robinjia">
+    
+
+    
+    <meta name="description" content="## 原题链接 http://projecteuler.net/problem=11## Largest product in a gridIn the 20  20 grid below, four numbers along a diagonal line have been marked in red.08 02 22 97 38 15 00 40 00 75 04 05 07 78 52">
+<meta property="og:type" content="article">
+<meta property="og:title" content="欧拉工程-问题11">
+<meta property="og:url" content="http://program.dengshiong.org/2013/05/05/欧拉工程-问题11/index.html">
+<meta property="og:site_name" content="邓世龙的学习笔记">
+<meta property="og:description" content="## 原题链接 http://projecteuler.net/problem=11## Largest product in a gridIn the 20  20 grid below, four numbers along a diagonal line have been marked in red.08 02 22 97 38 15 00 40 00 75 04 05 07 78 52">
+<meta property="og:updated_time" content="2015-12-10T06:07:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="欧拉工程-问题11">
+<meta name="twitter:description" content="## 原题链接 http://projecteuler.net/problem=11## Largest product in a gridIn the 20  20 grid below, four numbers along a diagonal line have been marked in red.08 02 22 97 38 15 00 40 00 75 04 05 07 78 52">
+
+    
+    <link rel="alternative" href="/atom.xml" title="邓世龙的学习笔记" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="邓世龙的学习笔记" title="邓世龙的学习笔记"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="邓世龙的学习笔记">邓世龙的学习笔记</a></h1>
+				<h2 class="blog-motto">兼济天下则达,独善其身则穷</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:program.dengshiong.org">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/05/05/欧拉工程-问题11/" title="欧拉工程-问题11" itemprop="url">欧拉工程-问题11</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2013-05-05T08:28:22.000Z" itemprop="datePublished"> 發表於 2013-05-05</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			
+		
+		</div>
+		
+		<div><br><br>## 原题链接 <a href="http://projecteuler.net/problem=11" target="_blank" rel="external">http://projecteuler.net/problem=11</a><br><br>## Largest product in a grid<br><br></div><br><div><br><br>In the 20 <em> 20 grid below, four numbers along a diagonal line have been marked in red.<br><br>08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08<br>49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00<br>81 49 31 73 55 79 14 29 93 71 40 67 53 88 30 03 49 13 36 65<br>52 70 95 23 04 60 11 42 69 24 68 56 01 32 56 71 37 02 36 91<br>22 31 16 71 51 67 63 89 41 92 36 54 22 40 40 28 66 33 13 80<br>24 47 32 60 99 03 45 02 44 75 33 53 78 36 84 20 35 17 12 50<br>32 98 81 28 64 23 67 10 <span style="color:red">26</span> 38 40 67 59 54 70 66 18 38 64 70<br>67 26 20 68 02 62 12 20 95 <span style="color:red">63</span> 94 39 63 08 40 91 66 49 94 21<br>24 55 58 05 66 73 99 26 97 17 <span style="color:red">78</span> 78 96 83 14 88 34 89 63 72<br>21 36 23 09 75 00 76 44 20 45 35 <span style="color:red">14</span> 00 61 33 97 34 31 33 95<br>78 17 53 28 22 75 31 67 15 94 03 80 04 62 16 14 09 53 56 92<br>16 39 05 42 96 35 31 47 55 58 88 24 00 17 54 24 36 29 85 57<br>86 56 00 48 35 71 89 07 05 44 44 37 44 60 21 58 51 54 17 58<br>19 80 81 68 05 94 47 69 28 73 92 13 86 52 17 77 04 89 55 40<br>04 52 08 83 97 35 99 16 07 97 57 32 16 26 26 79 33 27 98 66<br>88 36 68 87 57 62 20 72 03 46 33 67 46 55 12 32 63 93 53 69<br>04 42 16 73 38 25 39 11 24 94 72 18 08 46 29 32 40 62 76 36<br>20 69 36 41 72 30 23 88 34 62 99 69 82 67 59 85 74 04 36 16<br>20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54<br>01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48<br><br>The product of these numbers is 26  </em> 63  <em> 78  </em>  14 = 1788696.<br><br>What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in the 20 <em> 20 grid?<br><br>在格子中最大的乘积<br><br>在下面的20 </em> 20的格子中，四个沿着对角线的数用红色标出<br><br>它们的乘积是 26 <em> 63 </em> 78 <em> 14 = 1788696.<br><br>求在这个20 </em> 20的格子中，四个相邻数的最大乘积(这四个相邻数必须在同一条直线上，向上，下，左，右，或者对角线)<br><br>解答：<br>这题没什么好说的，遍历。<br><br></div>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/欧拉工程/">欧拉工程</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/欧拉工程/">欧拉工程</a><a href="/tags/连续乘积/">连续乘积</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://program.dengshiong.org/2013/05/05/欧拉工程-问题11/" data-title="欧拉工程-问题11 | 邓世龙的学习笔记" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2013/05/24/欧拉工程-问题12/" title="欧拉工程-问题12">
+  <strong>上一篇：</strong><br/>
+  <span>
+  欧拉工程-问题12</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2013/05/05/欧拉工程-问题10/"  title="欧拉工程-问题10">
+ <strong>下一篇：</strong><br/> 
+ <span>欧拉工程-问题10
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Lucene/" title="Lucene">Lucene<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/搜索引擎/" title="搜索引擎">搜索引擎<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/搜索引擎/" title="搜索引擎">搜索引擎<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/" title="数学">数学<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/" title="数据结构">数据结构<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/未分类/" title="未分类">未分类<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/欧拉工程/" title="欧拉工程">欧拉工程<sup>60</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>21</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/算法/" title="算法">算法<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/编程/" title="编程">编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编程/" title="编程">编程<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络编程/" title="网络编程">网络编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件安装/" title="软件安装">软件安装<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/欧拉工程/" title="欧拉工程">欧拉工程<sup>58</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/C名题百则/" title="C名题百则">C名题百则<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/solr/" title="solr">solr<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/素数/" title="素数">素数<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx-for-chinese/" title="Sphinx-for-chinese">Sphinx-for-chinese<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx/" title="Sphinx">Sphinx<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/筛法/" title="筛法">筛法<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动态规划/" title="动态规划">动态规划<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/索引/" title="索引">索引<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/米勒-拉宾/" title="米勒-拉宾">米勒-拉宾<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/更新/" title="更新">更新<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/回文数/" title="回文数">回文数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/阶乘/" title="阶乘">阶乘<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/全位数/" title="全位数">全位数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/增量索引/" title="增量索引">增量索引<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Lucene/" title="Lucene">Lucene<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分布式/" title="分布式">分布式<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分词/" title="分词">分词<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/幂方/" title="幂方">幂方<sup>3</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 兼济天下则达 <br/>
+			独善其身则穷</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="robinjia">robinjia</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

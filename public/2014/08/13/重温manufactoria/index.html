@@ -1,0 +1,616 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>重温manufactoria | 邓世龙的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="robinjia">
+    
+
+    
+    <meta name="description" content="最近又玩了一遍manufactoria,发现有些关卡都快忘记怎么过的，这次还是写下来好了。关卡按照从左到右，从上到下计数。1. Move robots from the entrance(top) to the exit (bottom)! 将机器从入口(顶部)移到出口(底部)!简单，不多说2.  If a robot’s string starts with blue, accept. Othe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重温manufactoria">
+<meta property="og:url" content="http://program.dengshiong.org/2014/08/13/重温manufactoria/index.html">
+<meta property="og:site_name" content="邓世龙的学习笔记">
+<meta property="og:description" content="最近又玩了一遍manufactoria,发现有些关卡都快忘记怎么过的，这次还是写下来好了。关卡按照从左到右，从上到下计数。1. Move robots from the entrance(top) to the exit (bottom)! 将机器从入口(顶部)移到出口(底部)!简单，不多说2.  If a robot’s string starts with blue, accept. Othe">
+<meta property="og:updated_time" content="2015-12-10T06:07:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="重温manufactoria">
+<meta name="twitter:description" content="最近又玩了一遍manufactoria,发现有些关卡都快忘记怎么过的，这次还是写下来好了。关卡按照从左到右，从上到下计数。1. Move robots from the entrance(top) to the exit (bottom)! 将机器从入口(顶部)移到出口(底部)!简单，不多说2.  If a robot’s string starts with blue, accept. Othe">
+
+    
+    <link rel="alternative" href="/atom.xml" title="邓世龙的学习笔记" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="邓世龙的学习笔记" title="邓世龙的学习笔记"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="邓世龙的学习笔记">邓世龙的学习笔记</a></h1>
+				<h2 class="blog-motto">兼济天下则达,独善其身则穷</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:program.dengshiong.org">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/08/13/重温manufactoria/" title="重温manufactoria" itemprop="url">重温manufactoria</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-08-13T02:26:17.000Z" itemprop="datePublished"> 發表於 2014-08-13</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			
+		
+		</div>
+		
+		<p>最近又玩了一遍manufactoria,发现有些关卡都快忘记怎么过的，这次还是写下来好了。<br>关卡按照从左到右，从上到下计数。<br>1. Move robots from the entrance(top) to the exit (bottom)! 将机器从入口(顶部)移到出口(底部)!<br>简单，不多说<br>2.  If a robot’s string starts with blue, accept. Otherwise, reject!  如果机器以蓝色字符开头，则接受。否则，丢弃。<br>3.  ACCEPT:if there are three or more blues! 如果有三个或三个以上的蓝色的，则接受<br>4. ACCEPT: if a robot contains NO red! 如果机器不包含红色的，则接受。<br>5. OUTPUT:The input,but with the first symbol at the end!  对于输入的字符，将第一个字符移到末尾作为输出<br>6. ACCEPT: if the tape has only alternating colors! 如果只存在交替字符，则接受。<br>意思就是字符如果是交替出现的则接受，如蓝红蓝红蓝，红蓝红蓝等等，而蓝蓝红，红蓝蓝等出现连续相同的字符，所以不接受<br>7. OUTPUT：Replace blue with green, and red with yellow! 输出：将蓝色换成绿色，将红色换成黄色。<br>8. ACCEPT: if the tape ends with two blues!  如果末尾是两个蓝色，则接受。<br>9. OUTPUT： Put a green at the begining,  and a yellow at the end! 输出： 对于输入的字符，在开头中添加一个绿色字符，在末尾中添加一个黄色字符。<br>10. ACCEPT: Strings that begin and end with the same color! 如果开始字符和结束字符时相同，则接受。<br>11. ACCEPT: With blue as 1 and red as 0, accept odd binary string! 把蓝色当做1，红色当做0， 接受奇数二进制数。<br>其实就是接受蓝色结尾的字符。<br>12. ACCEPT: Some number of blue, then the same number of red! 接受： 一些蓝色的，然后相同数量的红色的。<br>也就是接受诸如蓝蓝红红，蓝蓝蓝红红红等，当然空字符也要接受，因为空字符代表0个蓝色，0个红色。<br>解决办法是每次除去一个蓝色和红色<br>13.OUTPUT: Swap blue for red, and red for blue! 输出： 将蓝色换成红色，红色换成蓝色。<br>也就是将字符串中的颜色互换。<br>14. OUTPUT: All of the blue, but none of the red! 输出字符串中的所有蓝色字符，不输出红色字符。<br>也就是将字符串中的所有红色字符去掉，留下蓝色的。<br>15. OUTPUT： The input, but with the last symbol moved to the front! 输出： 对于输入的字符，将最后一个字符移动最前面。<br>在末尾添加一个绿色，用来标示最后一个字符<br>16. OUTPUT: With blue as 1 and red as 0, multiply by 8! 输出：把蓝色当做1，红色当做0，将二进制字符串乘以8.<br>其实也就是在字符串末尾添加3个0，也就是添加三个红色<br>17.ACCEPT: With blue as 1 and red as 0, accept binary strings &gt; 15! 接受：把蓝色当做1，红色当做0，接受大于15的字符串。<br>18. An equal number of blue and red, in any order! 只要字符串中包含相同个数的蓝色和红色，则接受。<br>使用与12相同的办法<br>19.OUTPUT：Put a yellow in the middle of the (even-lenght) string! 输出： 在字符串（偶数个字符串）的中间放置一个黄色字符。<br>在头尾都添加黄色，之后每个循环，头部的向前移一步，尾部的向后移一步。<br>20.ACCEPT: X blue, then X red, then X more blue, for any X! 接受： X个蓝色，然后X个红色，接着X个蓝色，对于X没有限制。<br>也就是接受蓝红蓝，蓝蓝红红蓝蓝等字符串，对于空字符也接受，因为它代表0个蓝色，然后0个红色，接着0个蓝色。<br>使用与12题相同的办法<br>21.OUTPUT: The input, but with all blues moved to the front! 输出：对于输入，将字符串中所有的蓝色移到前面。<br>逆向思维，将红色字符移到后面<br>22.OUTPUT: With blue as 1 and red as 0, add 1 to the binary string! 输出： 将蓝色当做1，红色当做0，将二进制字符串加上1.<br>在末尾添加一个黄色，每个循环，如果黄色左边的是蓝色，则蓝色变成红色，并且黄色左后退一个字符，<br>如果黄色左边的红色，则将红色变成蓝色，程序结束。<br>23. ACCEPT: With blue as 1 and red as 0,  accept natural powers of four! 接受：把蓝色当做1，红色当做0，接受四的开方<br>24.ACCEPT: (Even-length) strings that repeat midway through! 接受：(偶数长度)接受从中间开始重复的字符串<br>意思就是接受的字符串是偶数长度，前半段和后半段是一样的，如蓝红红蓝红红，<br>25. ACCEPT: If there are exactly twice as many blues as red! 接受：如果蓝色的个数是红色个数的两倍，则接受。<br>每个循环，除去两个蓝色和一个红色<br>26. OUTPUT: Reverse the input string! 输出：将输入的字符串逆转输出<br>27.OUTPUT: Subtract 1 from the binary string!(Input &gt;= 1) 输出：从二进制字符串中减去1(输入字符串&gt;=1)<br>在末尾添加一个黄色，每个循环，如果黄色左边的是红色，则红色变成蓝色，并且黄色左后退一个字符，<br>如果黄色左边的蓝色，则将蓝色变成红色，程序结束。<br>28.ACCEPT: Perfectly symmetrical strings! 接受：完美对称字符串！<br>意思就是回文串，也就是从左读到右和从右读到左是一样的。<br>每个循环，头尾消去的字符是一样的。<br>29.ACCEPT: Two identical strings, separated by a green! 接受：两个相同的字符串，由绿色隔开。<br>30. ACCEPT: Read the tape as two numbers, A and B, split by a green: accept if A &gt; B! 接受：读入的字符串当做两个二进制数，A和B，由一个绿色隔开，如果A&gt;B则接受。<br>每次比较A和B的字符，分四种情况<br>蓝蓝，继续比较A和B剩余的字符<br>红红，继续比较A和B剩余的字符<br>蓝红，这种情况下，有个小技巧，将B的字符再消去一个，这时A剩余的字符比B剩余的字符长，则A&gt;B<br>红蓝,A剩余的字符比B剩余的字符长，则A&gt;B<br>31. OUTPUT: Read the tape as two numbers, A and B, split by a green: output A + B! 输出：读入的字符串当做两个二进制数，A和B，由一个绿色隔开，输出A+B的和！<br>将A和B都转成黄色字符，之后再将黄色字符转成二进制。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/manufactoria/">manufactoria</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://program.dengshiong.org/2014/08/13/重温manufactoria/" data-title="重温manufactoria | 邓世龙的学习笔记" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/08/13/POJ2524-Ubiquitous-Religions/" title="POJ2524-Ubiquitous Religions">
+  <strong>上一篇：</strong><br/>
+  <span>
+  POJ2524-Ubiquitous Religions</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/07/20/Octave中的for循环/"  title="Octave中的for循环">
+ <strong>下一篇：</strong><br/> 
+ <span>Octave中的for循环
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Lucene/" title="Lucene">Lucene<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/搜索引擎/" title="搜索引擎">搜索引擎<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/搜索引擎/" title="搜索引擎">搜索引擎<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/" title="数学">数学<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/" title="数据结构">数据结构<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/未分类/" title="未分类">未分类<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/欧拉工程/" title="欧拉工程">欧拉工程<sup>60</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>21</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/算法/" title="算法">算法<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/编程/" title="编程">编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编程/" title="编程">编程<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络编程/" title="网络编程">网络编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件安装/" title="软件安装">软件安装<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/欧拉工程/" title="欧拉工程">欧拉工程<sup>58</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/C名题百则/" title="C名题百则">C名题百则<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/solr/" title="solr">solr<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/素数/" title="素数">素数<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx-for-chinese/" title="Sphinx-for-chinese">Sphinx-for-chinese<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx/" title="Sphinx">Sphinx<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/筛法/" title="筛法">筛法<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动态规划/" title="动态规划">动态规划<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/索引/" title="索引">索引<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/米勒-拉宾/" title="米勒-拉宾">米勒-拉宾<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/更新/" title="更新">更新<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/回文数/" title="回文数">回文数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/阶乘/" title="阶乘">阶乘<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/全位数/" title="全位数">全位数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/增量索引/" title="增量索引">增量索引<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Lucene/" title="Lucene">Lucene<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分布式/" title="分布式">分布式<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分词/" title="分词">分词<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/幂方/" title="幂方">幂方<sup>3</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 兼济天下则达 <br/>
+			独善其身则穷</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="robinjia">robinjia</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

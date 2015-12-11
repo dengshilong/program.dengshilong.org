@@ -1,0 +1,1114 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>邓世龙的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="robinjia">
+    
+
+    
+    <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="邓世龙的学习笔记">
+<meta property="og:url" content="http://program.dengshiong.org/page/4/index.html">
+<meta property="og:site_name" content="邓世龙的学习笔记">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="邓世龙的学习笔记">
+<meta name="twitter:description">
+
+    
+    <link rel="alternative" href="/atom.xml" title="邓世龙的学习笔记" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="邓世龙的学习笔记" title="邓世龙的学习笔记"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="邓世龙的学习笔记">邓世龙的学习笔记</a></h1>
+				<h2 class="blog-motto">兼济天下则达,独善其身则穷</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:program.dengshiong.org">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/10/27/如何实现site查询/" title="如何实现site查询" itemprop="url">如何实现site查询</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-10-27T13:55:46.000Z" itemprop="datePublished"> 發表於 2014-10-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>在Solr的索引记录里看到，很多HostName是逆序的，如news.qq.com记录成moc.qq.swen, www.qq.com记录成moc.qq.www,moc.qq,finance.qq.com记录成moc.qq.ecnanif。后来才知道，这是为了实现像google那样的site功能.</p>
+<p>site功能就是要查找索引中某一域名下的记录。一个实现办法就是实现上面的逆序存储。如此，要找出qq.com下的所有记录只需要用moc.qq.*去比较HostName即可。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/site查询/">site查询</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/10/25/几道数学笔试题/" title="几道数学笔试题" itemprop="url">几道数学笔试题</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-10-25T09:01:44.000Z" itemprop="datePublished"> 發表於 2014-10-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>从扬大数院毕业后，与数学渐行渐远，许多时候，考虑问题都角度渐渐变得工程，也就是直观，而不是从抽象的角度来解决。组里有一个实习生，带来了几道笔试题，思考后，解决了，从解决问题的角度，明显看出，越来越工程化了。</p>
+<p>第一题说的是用6种颜色去涂一个立方体，问有几种涂法？</p>
+<p>一个明显的解答是6的阶乘，也就是720次，可是其中有很多种涂色，经过旋转后是一样的，所以这是错的。看到这题，立刻想到了魔方，之后想到了骰子，考虑到骰子更加直观，就用骰子。思考之后，其实挺简单的。把1这面朝上，那么1的对面，也就是底面有5种可能的情况。之后再看侧面的情况，对于侧面，固定一面之后，它的对面还有3中可能的情况，之后剩下两个侧面，有2种情况。所以一共有5 <em> 3 </em> 2 = 30种情况。这题一个难点是最开始的1这面的选择，以及侧面时，固定一面的选择。对于1这面的选择，是不能算概率的，因为无论怎么排，总是可以把1这面朝上。而对于侧面时固定一面，这固定一面也是不能算概率的，因为无论怎么排，都可以固定一面。</p>
+<p>第二题说的是，对于座位编号从1到5的5个人，将他们的座位打乱，每个人都不在自己座位上的情况有几种？</p>
+<p>经过上一题的训练后，抽象一下题目 ，对于座位编号从1到 n的n个人，将他们的座位打乱，每个人都不在自己座位上的情况有几种<br>所以对于这题，相当于n为5的情况。依然用上面的类似方法。对于编号1的人，他一共有4种情况不在自己的座位上，假设他占了编号为5的座位。那么对于编号为5的这个人，他有两种情况可以选择，第一种，他占了座位1，则此时还剩三个人，这相当于n为3的情况，计算得到一种有2种可能；第二种情况是5不在座位1上，那么剩下的情况就相当于n=4的情形，计算得到有9中可能。于是最终结果等于5 <em> (2 + 9) = 44。而从这里也可以得到一个递推公式。设t(n)为人数为n时的可能情形。则t(n) = (n - 1) </em> (t(n - 1) + t(n - 2)，于是得到一个序列为0 1 2 9 44 265 ….</p>
+<p>第三题说的是，一共有27个人想喝饮料，三个空瓶子可以换一瓶饮料，那么一共需要买多少瓶饮料才能保证每个人都能喝到一瓶饮料？</p>
+<p>对于这题，立刻想到经典的借瓶子策略，对于这里，即只需要2个空瓶就可以喝一瓶饮料，这是因为当有2个空瓶时，可以向老板借一个空瓶，凑齐三个空瓶换来一瓶饮料，喝完之后，把空瓶换给老板。我想这里也是可以用到这个策略，于是写了一个序列1 2 6 18，等于27。所以最终的答案是18瓶。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/数学/">数学</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/排列/">排列</a><a href="/tags/笔试题/">笔试题</a><a href="/tags/组合/">组合</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/10/20/Solr分布式请求stage理解/" title="Solr分布式请求stage理解" itemprop="url">Solr分布式请求stage理解</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-10-20T12:52:51.000Z" itemprop="datePublished"> 發表於 2014-10-20</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>从QueryComponent可以知道，一个分布式solr请求从发起请求到对响应的结果进行处理会经历许多的stage.</p>
+<p>对于分布式普通请求，从private int regularDistributedProcess(ResponseBuilder rb)的实现中可以看到，会经历ResponseBuilder.STAGE_PARSE_QUERY,ResponseBuilder.STAGE_EXECUTE_QUERY,ResponseBuilder.STAGE_GET_FIELDS,ResponseBuilder.STAGE_DONE等stage。从private void handleRegularResponses(ResponseBuilder rb, ShardRequest sreq)，分布式普通请求有ShardRequest.PURPOSE_GET_TOP_IDS，ShardRequest.PURPOSE_GET_FIELDS两次响应</p>
+<p>对于分布式group请求,从private int groupedDistributedProcess(ResponseBuilder rb)的实现中可以看到，则会经历ResponseBuilder.STAGE_PARSE_QUERY，ResponseBuilder.STAGE_TOP_GROUPS，ResponseBuilder.STAGE_EXECUTE_QUERY，ResponseBuilder.STAGE_GET_FIELDS，ResponseBuilder.STAGE_DONE等stage。从private void handleGroupedResponses(ResponseBuilder rb, ShardRequest sreq)可以看到，分布式group请求有ShardRequest.PURPOSE_GET_TOP_GROUPS,ShardRequest.PURPOSE_GET_TOP_IDS,ShardRequest.PURPOSE_GET_FIELDS三次响应.</p>
+<p>对于不同的请求和响应，有相应的类或者方法来实现。当然也可以自己实现相应的类或者方法来处理。即便是QueryComponent也可以自己定义，只需要实现相应的接口即可。</p>
+<p>对于private int regularDistributedProcess(ResponseBuilder rb),一个可能的实现是：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">regularDistributedProcess</span><span class="params">(ResponseBuilder rb)</span> </span>&#123;</span><br><span class="line">       ComponentDistributedStage cdStage = stages.getCDStage(rb.stage);</span><br><span class="line">       <span class="keyword">int</span> nextState = ResponseBuilder.STAGE_DONE;</span><br><span class="line">       <span class="keyword">if</span> (cdStage != <span class="keyword">null</span>) &#123;</span><br><span class="line">           cdStage.distributedProcess(rb, <span class="keyword">this</span>);</span><br><span class="line">           <span class="keyword">if</span> (stages.containsNextState(rb.stage))</span><br><span class="line">               nextState = stages.getNextState(rb.stage);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> nextState;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里stages是一个Map,保存相应stage的实现类，父类型为ComponentDistributedStage。具体实现一个stage时，实现相应的接口即可。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/solr/">solr</a><a href="/tags/stage/">stage</a><a href="/tags/分布式/">分布式</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/10/19/Sphinx-for-Chinese的分词细粒度问题解决代码/" title="Sphinx-for-Chinese的分词细粒度问题解决代码" itemprop="url">Sphinx-for-Chinese的分词细粒度问题解决代码</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-10-19T09:12:44.000Z" itemprop="datePublished"> 發表於 2014-10-19</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>感觉上，这段代码不贴上来，仿佛欠别人钱似的。趁现在还有些精力，以后很长一段时间都不会接触Sphinx了，赶紧把这件事给做了。<br>具体为什么这样改，可以看前面的文章。以下修改是基于sphinx-for-chinese-2.2.1-dev-r4311版本，之需要修改sphinx.cpp即可。</p>
+<p>在2296行后面添加如下代码：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> CSphWord</span><br><span class="line">&#123;</span><br><span class="line">    BYTE m_sAccum[<span class="number">3</span> * SPH_MAX_WORD_LEN + <span class="number">3</span>];</span><br><span class="line">    <span class="keyword">int</span> length;</span><br><span class="line">    <span class="keyword">const</span> BYTE *m_pTokenStart;</span><br><span class="line">    <span class="keyword">const</span> BYTE *m_pTokenEnd;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> ISphWords</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">Length</span> <span class="params">()</span> <span class="keyword">const</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> m_dData.GetLength();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">const</span> CSphWord * <span class="title">First</span> <span class="params">()</span> <span class="keyword">const</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> m_dData.Begin();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">const</span> CSphWord * <span class="title">Last</span> <span class="params">()</span> <span class="keyword">const</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> &amp;m_dData.Last();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Clean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        m_dData.Reset();</span><br><span class="line">    &#125;     </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">AddWord</span> <span class="params">( BYTE * word, <span class="keyword">int</span> length, <span class="keyword">const</span> BYTE *start, <span class="keyword">const</span> BYTE *end)</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">            CSphWord &amp; tWord = m_dData.Add();</span><br><span class="line">            <span class="built_in">memcpy</span>(tWord.m_sAccum, word, length);</span><br><span class="line">            tWord.length = length;</span><br><span class="line">            tWord.m_pTokenStart = start;</span><br><span class="line">            tWord.m_pTokenEnd = end;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    CSphVector&lt;CSphWord&gt; m_dData;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>在2296行,virtual int GetMaxCodepointLength () const { return m_tLC.GetMaxCodepointLength(); }后面添加如下方法成员：<br><figure class="highlight"><figcaption><span>BYTE *              ProcessParsedWord();```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#22312;2303&#34892;&#65292;Darts::DoubleArray::result_pair_type    m_pResultPair[256];&#21518;&#38754;&#28155;&#21152;&#22914;&#19979;&#25968;&#25454;&#25104;&#21592;&#65306;&#10;``` c&#10;/*****add by luodongshan for indexer*****/&#10;        int totalParsedWordsNum; //&#24635;&#20849;&#38656;&#35201;&#22788;&#29702;&#30340;&#35789;&#10;        int processedParsedWordsNum; //&#24050;&#32463;&#22788;&#29702;&#30340;&#35789;&#10;        int isIndexer; //&#26159;&#21542;&#24320;&#21551;&#32454;&#31890;&#24230;&#20998;&#35789;&#10;        bool needMoreParser; //&#38656;&#35201;&#26356;&#32454;&#31890;&#24230;&#20998;&#35789;&#10;        const char * m_pTempCur;&#10;        char  m_BestWord[3 * SPH_MAX_WORD_LEN + 3];&#10;        int m_iBestWordLength;&#10;        ISphWords m_Words;&#10;        CSphWord *current;&#10;        bool isParserEnd;</span><br></pre></td></tr></table></figure></p>
+<p>在6448行，m_bHasBlend = false;后面添加如下初始化代码：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> *penv = getenv(<span class="string">"IS_INDEX"</span>);</span><br><span class="line"><span class="keyword">if</span> (penv != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        isIndexer = <span class="number">1</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        isIndexer = <span class="number">0</span>;</span><br><span class="line">&#125;     </span><br><span class="line">needMoreParser = <span class="literal">false</span>;</span><br><span class="line">current = <span class="literal">NULL</span>;</span><br><span class="line">isParserEnd = <span class="literal">false</span>;</span><br></pre></td></tr></table></figure></p>
+<p>在6743后面添加新增方法成员ProcessParsedWord的实现：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt; <span class="keyword">bool</span> IS_QUERY &gt;</span><br><span class="line">BYTE * CSphTokenizer_UTF8Chinese&lt;IS_QUERY&gt;::ProcessParsedWord() &#123;</span><br><span class="line">    <span class="keyword">for</span> (; current != <span class="literal">NULL</span> &amp;&amp; current &lt;= m_Words.Last(); ) &#123;</span><br><span class="line">        <span class="built_in">memcpy</span>(m_sAccum, current-&gt;m_sAccum, current-&gt;length);</span><br><span class="line">        m_pTokenStart = current-&gt;m_pTokenStart;</span><br><span class="line">        m_pTokenEnd = current-&gt;m_pTokenEnd;</span><br><span class="line">        current++;</span><br><span class="line">        <span class="keyword">return</span> m_sAccum;</span><br><span class="line">    &#125;</span><br><span class="line">    isParserEnd = <span class="literal">false</span>;</span><br><span class="line">    m_Words.Clean();</span><br><span class="line">    current = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在6785行， bool bGotSoft = false; // hey Beavis he said soft huh huhhuh 后面增加如下代码：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (isIndexer &amp;&amp; isParserEnd) &#123; <span class="comment">//使用MMSEG分词结束，处理细粒度分词得到的词</span></span><br><span class="line">        <span class="keyword">return</span> ProcessParsedWord();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在6791行， int iNum;后面增加如下代码：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/***add by dengsl 2014/06/24****/</span></span><br><span class="line"><span class="keyword">if</span>(isIndexer &amp;&amp; needMoreParser) &#123; <span class="comment">//对最优匹配进行细粒度分词</span></span><br><span class="line">        <span class="keyword">while</span> (m_pTempCur &lt; m_BestWord + m_iBestWordLength) &#123;</span><br><span class="line">                <span class="keyword">if</span>(processedParsedWordsNum == totalParsedWordsNum) &#123; <span class="comment">//此位置的前缀词已处理完，跳到下一位置</span></span><br><span class="line">                        <span class="keyword">size_t</span> minWordLength = m_pResultPair[<span class="number">0</span>].length;</span><br><span class="line">                        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; totalParsedWordsNum; i++) &#123;</span><br><span class="line">                                <span class="keyword">if</span>(m_pResultPair[i].length &lt; minWordLength) &#123;</span><br><span class="line">                                        minWordLength = m_pResultPair[i].length;</span><br><span class="line">                                &#125;     </span><br><span class="line">                        &#125;     </span><br><span class="line">                        m_pTempCur += minWordLength;</span><br><span class="line">                        m_pText=(Darts::DoubleArray::key_type *)(m_pCur + (m_pTempCur - m_BestWord));</span><br><span class="line">                        iNum = m_tDa.commonPrefixSearch(m_pText, m_pResultPair, <span class="number">256</span>, m_pBufferMax-(m_pCur+(m_pTempCur-m_BestWord)));</span><br><span class="line">                        totalParsedWordsNum = iNum;</span><br><span class="line">                        processedParsedWordsNum = <span class="number">0</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        iWordLength = m_pResultPair[processedParsedWordsNum].length;</span><br><span class="line">                        processedParsedWordsNum++;</span><br><span class="line">                        <span class="keyword">if</span> (m_pTempCur == m_BestWord &amp;&amp; iWordLength == m_iBestWordLength) &#123;</span><br><span class="line">                                <span class="keyword">continue</span>;</span><br><span class="line">                        &#125;     </span><br><span class="line">                        <span class="built_in">memcpy</span>(m_sAccum, m_pText, iWordLength);</span><br><span class="line">                        m_sAccum[iWordLength] = <span class="string">'\0'</span>;</span><br><span class="line">                        <span class="keyword">if</span>( <span class="number">3</span> * SPH_MAX_WORD_LEN + <span class="number">3</span> &gt;= iWordLength + <span class="number">2</span>) &#123;</span><br><span class="line">                                m_sAccum[iWordLength + <span class="number">1</span>] = <span class="string">'\0'</span>;</span><br><span class="line">                                <span class="keyword">if</span>(m_pTokenEnd == m_pBufferMax) &#123; <span class="comment">//是结尾，保存结尾符标志</span></span><br><span class="line">                                        m_sAccum[iWordLength + <span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">                                &#125;     </span><br><span class="line">                        &#125;     </span><br><span class="line">                        m_Words.AddWord(m_sAccum, iWordLength + <span class="number">2</span>, m_pCur + (m_pTempCur - m_BestWord), m_pCur + (m_pTempCur - m_BestWord) + iWordLength);</span><br><span class="line">                &#125;     </span><br><span class="line">        &#125;     </span><br><span class="line">        m_pCur += m_iBestWordLength;</span><br><span class="line">        needMoreParser = <span class="literal">false</span>;</span><br><span class="line">        iWordLength = <span class="number">0</span>;</span><br><span class="line">        current = <span class="keyword">const_cast</span>&lt; CSphWord * &gt; ( m_Words.First() );</span><br><span class="line">&#125;     </span><br><span class="line"><span class="comment">/***add end by dengsl 2014/06/24****/</span></span><br></pre></td></tr></table></figure></p>
+<p>在6832行，iNum = m_tDa.commonPrefixSearch(m_pText, m_pResultPair, 256, m_pBufferMax-m_pCur);后面增加如下代码：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/***add by dengsl 2014/06/24****/</span></span><br><span class="line"><span class="keyword">if</span>(isIndexer &amp;&amp; iNum &gt; <span class="number">1</span>) &#123;</span><br><span class="line">        m_iBestWordLength=getBestWordLength(m_pText, m_pBufferMax-m_pCur);</span><br><span class="line">        <span class="built_in">memcpy</span>(m_sAccum, m_pText, m_iBestWordLength);</span><br><span class="line">        m_sAccum[m_iBestWordLength]=<span class="string">'\0'</span>;</span><br><span class="line">        m_pTokenStart = m_pCur;</span><br><span class="line">        m_pTokenEnd = m_pCur + m_iBestWordLength;</span><br><span class="line"></span><br><span class="line">        totalParsedWordsNum = iNum;</span><br><span class="line">        needMoreParser = <span class="literal">true</span>;</span><br><span class="line">        processedParsedWordsNum = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">memcpy</span>(m_BestWord, m_pText, m_iBestWordLength);</span><br><span class="line">        m_BestWord[m_iBestWordLength]=<span class="string">'\0'</span>;</span><br><span class="line">        m_pTempCur = m_BestWord;</span><br><span class="line">        <span class="keyword">if</span>( <span class="number">3</span> * SPH_MAX_WORD_LEN + <span class="number">3</span> &gt;= m_iBestWordLength + <span class="number">2</span>) &#123;</span><br><span class="line">                m_sAccum[m_iBestWordLength + <span class="number">1</span>] = <span class="string">'\0'</span>;</span><br><span class="line">                <span class="keyword">if</span>(m_pTokenEnd == m_pBufferMax) &#123; <span class="comment">//是结尾，保存结尾符标志</span></span><br><span class="line">                        m_sAccum[m_iBestWordLength + <span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">                &#125;     </span><br><span class="line">        &#125;     </span><br><span class="line">        <span class="keyword">return</span> m_sAccum;</span><br><span class="line">&#125;     </span><br><span class="line"><span class="comment">/***add by dengsl 2014/06/24****/</span></span><br></pre></td></tr></table></figure></p>
+<p>在6903行，将<br><figure class="highlight"><figcaption><span>NULL;```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#20462;&#25913;&#20026;&#10;``` c&#10;/* dengsl */&#10;isParserEnd = true;&#10;return ProcessParsedWord();</span><br></pre></td></tr></table></figure></p>
+<p>在6914行，将<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if_const ( IS_BLEND &amp;&amp; !BlendAdjust ( pCur ) )</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure></p>
+<p>修改成：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* dengsl */</span></span><br><span class="line">if_const ( IS_BLEND &amp;&amp; !BlendAdjust ( pCur ) ) &#123;</span><br><span class="line">    isParserEnd = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">return</span> ProcessParsedWord();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在27210行，m_tHits.AddHit ( uDocid, iWord, m_tState.m_iHitPos );后面增加如下代码：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">///add by luodongshan 20140626</span></span><br><span class="line">    <span class="keyword">if</span>(sWord != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> sWord_len = <span class="built_in">strlen</span>((<span class="keyword">char</span>*)sWord);</span><br><span class="line">        <span class="keyword">if</span>(sWord_len + <span class="number">2</span> &lt;= <span class="number">3</span> * SPH_MAX_WORD_LEN + <span class="number">3</span> &amp;&amp; sWord[sWord_len + <span class="number">1</span>] == <span class="number">1</span> &amp;&amp;</span><br><span class="line">                getenv(<span class="string">"IS_INDEX"</span>) != <span class="literal">NULL</span> &amp;&amp; !bSkipEndMarker )  &#123;</span><br><span class="line">            CSphWordHit * pHit = <span class="keyword">const_cast</span> &lt; CSphWordHit * &gt; ( m_tHits.Last() );</span><br><span class="line">            HITMAN::SetEndMarker ( &amp;pHit-&gt;m_iWordPos );</span><br><span class="line"></span><br><span class="line">        &#125;     </span><br><span class="line">    &#125;     </span><br><span class="line">    <span class="comment">///add by luodongshan 20140626 end</span></span><br></pre></td></tr></table></figure></p>
+<p>将过上面的修改，重新编译源码，之后设置环境变量IS_INDEX,即运行export IS_INDEX=1,就可以支持细粒度的划分。</p>
+<p>一个需要注意的地方是,对于searchd,也变成细粒度分词了，这并不是我们想要的，所以对于searchd，需要使用未修改代码的searchd.因为我们想建索引时细粒度，搜索时粗粒度。</p>
+<p>之所以要这样，是因为如果不这样处理，很多结果会搜出来了。如有文章内容分别为中大酒店，中大假日酒店。如果搜索时也是细粒度，则有中大，酒店，中，大，大酒店，酒，店等查询词，而大酒店只在中大酒店中存在，所以只会搜出中大酒店，这并不是我们想要的。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Sphinx-for-chinese/">Sphinx-for-chinese</a><a href="/tags/分词/">分词</a><a href="/tags/细粒度/">细粒度</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/10/19/Sphinx更新属性无法为负值/" title="Sphinx更新属性无法为负值" itemprop="url">Sphinx更新属性无法为负值</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-10-19T04:36:08.000Z" itemprop="datePublished"> 發表於 2014-10-19</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>离职已经三个多月了，关于Sphinx的知识都快忘的差不多了，所以得赶紧记下来，以备不时之需。</p>
+<p>离职前，在Sphinx-for-Chinese讨论组里异常活跃，很热心帮助群里的人解决问题。其中有个问题就是属性更新时无法设置为负值。于是看看Sphinx的更新属性流程。从searchd.cpp的main函数开始,到ServiceMain，TickPreforked,HandleClient,HandleClientSphinx,HandleCommandUpdate在这里看到<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ARRAY_FOREACH ( i, tUpd.m_dAttrs )</span><br><span class="line">    &#123;</span><br><span class="line">        tUpd.m_dAttrs[i] = tReq.GetString().ToLower().Leak();</span><br><span class="line">        tUpd.m_dTypes[i] = SPH_ATTR_INTEGER;</span><br><span class="line">        <span class="keyword">if</span> ( iVer&gt;=<span class="number">0x102</span> )</span><br><span class="line">        &#123;     </span><br><span class="line">            <span class="keyword">if</span> ( tReq.GetDword() )</span><br><span class="line">            &#123;     </span><br><span class="line">                tUpd.m_dTypes[i] = SPH_ATTR_UINT32SET;</span><br><span class="line">                bMvaUpdate = <span class="literal">true</span>;</span><br><span class="line">            &#125;     </span><br><span class="line">        &#125;     </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>也就是说，这里默认是SPH_ATTR_INTEGER，而在Sphinx里，这个是无符号整型。因为在后面的一个判断语句里，有如下句子</p>
+<pre><code class="c">} <span class="keyword">else</span>
+{     
+       tUpd.m_dPool.Add ( tReq.GetDword() );
+}
+</code></pre>
+<p>查看GetDword()，就可以知道返回的是无符号整型。</p>
+<p>之后跳转到DoCommandUpdate,UpdateAttributes<br>在其中发现这样一句话：<br>// this is a hack<br> // Query parser tries to detect an attribute type. And this is wrong because, we should<br> // take attribute type from schema. Probably we’ll rewrite updates in future but<br> // for now this fix just works.<br> // Fixes cases like UPDATE float_attr=1 WHERE id=1;<br>也就是说，Sphinx更新属性时，没有去读取配置文件。而只是根据上面代码中的设定去读取更新信息，所以没有办法读取负数。一个主要的原因是，Sphinx没有32位整型数据的概念，只有32位无符号整型的概念。</p>
+<p>因为这样，你也许会尝试将要更为负值的字段设置成64位整型，因为这个是有正负的，可是尝试之后还是不行。这是因为在代码里，没有根据配置文件去读数据，所以它还是按照上面的设定去读数据，这样还是无符号的。所以对于这个问题，还有待Sphinx的开发人员去解决.</p>
+<p>太久没用vim看代码了,连ctags的跳转是ctrl + ] 和ctrl + o都快忘记了。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Sphinx/">Sphinx</a><a href="/tags/更新/">更新</a><a href="/tags/负值/">负值</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/10/18/Solr分布式group查询过程/" title="Solr分布式group查询过程" itemprop="url">Solr分布式group查询过程</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-10-18T03:45:09.000Z" itemprop="datePublished"> 發表於 2014-10-18</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>最近因为需要在分布式group查询时自定义自己的排序，因为在许多应用中都需要定义针对应用的排序规则。例如在用户名时，需要针对name,添加最匹配原则最左侧优先,最短优先等排序规则。而要使用这些规则， 一个前提条件是，先要拿到这个字段的值。可是在Solr提供的api中，无法定义这样精细的规则，所以必须修改代码才能支持.</p>
+<p>在此之前，要了解分布式group查询的过程.当进行分布式group查询时,从QueryComponent中，可以知道,leader会向shard发送三次请求,分别对应三个阶段 ResponseBuilder.STAGE_TOP_GROUPS，ResponseBuilder.STAGE_EXECUTE_QUERY，ResponseBuilder.STAGE_GET_FIELDS三个阶段。</p>
+<p>第一个阶段也可称为firstPhase,主要是得到字段的分组信息，也就是得到字段有哪些分组,请求的构造在 SearchGroupsRequestFactory中.在shard中，对这次请求作出响应是在QueryComponent中的process函数 内，if (params.getBool(GroupParams.GROUP_DISTRIBUTED_FIRST, false)) 中完成的，查询得到的结果由SearchGroupsResultTransformer的transform进行转换。对于shard返回的结 果，leader在SearchGroupShardResponseProcessor中进行处理.</p>
+<p>第二个阶段也可称为secondPhase,这个阶段主要是得到每个分组内的文档id,在这个阶段,leader会将上一阶段得到的分组 信息发给shard,请求的构造在TopGroupsShardRequestFactory中.在shard中,对这次请求作出响应是在 QueryComponent中的process函数内，else if (params.getBool(GroupParams.GROUP_DISTRIBUTED_SECOND, false))中完成，查询得到的结果由TopGroupsResultTransformer的transform函数进行转换。对于shard返回的 结果,leader在TopGroupsShardResponseProcessor中进行处理</p>
+<p>第三个阶段主要是得到文档的字段信息，在这个阶段，leader会将最终结果中的文档id发送给shard,请求的构造在 StoredFieldsShardRequestFactory中.在shard中，对这次请求作出响应是在QueryComponent中的 process函数内,String ids = params.get(ShardParams.IDS);语句后的if (ids != null)中。对于shard返回的结果,leader是在StoredFieldsShardResponseProcessor中. </p>
+<p>分布式group查询的过程差不多就这样，以后再介绍如何定义自己的排序。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/group查询/">group查询</a><a href="/tags/solr/">solr</a><a href="/tags/分布式/">分布式</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/09/25/solr非存储字段变成存储字段/" title="solr非存储字段变成存储字段" itemprop="url">solr非存储字段变成存储字段</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-09-25T15:01:28.000Z" itemprop="datePublished"> 發表於 2014-09-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>试想这样一种情形，一个publish_time，原先是只索引不保存，运行了很长一段时间后，发现需要返回这个字段，于是改成既索引又保存。这样新进来的数据就可以返回这个字段的值，可是原先保存的数据将无法返回这个字段的值，因为没有保存。那如何解决这个问题？</p>
+<p>一个解决的办法是将数据重新跑一遍，重建索引，这样所有的数据都可以返回publish_time这个字段。想想还有没有其它办法，看到建了索引，这样还是有办法可以拿到数据，一个解决的办法是读fiedcache. 索引加载时，会在fieldcache里记录字段信息，这样可以提高字段查询的速度。事实上，在上述例子中，进行publish_time字段查询时，就可以拿到所有数据的publish_time字段信息,而这些信息就是来自于fieldcache.</p>
+<p>于是找到了一个切入点，在进行段合并时，将之前没有保存的字段信息从fieldcache中读出，写到新的段中，这样新生成的段中,所有数据都会有publish_time字段信息。</p>
+<p>于是问题的关键就变成了如何处理在段合并时，读取fieldcache信息，并且增加到新段中.从《Lucene原理与代码分析》中可以知道，段合并主要是在SegmentMerger中完成,具体是在copyFieldsWithDeletions和copyFieldsNoDeletions中。看名字就可以知道这两个函数是对应的，所以只要讨论其中一个就行了。在合并时主要分两种情况，一种是合并的段所有字段的顺序和个数都是一样的，这样只要将段数据复制到新段中即可，另一种则需要像添加一篇新文档一样将段中的文档一篇篇添加，具体体现就在fieldsWriter.addDocument(doc);这句。</p>
+<p>对于后一情况，需要从fieldcache中读取之前没有保存的字段，如FieldCache.DEFAULT.getInts(reader, fieldName)，这里的reader是一个SegmentReader实例, fieldName则是字段名,这样就可以得到字段的值,。而文档已经由Document doc = reader.document(docCount,  fieldSelectorMerge)读出，之后构建一个Field将它添加到文档中，并将文档添加到段中即可.</p>
+<p>需要注意的是,reader一定要加载索引，否则会报，terms index was not loaded when this reader was created错误.</p>
+<p>还有就是,对于int,double等数值型数据,需要调用Field(String name, byte[] value)方法，也就是先将int,double等转化成byte[]数组，之后再构建。具体转化方法参见<a href="http://program.dengshilong.org/2014/09/24/intdouble%E7%AD%89%E8%BD%AC%E5%8C%96%E6%88%90byte%E6%95%B0%E7%BB%84/" target="_blank" rel="external">int,double等转化成byte数组</a>.</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/fieldcache/">fieldcache</a><a href="/tags/solr/">solr</a><a href="/tags/段合并/">段合并</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/09/24/int,double等转化成byte数组/" title="int,double等转化成byte数组" itemprop="url">int,double等转化成byte数组</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-09-24T14:23:09.000Z" itemprop="datePublished"> 發表於 2014-09-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>最近需要用到这个功能，本来想自己写，怕写错了，上网找了一下，都没找到合适的。看了solr与源码中的TrieField.java,有这一部分的代码，copy到这里。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ByteUtil</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">toInt</span><span class="params">(<span class="keyword">byte</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (arr[<span class="number">0</span>] &lt;&lt; <span class="number">24</span>) | ((arr[<span class="number">1</span>] &amp; <span class="number">0xff</span>) &lt;&lt; <span class="number">16</span>)</span><br><span class="line">                | ((arr[<span class="number">2</span>] &amp; <span class="number">0xff</span>) &lt;&lt; <span class="number">8</span>) | (arr[<span class="number">3</span>] &amp; <span class="number">0xff</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">toLong</span><span class="params">(<span class="keyword">byte</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> high = (arr[<span class="number">0</span>] &lt;&lt; <span class="number">24</span>) | ((arr[<span class="number">1</span>] &amp; <span class="number">0xff</span>) &lt;&lt; <span class="number">16</span>)</span><br><span class="line">                | ((arr[<span class="number">2</span>] &amp; <span class="number">0xff</span>) &lt;&lt; <span class="number">8</span>) | (arr[<span class="number">3</span>] &amp; <span class="number">0xff</span>);</span><br><span class="line">        <span class="keyword">int</span> low = (arr[<span class="number">4</span>] &lt;&lt; <span class="number">24</span>) | ((arr[<span class="number">5</span>] &amp; <span class="number">0xff</span>) &lt;&lt; <span class="number">16</span>)</span><br><span class="line">                | ((arr[<span class="number">6</span>] &amp; <span class="number">0xff</span>) &lt;&lt; <span class="number">8</span>) | (arr[<span class="number">7</span>] &amp; <span class="number">0xff</span>);</span><br><span class="line">        <span class="keyword">return</span> (((<span class="keyword">long</span>) high) &lt;&lt; <span class="number">32</span>) | (low &amp; <span class="number">0x0ffffffffL</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> <span class="title">toFloat</span><span class="params">(<span class="keyword">byte</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Float.intBitsToFloat(toInt(arr));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">toDouble</span><span class="params">(<span class="keyword">byte</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Double.longBitsToDouble(toLong(arr));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] toArr(<span class="keyword">int</span> val) &#123;</span><br><span class="line">        <span class="keyword">byte</span>[] arr = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">4</span>];</span><br><span class="line">        arr[<span class="number">0</span>] = (<span class="keyword">byte</span>) (val &gt;&gt;&gt; <span class="number">24</span>);</span><br><span class="line">        arr[<span class="number">1</span>] = (<span class="keyword">byte</span>) (val &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">        arr[<span class="number">2</span>] = (<span class="keyword">byte</span>) (val &gt;&gt;&gt; <span class="number">8</span>);</span><br><span class="line">        arr[<span class="number">3</span>] = (<span class="keyword">byte</span>) (val);</span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] toArr(<span class="keyword">long</span> val) &#123;</span><br><span class="line">        <span class="keyword">byte</span>[] arr = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">8</span>];</span><br><span class="line">        arr[<span class="number">0</span>] = (<span class="keyword">byte</span>) (val &gt;&gt;&gt; <span class="number">56</span>);</span><br><span class="line">        arr[<span class="number">1</span>] = (<span class="keyword">byte</span>) (val &gt;&gt;&gt; <span class="number">48</span>);</span><br><span class="line">        arr[<span class="number">2</span>] = (<span class="keyword">byte</span>) (val &gt;&gt;&gt; <span class="number">40</span>);</span><br><span class="line">        arr[<span class="number">3</span>] = (<span class="keyword">byte</span>) (val &gt;&gt;&gt; <span class="number">32</span>);</span><br><span class="line">        arr[<span class="number">4</span>] = (<span class="keyword">byte</span>) (val &gt;&gt;&gt; <span class="number">24</span>);</span><br><span class="line">        arr[<span class="number">5</span>] = (<span class="keyword">byte</span>) (val &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">        arr[<span class="number">6</span>] = (<span class="keyword">byte</span>) (val &gt;&gt;&gt; <span class="number">8</span>);</span><br><span class="line">        arr[<span class="number">7</span>] = (<span class="keyword">byte</span>) (val);</span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] toArr(<span class="keyword">float</span> val) &#123;</span><br><span class="line">        <span class="keyword">return</span> toArr(Float.floatToRawIntBits(val));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] toArr(<span class="keyword">double</span> val) &#123;</span><br><span class="line">        <span class="keyword">return</span> toArr(Double.doubleToRawLongBits(val));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/byte数组/">byte数组</a><a href="/tags/java/">java</a><a href="/tags/转换/">转换</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/09/19/solr分布式搜索时设置分页的一个错误/" title="solr分布式搜索时设置分页的一个错误 " itemprop="url">solr分布式搜索时设置分页的一个错误 </a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-09-19T13:16:58.000Z" itemprop="datePublished"> 發表於 2014-09-19</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>最近在做一个站内搜索功能,有用到一个分页功能.搜索时会传两个参数pageId和pageSize 用来指定页号与每页的条数.solr已经提供了start和rows两个参数,于是将分页参数与之对应起来,在component初始化时写了如下代码:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">String pidStr = req.getParams().get(PAGE_ID);</span><br><span class="line"><span class="keyword">if</span> ( pidStr != <span class="keyword">null</span> ) &#123; </span><br><span class="line">      <span class="keyword">int</span> pageId = req.getParams().getInt(PAGE_ID, <span class="number">0</span>);</span><br><span class="line">      <span class="keyword">int</span> pageSize = req.getParams().getInt(PAGE_SIZE, <span class="number">10</span>);</span><br><span class="line">      pageId = (pageId &gt; -<span class="number">1</span>) ? pageId : <span class="number">0</span>; </span><br><span class="line">      pageSize = (pageSize &gt; <span class="number">0</span> ) ? pageSize : <span class="number">10</span>; </span><br><span class="line">      ModifiableSolrParams params = <span class="keyword">new</span> ModifiableSolrParams(req.getParams());</span><br><span class="line">      params.set(CommonParams.START, pageId * pageSize);</span><br><span class="line">      params.set(CommonParams.ROWS, pageSize);</span><br><span class="line">      params.set(CommonParams.WT, <span class="string">"json"</span>);</span><br><span class="line">      params.set(CommonParams.OMIT_HEADER, <span class="string">"true"</span>);</span><br><span class="line">      req.setParams(params);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可是一直得不到正确的结果，在后台输出日志,发现start和rows在设置了上面的值后，start和rows会用来构建新的查询,在新的查询中start会变为0,而rows会变成start与rows的和，可是之后start和rows又会变成原先的值，于是得不到想要的结果。</p>
+<p>举个例子,假设要搜第三页,每页10条,则可设置pageId为2,pageSize为10,于是start被设置成20,rows被设置成10,之后start和rows会被用于生成向shard发送的请求,start被设置为0,rows设置为30.问题在于这个请求发出之后start的值又变成了20,rows变成了10,百思不得其解.</p>
+<p>跟踪代码到createMainQuery函数,看到如下代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (rb.shards_start &gt; -<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="comment">// if the client set shards.start set this explicitly</span></span><br><span class="line">    sreq.params.set(CommonParams.START, rb.shards_start);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    sreq.params.set(CommonParams.START, <span class="string">"0"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (rb.shards_rows &gt; -<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="comment">// if the client set shards.rows set this explicity</span></span><br><span class="line">    sreq.params.set(CommonParams.ROWS, rb.shards_rows);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    sreq.params.set(CommonParams.ROWS, rb.getSortSpec().getOffset()</span><br><span class="line">            + rb.getSortSpec().getCount());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>打印日志rb.shards_start与rb.shards_rows都为-1,于是start变为0,row变成30,这是正确的,那么关键点就是要找出start和rows何时变成20与10，跟踪程序找不到原因。看后台日志,发现初始化每次都会执行两次,然后想到分布式，才渐渐明白问题的原因.</p>
+<p>在一次分布式查询中,solr的leader会接受请求，然后对请求进行解析，之后重新构建请求，将新的请求发给各个Shard,Shard做非分布式查询之后,将结果发给leader,之后leader汇总各个Shard的响应,进行最后的处理(如做offset等),问题是leader和Shard都是同一份代码,而且初始化部分每个Shard接收leader的请求后都要执行,于是start和rows又被重新设置了.在上面的例子中,start和rows在Shard中分别被设置成20和10了,只会Shard做非分布式查询,这样Shard只会返回10条数据给leader，这显然不是想要的.</p>
+<p>之后发现,在leader构建的新的请求中,会添加isShard=true参数,于是可以修改代码如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> isShard = req.getParams().getBool(ShardParams.IS_SHARD, <span class="keyword">false</span>);</span><br><span class="line"><span class="keyword">if</span> ( pidStr != <span class="keyword">null</span> &amp;&amp; !isShard) &#123; <span class="comment">//分布式时，只有leader才需要执行这里</span></span><br></pre></td></tr></table></figure></p>
+<p>之后结果就是正确的。到这里，才有点明白分布式程序，真不好写.</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/solr/">solr</a><a href="/tags/分布式/">分布式</a><a href="/tags/分页/">分页</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/09/04/Screen-会话管理工具/" title="Screen-会话管理工具" itemprop="url">Screen-会话管理工具</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-09-04T14:47:33.000Z" itemprop="datePublished"> 發表於 2014-09-04</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>工作一年后,才知道有Screen这个东西,太不应该了,也许真是环境影响人.</p>
+<p>今天遇到问题,导师过来指导,看我的SecureCRT开着很多个会话,没有用Screen,于是提醒可以用这个.之前在公司的wiki上看到过介绍,本以为就是SecureCRT,原来是一个管理会话工具,有了它之后,就不需要再开很多个会话,然后关闭了.会话间的切换也可以很方便的用快捷键命令,而不是鼠标,因为鼠标极其影响效率.</p>
+<p>用了公司一个员工的配置<br>hardstatus alwayslastline “%{=b}%{b}%-w%{.BW}%10&gt;%n*%t%{-}%+w%&lt; %=%{kG}%C%A, %Y-%m-%d”<br>screen -t local1 0 bash<br>screen -t local2 1 bash<br>screen -t local3 2 bash<br>screen -t local4 3 bash<br>screen -t local5 4 bash</p>
+<p>select 0</p>
+<p>vim ~/.screenrc,复制上面内容.之后就可以使用Screen了.一些常用命令如下:<br>c-a : Ctrl + a<br>screen -S name #开一个session<br>screen -S name -X quit #杀死session<br>c-a c #创建一个窗口<br>c-a n #next 窗口<br>c-a p #previous 窗口<br>c-a A #为窗口命名<br>c-a d #detach screen<br>c-a #跳转到number的窗口<br>screen -ls #查看窗口<br>screen -r name #连接一个session<br>screen -x name #共享session<br><span style="color: #000000;">可以参考</span><a href="http://hunsefee.diandian.com/post/2010-10-28/7319178" target="_blank" rel="external">http://hunsefee.diandian.com/post/2010-10-28/7319178</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/软件安装/">软件安装</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Screen/">Screen</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <a class="extend prev" rel="prev" href="/page/3/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/5/">Next<span></span></a>
+  </nav>
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Lucene/" title="Lucene">Lucene<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/搜索引擎/" title="搜索引擎">搜索引擎<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/搜索引擎/" title="搜索引擎">搜索引擎<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/" title="数学">数学<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/" title="数据结构">数据结构<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/未分类/" title="未分类">未分类<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/欧拉工程/" title="欧拉工程">欧拉工程<sup>60</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>21</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/算法/" title="算法">算法<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/编程/" title="编程">编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编程/" title="编程">编程<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络编程/" title="网络编程">网络编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件安装/" title="软件安装">软件安装<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/欧拉工程/" title="欧拉工程">欧拉工程<sup>58</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/C名题百则/" title="C名题百则">C名题百则<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/solr/" title="solr">solr<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/素数/" title="素数">素数<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx-for-chinese/" title="Sphinx-for-chinese">Sphinx-for-chinese<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx/" title="Sphinx">Sphinx<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/筛法/" title="筛法">筛法<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动态规划/" title="动态规划">动态规划<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/索引/" title="索引">索引<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/米勒-拉宾/" title="米勒-拉宾">米勒-拉宾<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/更新/" title="更新">更新<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/回文数/" title="回文数">回文数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/阶乘/" title="阶乘">阶乘<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/全位数/" title="全位数">全位数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/增量索引/" title="增量索引">增量索引<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Lucene/" title="Lucene">Lucene<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分布式/" title="分布式">分布式<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分词/" title="分词">分词<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/幂方/" title="幂方">幂方<sup>3</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 兼济天下则达 <br/>
+			独善其身则穷</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="robinjia">robinjia</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>

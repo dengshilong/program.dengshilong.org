@@ -1,0 +1,1105 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>邓世龙的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="robinjia">
+    
+
+    
+    <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="邓世龙的学习笔记">
+<meta property="og:url" content="http://program.dengshiong.org/page/3/index.html">
+<meta property="og:site_name" content="邓世龙的学习笔记">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="邓世龙的学习笔记">
+<meta name="twitter:description">
+
+    
+    <link rel="alternative" href="/atom.xml" title="邓世龙的学习笔记" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="邓世龙的学习笔记" title="邓世龙的学习笔记"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="邓世龙的学习笔记">邓世龙的学习笔记</a></h1>
+				<h2 class="blog-motto">兼济天下则达,独善其身则穷</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:program.dengshiong.org">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/12/12/提取雪球搜索页面主要内容/" title="提取雪球搜索页面主要内容" itemprop="url">提取雪球搜索页面主要内容</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-12-12T12:46:55.000Z" itemprop="datePublished"> 發表於 2014-12-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>虽然在索引组，但有时还需要干解析的活，而这时，正则表达式就派上用场了。一段时间没写正则后，写起来就没有办法那么畅快，例如这次就是提取不到结果，想了之后，最后锁定在点号不能匹配换行符，试了之后，果然是这样。在Java中，加上Pattern.DOTALL就好了，以下就是用来提取雪球搜索页面里主要内容的函数，这个主要内容提取出来后是一个JSON格式的.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getXueQiuContent</span><span class="params">(String httpBody)</span> </span>&#123;</span><br><span class="line">    Pattern pattern = Pattern.compile(<span class="string">"SNB.data.search\\s*?=\\s*?(\\&#123;.+?\\&#125;);.*?seajs.use"</span>, Pattern.DOTALL);</span><br><span class="line">    Matcher m = pattern.matcher(httpBody);</span><br><span class="line">    <span class="keyword">if</span> (m.find()) &#123;</span><br><span class="line">        httpBody = m.group(<span class="number">1</span>);</span><br><span class="line">        JSONObject obj;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            obj = <span class="keyword">new</span> JSONObject(httpBody);</span><br><span class="line">            JSONArray jsonArr =  (JSONArray) obj.get(<span class="string">"list"</span>);</span><br><span class="line">            httpBody = jsonArr.toString();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (JSONException e) &#123;</span><br><span class="line">          <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> httpBody;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果不知道这个Pattern.DOTALL,其实用[\s\S]也是可以得，因为\s匹配空白字符,\S匹配非空白字符，两者合在一起就可以匹配任何字符了。<br>对于爬虫组来说，要发现新的站点，都雪球这些网站去搜索一番还是可以尝试的。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>►<a class="article-category-link" href="/categories/Java/编程/">编程</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/正则/">正则</a><a href="/tags/点号/">点号</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/12/04/Solr查询词提取/" title="Solr查询词提取" itemprop="url">Solr查询词提取</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-12-04T13:28:02.000Z" itemprop="datePublished"> 發表於 2014-12-04</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>最近因为负责一个小功能，所以想尽力做好它。于是对会经常看看用户的查询，看看这些查询的结果是否满足需要，于是需要对这些查询词进行提取。本来还想用Python来写的，后来想想shell才是做这事的最佳方法，于是先从grep开始。</p>
+<p>solr的日志中,query都是跟在‘q=’后面，且参数间用&amp;隔开，于是执行如下命令，<br>grep -o ‘q=.*\&amp;’ solr.log<br>得到如下结果<br>q=磐安&amp;macro.skip=0&amp;qt=macro&amp;wt=json&amp;<br>q=磐安+财政&amp;macro.skip=0&amp;qt=macro&amp;wt=json&amp;<br>q=保定+财政&amp;macro.skip=0&amp;qt=macro&amp;wt=json&amp;<br>q=磐安+财政&amp;macro.skip=0&amp;qt=macro&amp;wt=json&amp;<br>q=财政+长春&amp;macro.skip=0&amp;qt=macro&amp;wt=json&amp;<br>q=财政+长沙&amp;macro.skip=0&amp;qt=macro&amp;wt=json&amp;<br>q=存款收入&amp;macro.skip=0&amp;qt=macro&amp;wt=json&amp;<br>q=存款收入&amp;qt=macro&amp;wt=json&amp;macro.groupOffset=0&amp;macro.groupNames=利率走势&amp;<br>q=存款收入&amp;qt=macro&amp;wt=json&amp;macro.groupOffset=0&amp;macro.groupNames=行业经济&amp;<br>q=存款收入&amp;qt=macro&amp;wt=json&amp;macro.groupOffset=0&amp;macro.groupNames=区域宏观&amp;<br>q=存款收入&amp;qt=macro&amp;wt=json&amp;macro.groupOffset=0&amp;macro.groupNames=中国宏观&amp;</p>
+<p>之后就是截取query部分，这时awk就派上用场了。先用&amp;分割，得到第一段，之后用=分割，得到第二段<br>grep -o ‘q=.*\&amp;’ solr.log | grep -v ‘module2:’ | grep -v ‘solrconfig.xml’ | awk -F ‘&amp;’ ‘{print $1}’ | awk -F ‘=’ ‘{print $2}’<br>结果如下：<br>磐安<br>磐安+财政<br>保定+财政<br>磐安+财政<br>财政+长春<br>财政+长沙<br>存款收入<br>存款收入<br>存款收入<br>存款收入<br>存款收入</p>
+<p>之后想统计每个查询词的次数，此时先用sort排序，之后用uniq -c来统计，<br>grep -o ‘q=.*\&amp;’ solr.log | grep -v ‘module2:’ | grep -v ‘solrconfig.xml’ | awk -F ‘&amp;’ ‘{print $1}’ | awk -F ‘=’ ‘{print $2}’  |sort | uniq -c<br>结果如下：<br>1 保定+财政<br>5 存款收入<br>1 磐安<br>2 磐安+财政<br>1 财政+长春<br>1 财政+长沙</p>
+<p>而我希望按查询次数从高到低排列，于是再用sort -rn<br>grep -o ‘q=.*\&amp;’ solr.log | grep -v ‘module2:’ | grep -v ‘solrconfig.xml’ | awk -F ‘&amp;’ ‘{print $1}’ | awk -F ‘=’ ‘{print $2}’  |sort | uniq -c | sort -rn<br>结果如下：<br>5 存款收入<br>2 磐安+财政<br>1 财政+长沙<br>1 财政+长春<br>1 磐安<br>1 保定+财政</p>
+<p>一行代码搞定。一句话，管道实在是太方便了，linux也是如此。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/shell/">shell</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/awk/">awk</a><a href="/tags/grep/">grep</a><a href="/tags/sort/">sort</a><a href="/tags/uniq/">uniq</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/12/04/语言特性还是有必要学习的/" title="语言特性还是有必要学习的" itemprop="url">语言特性还是有必要学习的</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-12-04T13:08:44.000Z" itemprop="datePublished"> 發表於 2014-12-04</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>最近一个项目需要用脚本生成汉字拼音时来排序，组里同事说以前有同事写过一个，于是拿过来用，看了一下代码，发现有些地方还是可以优化的，</p>
+<p>如以下代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">self.polyphone = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> open(polyphone_path):</span><br><span class="line">    k, context, pron, other = line.split(<span class="string">' '</span>, <span class="number">3</span>)</span><br><span class="line">    item = collections.defaultdict(dict)</span><br><span class="line">    key = <span class="string">"%X"</span> % ord(unicode(k, <span class="string">'utf8'</span>))</span><br><span class="line">    item[key][<span class="string">'context'</span>] = unicode(context, <span class="string">'utf8'</span>)</span><br><span class="line"></span><br><span class="line">    item[key][<span class="string">'pron'</span>] = pron</span><br><span class="line">    <span class="keyword">if</span> self.polyphone.has_key(key):</span><br><span class="line">        self.polyphone[key].append(item)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        self.polyphone[key] = []</span><br><span class="line">        self.polyphone[key].append(item)  </span><br><span class="line">```     </span><br><span class="line">这一段代码里需要判断字典里有没有包含key,如果没有，则要先声明value为空的list,之后再添加值,这种情况下collections中的defaultdict就派上用场了。</span><br><span class="line">``` python</span><br><span class="line">self.polyphone = defaultdict(list)</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> open(polyphone_path):</span><br><span class="line">    k, context, pron, other = line.split(<span class="string">' '</span>, <span class="number">3</span>)</span><br><span class="line">    item = defaultdict(dict)</span><br><span class="line">    key = <span class="string">"%X"</span> % ord(unicode(k, <span class="string">'utf8'</span>))</span><br><span class="line">    item[key][<span class="string">'context'</span>] = unicode(context, <span class="string">'utf8'</span>)</span><br><span class="line">    item[key][<span class="string">'pron'</span>] = pron</span><br><span class="line">    self.polyphone[key].append(item)  </span><br><span class="line">``` </span><br><span class="line">defaultdict可以给定一个默认值，这样省去了判断key是否已经在字典里存在。</span><br><span class="line"></span><br><span class="line">还见到如下代码：</span><br><span class="line">``` python</span><br><span class="line">polyphone = <span class="keyword">False</span></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> self.polyphone[key]:</span><br><span class="line">    <span class="keyword">if</span> chars.find(item[key][<span class="string">'context'</span>]) != -<span class="number">1</span>: </span><br><span class="line">        result.append(item[key][<span class="string">'pron'</span>].strip()[:-<span class="number">1</span>].lower())</span><br><span class="line">        polyphone = <span class="keyword">True</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> polyphone:</span><br><span class="line">    result.append(self.dict[key].split(<span class="string">","</span>)[<span class="number">0</span>].strip()[:-<span class="number">1</span>].lower())</span><br></pre></td></tr></table></figure></p>
+<p>这段代码里，if not polyphonse判断里的句子只有在上面的for没有被break时才执行，也就是for循环执行时才执行，这种情况在编程中经常遇到，而python提供了for else循环语句，于是可以修改成：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> self.polyphone[key]:</span><br><span class="line">    <span class="keyword">if</span> chars.find(item[key][<span class="string">'context'</span>]) != -<span class="number">1</span>: </span><br><span class="line">        result.append(item[key][<span class="string">'pron'</span>].strip()[:-<span class="number">1</span>].lower())</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="keyword">else</span> :</span><br><span class="line">    result.append(self.dict[key].split(<span class="string">","</span>)[<span class="number">0</span>].strip()[:-<span class="number">1</span>].lower())</span><br></pre></td></tr></table></figure></p>
+<p>是不是瞬间简洁很多？所以说，语言特性还是有必要学习的，虽然算法和数据结构依然是核心，可是代码易维护，易懂也是非常重要的</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Python/">Python</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/defaultdict/">defaultdict</a><a href="/tags/简洁/">简洁</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/12/03/查看端口是否被占用/" title="查看端口是否被占用" itemprop="url">查看端口是否被占用</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-12-03T14:10:03.000Z" itemprop="datePublished"> 發表於 2014-12-03</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>如要查看8080端口被进程占用，以前都是用 lsof命令的,<br>lsof -i:8080</p>
+<p>现在lsof命令不能用了，于是改成netstat<br>netstat  -nltp | grep 8080</p>
+<p>以前执行这个命令时没有加上p参数，后来仔细看netstat的帮助，知道p参数是显示进程id和名字用的</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/shell/">shell</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/lsof/">lsof</a><a href="/tags/netstat/">netstat</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/11/23/13球问题/" title="13球问题" itemprop="url">13球问题</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-11-22T16:39:45.000Z" itemprop="datePublished"> 發表於 2014-11-23</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>以前专门考虑过这个问题，只是没有记录笔记，和组里的同事说起这个问题，于是又考虑了一次，这次还是记下来为妙。</p>
+<p>13球问题说的是有12个标准球和1个不合格的球，这个球可能偏重或者偏轻了，给你一个天平，问至少称多少次可以找到这个不合格的球。</p>
+<p>考虑这个问题之前，可以先考虑高中时代，数学老师问过的8球问题。8球问题说的是一共有8个球，其中有一个球偏重了，给你一个天平，问至少称几次可以找到这个球。</p>
+<p>一个很显然的办法是，两边各4个，之后拿重的一方再对分称，之后再拿重的一方对分称，一共三次就可以称出来。但这不是最优的，记得当时大部分同学都是这么考虑的，只有一个许杨冰同学不是这样，她说称两次即可知道。方法是，左边放三个，右边放三个，如果是左边重，则球一定在这3个中，从这个三个中取两个，天平两边各放一个，如果两边一样重，则偏重的球是剩下的那一个，如果两边不一样重，则偏重的一方就是那个球。当时就觉得许同学非同一般，后来高考时她考了全班第一。</p>
+<p>大三的时候，学习了信息论，发现这个问题可以用信息论的观点来解释。考虑上面的8球问题，当只有3个球时，只称一次即可知道是哪一个球偏重了，也就是说，一次称球，可以知道3种情况，那么2此称球就可以知道9种情况。而8球问题，只有8种情况，所以只需称两次即可找到那个球。考虑上面的13球问题，这里一共有26种情况，1号球偏重，1号球偏轻，2号球偏重，2号球偏轻。。。，因为两次称球可以知道9种情况，那么三次称球可以知道27种情况，而13球一共只有26中情况，所以13球问题只需称3次就可以找到那个球，剩下的问题就是如何称了。</p>
+<p>考虑之后，给出了一种解法。为了方便，我们给球编号，1，2，3，4，，，13。<br>1.首先把1，2，3，4放在左边天平，把5，6，7，8放在右边天平，<br>2.如果天平一样重，则那个球在剩下的5个球中，其它8个为标准球。之后在这5个球中取3个球，放在左边，取3个标准球放在天平右边，分三种情况<br>A 如果一样重，则不合格球在剩下的两个球中，对于剩下的两个球，取其中一个出来称，如果偏重或者偏轻，则找到了那个不合格球，如果一样重，则不合格球是剩下的一个(注意，这里我们不能知道它是偏重或者偏轻)。<br>B 如果左边轻，之后再称一次就可以知道是哪个球偏轻。<br>C 如果左边重，之后再称一次就可以知道是哪个球偏轻。<br>3.如果不一样重，则那个球在这8个球中。假设是左边重了，则剩下可能的8种情况，1，2，3，4号偏重，5，6，7，8号偏轻。之后的取法可以这样，左边放三个标准球再加上8号球，右边放5，6，7和4号球。依然分三种情况<br>A 如果一样重，则1 2 3号球偏重，称一次即可知道结果<br>B 如果左边重，则5 6 7 号球偏轻，称一次即可知道结果<br>C 如果左边轻，则8号球偏轻或者4号球偏重，称一次即可知道结果。</p>
+<p>现在再来考虑，2时，剩下5个球的情况，5个球的时候，一共有10种情况，9号偏重，9号偏轻，，，13号偏重，所以称两次是无法知道具体是哪一个球偏重或者偏轻，这也是为什么在2的A情况中，如果一样重，则不合格球是剩下的一个，但我们无法知道它是偏重或者偏轻。所幸题目只要求我们找到那个球就可以了，没有要求知道它是偏重或者偏轻。</p>
+<p>那么如果一定要找到那个球，且知道它是偏重或者偏轻呢？这样的话就不是这种方法能解决的了，需要精心设计的方法，继续考虑，等知道了再分享。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/数学/">数学</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/13球/">13球</a><a href="/tags/8球/">8球</a><a href="/tags/信息论/">信息论</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/11/19/solr非存储字段变成存储字段解决代码/" title="solr非存储字段变成存储字段解决代码" itemprop="url">solr非存储字段变成存储字段解决代码</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-11-19T14:22:13.000Z" itemprop="datePublished"> 發表於 2014-11-19</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>看来这一段小代码还是有点用的，还是开源出来吧，免得再造轮子。注意，修改时基于Solr1.4,其它版本进行相应修改即可。</p>
+<p>主要修改了两个类IndexWriter, SegmentMerger.添加辅助类ByteUtil,TypeUtil，Constant。</p>
+<p>修改类IndexWriter:<br>在方法private int mergeMiddle(MergePolicy.OneMerge merge)里，<br> 将SegmentReader初始化 SegmentReader reader = merge.readers[i] =  readerPool.get(info, merge.mergeDocStores,MERGE_READ_BUFFER_SIZE, -1);<br> 修改成<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">String temp = System</span><br><span class="line">        .getProperty(Constant.DOCUMENT_MERGE_OPTION);</span><br><span class="line"><span class="keyword">boolean</span> documentMerge =  temp != <span class="keyword">null</span> &amp;&amp; temp.equals(<span class="string">"true"</span>) ? <span class="keyword">true</span></span><br><span class="line">        : <span class="keyword">false</span>;</span><br><span class="line"><span class="keyword">if</span> (documentMerge) &#123;</span><br><span class="line">    merge.readers[i] = readerPool.get(info, merge.mergeDocStores,</span><br><span class="line">            MERGE_READ_BUFFER_SIZE,</span><br><span class="line">            IndexReader.DEFAULT_TERMS_INDEX_DIVISOR);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    merge.readers[i] = readerPool.get(info, merge.mergeDocStores,</span><br><span class="line">            MERGE_READ_BUFFER_SIZE,</span><br><span class="line">            -<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line">SegmentReader reader = merge.readers[i];</span><br></pre></td></tr></table></figure></p>
+<p> 这是因为如果需要读FieldCache,则需要加载内存，否则会报错。而readerPool.get这个函数内有这样一个判断<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (termsIndexDivisor != -<span class="number">1</span> &amp;&amp; !sr.termsIndexLoaded()) &#123;</span><br><span class="line">   <span class="comment">// If this reader was originally opened because we</span></span><br><span class="line">   <span class="comment">// needed to merge it, we didn't load the terms</span></span><br><span class="line">   <span class="comment">// index.  But now, if the caller wants the terms</span></span><br><span class="line">   <span class="comment">// index (eg because it's doing deletes, or an NRT</span></span><br><span class="line">   <span class="comment">// reader is being opened) we ask the reader to</span></span><br><span class="line">   <span class="comment">// load its terms index.</span></span><br><span class="line">   sr.loadTermsIndex(termsIndexDivisor);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<pre><code>设置第四个参数为IndexReader.DEFAULT_TERMS_INDEX_DIVISOR，SegmentReader就会增加索引
+</code></pre><p>修改类SegmentMerger:<br>在mergeFields函数里,将copyFieldsWithDeletions和copyFieldsNoDeletions增加一个参数 boolean documentMerge<br> 参数的值由如下语句得到<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String temp = System.getProperty(Constant.DOCUMENT_MERGE_OPTION);</span><br><span class="line"><span class="keyword">boolean</span> documentMerge =  temp != <span class="keyword">null</span> &amp;&amp; temp.equals(<span class="string">"true"</span>) ? <span class="keyword">true</span> : <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure></p>
+<p> 函数copyFieldsWithDeletions和copyFieldsNoDeletions是对应的，这里只拿copyFieldsNoDeletions举例。<br> 在copyFieldsNoDeletions里，读取FieldCache的主要工作在以下这个判断语句里完成.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (documentMerge) &#123;</span><br><span class="line">    <span class="comment">//Update Dengshilong 2014-09-25</span></span><br><span class="line">    <span class="comment">//here is where  documentMerge and read FieldCache actually do</span></span><br><span class="line">    <span class="comment">//read fields and types from start parameters</span></span><br><span class="line">    <span class="comment">//for every field ,read value from FieldCache , </span></span><br><span class="line">    <span class="comment">//for numerical field use the correspond byte transform method to build a Field</span></span><br><span class="line">    String fieldNamesStr = System</span><br><span class="line">            .getProperty(Constant.DOCUMENT_MERGE_FIELDS);</span><br><span class="line">    String typesStr = System</span><br><span class="line">            .getProperty(Constant.DOCUMENT_MERGE_TYPES);</span><br><span class="line">    String[] fieldNames = fieldNamesStr.split(<span class="string">","</span>);</span><br><span class="line">    String[] types = typesStr.split(<span class="string">","</span>);</span><br><span class="line">    <span class="keyword">for</span> (; docCount &lt; maxDoc; docCount++) &#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">NOTE:</span> it's very important to first assign to doc then</span></span><br><span class="line">        <span class="comment">// pass it to</span></span><br><span class="line">        <span class="comment">// termVectorsWriter.addAllDocVectors; see LUCENE-1282</span></span><br><span class="line">        Document doc = reader.document(docCount,</span><br><span class="line">                fieldSelectorMerge);</span><br><span class="line">        Map typeMap = TypeUtil.TYPE_MAP;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; fieldNames.length; i++) &#123;</span><br><span class="line">            String fieldName = fieldNames[i];</span><br><span class="line">            String type = types[i];</span><br><span class="line">            Fieldable field = (Fieldable) doc</span><br><span class="line">                    .getFieldable(fieldName);</span><br><span class="line">            <span class="keyword">if</span> (field == <span class="keyword">null</span>) &#123;</span><br><span class="line">                Types t = (Types) TypeUtil.TYPE_MAP.get(type);</span><br><span class="line">                <span class="keyword">switch</span>(t) &#123;</span><br><span class="line">                <span class="keyword">case</span> INTEGER:</span><br><span class="line">                    <span class="keyword">int</span>[] vi = FieldCache.DEFAULT.getInts(reader, fieldName);</span><br><span class="line">                    Field fi = <span class="keyword">new</span> Field(fieldName, ByteUtil.toArr(vi[docCount]), Store.YES);</span><br><span class="line">                    doc.add(fi);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> LONG:</span><br><span class="line">                    <span class="keyword">long</span>[] vl = FieldCache.DEFAULT.getLongs(reader, fieldName);</span><br><span class="line">                    Field fl = <span class="keyword">new</span> Field(fieldName, ByteUtil.toArr(vl[docCount]), Store.YES);</span><br><span class="line">                    doc.add(fl);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> FLOAT:</span><br><span class="line">                    <span class="keyword">float</span>[] vf = FieldCache.DEFAULT.getFloats(reader, fieldName);</span><br><span class="line">                    Field ff = <span class="keyword">new</span> Field(fieldName, ByteUtil.toArr(vf[docCount]), Store.YES);</span><br><span class="line">                    doc.add(ff);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> DOUBLE:</span><br><span class="line">                    <span class="keyword">double</span>[] vd = FieldCache.DEFAULT.getDoubles(reader, fieldName);</span><br><span class="line">                    Field fd = <span class="keyword">new</span> Field(fieldName, ByteUtil.toArr(vd[docCount]), Store.YES);</span><br><span class="line">                    doc.add(fd);</span><br><span class="line">                    <span class="keyword">break</span>; </span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;    </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        fieldsWriter.addDocument(doc);</span><br><span class="line">        checkAbort.work(<span class="number">300</span>); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>增加类ByteUtil用于int,double等数值型转化为byte[]数组;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.apache.lucene.util;</span><br><span class="line"><span class="comment">//The transform method is copy from TrieField.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ByteUtil</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">toInt</span><span class="params">(<span class="keyword">byte</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (arr[<span class="number">0</span>] &lt;&lt; <span class="number">24</span>) | ((arr[<span class="number">1</span>] &amp; <span class="number">0xff</span>) &lt;&lt; <span class="number">16</span>)</span><br><span class="line">                | ((arr[<span class="number">2</span>] &amp; <span class="number">0xff</span>) &lt;&lt; <span class="number">8</span>) | (arr[<span class="number">3</span>] &amp; <span class="number">0xff</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">toLong</span><span class="params">(<span class="keyword">byte</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> high = (arr[<span class="number">0</span>] &lt;&lt; <span class="number">24</span>) | ((arr[<span class="number">1</span>] &amp; <span class="number">0xff</span>) &lt;&lt; <span class="number">16</span>)</span><br><span class="line">                | ((arr[<span class="number">2</span>] &amp; <span class="number">0xff</span>) &lt;&lt; <span class="number">8</span>) | (arr[<span class="number">3</span>] &amp; <span class="number">0xff</span>);</span><br><span class="line">        <span class="keyword">int</span> low = (arr[<span class="number">4</span>] &lt;&lt; <span class="number">24</span>) | ((arr[<span class="number">5</span>] &amp; <span class="number">0xff</span>) &lt;&lt; <span class="number">16</span>)</span><br><span class="line">                | ((arr[<span class="number">6</span>] &amp; <span class="number">0xff</span>) &lt;&lt; <span class="number">8</span>) | (arr[<span class="number">7</span>] &amp; <span class="number">0xff</span>);</span><br><span class="line">        <span class="keyword">return</span> (((<span class="keyword">long</span>) high) &lt;&lt; <span class="number">32</span>) | (low &amp; <span class="number">0x0ffffffffL</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> <span class="title">toFloat</span><span class="params">(<span class="keyword">byte</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Float.intBitsToFloat(toInt(arr));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">toDouble</span><span class="params">(<span class="keyword">byte</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Double.longBitsToDouble(toLong(arr));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] toArr(<span class="keyword">int</span> val) &#123;</span><br><span class="line">        <span class="keyword">byte</span>[] arr = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">4</span>];</span><br><span class="line">        arr[<span class="number">0</span>] = (<span class="keyword">byte</span>) (val &gt;&gt;&gt; <span class="number">24</span>);</span><br><span class="line">        arr[<span class="number">1</span>] = (<span class="keyword">byte</span>) (val &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">        arr[<span class="number">2</span>] = (<span class="keyword">byte</span>) (val &gt;&gt;&gt; <span class="number">8</span>);</span><br><span class="line">        arr[<span class="number">3</span>] = (<span class="keyword">byte</span>) (val);</span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] toArr(<span class="keyword">long</span> val) &#123;</span><br><span class="line">        <span class="keyword">byte</span>[] arr = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">8</span>];</span><br><span class="line">        arr[<span class="number">0</span>] = (<span class="keyword">byte</span>) (val &gt;&gt;&gt; <span class="number">56</span>);</span><br><span class="line">        arr[<span class="number">1</span>] = (<span class="keyword">byte</span>) (val &gt;&gt;&gt; <span class="number">48</span>);</span><br><span class="line">        arr[<span class="number">2</span>] = (<span class="keyword">byte</span>) (val &gt;&gt;&gt; <span class="number">40</span>);</span><br><span class="line">        arr[<span class="number">3</span>] = (<span class="keyword">byte</span>) (val &gt;&gt;&gt; <span class="number">32</span>);</span><br><span class="line">        arr[<span class="number">4</span>] = (<span class="keyword">byte</span>) (val &gt;&gt;&gt; <span class="number">24</span>);</span><br><span class="line">        arr[<span class="number">5</span>] = (<span class="keyword">byte</span>) (val &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">        arr[<span class="number">6</span>] = (<span class="keyword">byte</span>) (val &gt;&gt;&gt; <span class="number">8</span>);</span><br><span class="line">        arr[<span class="number">7</span>] = (<span class="keyword">byte</span>) (val);</span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] toArr(<span class="keyword">float</span> val) &#123;</span><br><span class="line">        <span class="keyword">return</span> toArr(Float.floatToRawIntBits(val));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] toArr(<span class="keyword">double</span> val) &#123;</span><br><span class="line">        <span class="keyword">return</span> toArr(Double.doubleToRawLongBits(val));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>增加类TypesUtil，定义了INTEGER等类型常量<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.apache.lucene.util;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="comment">//the types is copy form TrieField.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TypeUtil</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">enum</span> Types &#123;</span><br><span class="line">        INTEGER,</span><br><span class="line">        LONG,</span><br><span class="line">        FLOAT,</span><br><span class="line">        DOUBLE,</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> Map TYPE_MAP = <span class="keyword">new</span> HashMap() &#123; &#123;    </span><br><span class="line">        put(<span class="string">"int"</span>, Types.INTEGER);    </span><br><span class="line">        put(<span class="string">"tint"</span>, Types.INTEGER);</span><br><span class="line">        put(<span class="string">"long"</span>, Types.LONG); </span><br><span class="line">        put(<span class="string">"tlong"</span>, Types.LONG);</span><br><span class="line">        put(<span class="string">"float"</span>, Types.FLOAT);</span><br><span class="line">        put(<span class="string">"tfloat"</span>, Types.FLOAT);</span><br><span class="line">        put(<span class="string">"double"</span>, Types.DOUBLE);</span><br><span class="line">        put(<span class="string">"tdouble"</span>, Types.DOUBLE);</span><br><span class="line">   &#125;&#125;; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>增加类Constant,定义了三个常量<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.apache.lucene.util;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Constant</span> </span>&#123;</span><br><span class="line">  <span class="comment">//add for documentMerge</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> String DOCUMENT_MERGE_OPTION = <span class="string">"search.index.documentMerge"</span>;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> String DOCUMENT_MERGE_FIELDS = <span class="string">"search.index.documentMerge.fields"</span>;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> String DOCUMENT_MERGE_TYPES = <span class="string">"search.index.documentMerge.types"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用：<br>在solr启动脚本中,添加如下参数<br>search.index.documentMerge 为true时表示开启强制文档合并,其它值时表示不开启<br>search.index.documentMerge.fields 需要读取的字段，字段之间用逗号隔开<br>search.index.documentMerge.types 读取字段的类型,类型间用逗号隔开,这里的类型要与上面的字段一一对应起来<br>举个例子：</p>
+<p>要对PublishTime,ContentLength进行读取,而它们的字段类型分别为tint,int于是添加如下参数<br>-Dsearch.index.documentMerge=true -Dsearch.index.documentMerge.fields=PublishTim,ContentLength<br> -Dsearch.index.documentMerge.types=tint,int</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/fieldcache/">fieldcache</a><a href="/tags/solr/">solr</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/11/19/Lucene-索引文件格式/" title="Lucene 索引文件格式" itemprop="url">Lucene 索引文件格式</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-11-19T13:56:33.000Z" itemprop="datePublished"> 發表於 2014-11-19</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>随着对Solr的进一步深入，自然就想了解Lucene的索引文件格式。之前写的段合并小工具不知怎么不起作用了(后来发现是没有更新代码)，于是把觉先的《Lucene源码剖析》又翻出来看，顺便看了一下 Lucene索引格式。Solr使用的是1.4的，查看文件格式，与Lucene2.9的文件格式相差不大，依然有参考价值。</p>
+<p>到索引目录下查看，一共有如下几种文件格式。对照<a href="http://lucene.apache.org/core/2_9_4/fileformats.html" target="_blank" rel="external">http://lucene.apache.org/core/2_9_4/fileformats.html</a>，知道每一种格式的大概用途。<br>segments.gen, segments_N Segments File 主要保存索引段信息<br>.fnm Fields 域的元数据信息文件，保存域信息<br>.fdx Field Index 域数据索引文件，保存指向域数据文件的指针，方便快速访问域数据文件<br>.fdt Field Data 域数据文件，保存每个文档的字段,域的真正值就是在这里保存<br>.tis Term Infos 词典文件,记录索引词的信息<br>.tii Term Info Index 词典索引文件，记录到tis文件的指向，主要是为了加快访问词典文件<br>.frq Frequencies 文档号与词频文件，记录索引词在文档中的词频<br>.prx Positions 词位置信息文件，记录索引词的位置信息<br>.nrm Norms 标准化因子文件，记录文档和域的权重<br>.tvx Term Vector Index 词向量索引文件，保存到词向量文档文件和词向量域文件的指针<br>.tvd Term Vector Documents 词向量文档文件，记录文档第一个域与其它域的偏移<br>.tvf Term Vector Fields 词向量域文件，记录域级别的词向量<br>.del Deleted Document 记录哪个文档被删除</p>
+<p>还有.cfs文件，也即是Compound File，当将所有索引文件合成一个文件时才会出现，主要是减少文件句柄。<br>write.lock,用来互斥的写索引文件。<br>而.tvx,tvd,tvf只有在启用词向量时才会出现。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Lucene/">Lucene</a><a href="/tags/索引/">索引</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/11/16/Solr-in-Action笔记二/" title="Solr in Action笔记二" itemprop="url">Solr in Action笔记二</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-11-16T11:56:07.000Z" itemprop="datePublished"> 發表於 2014-11-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>初识Solr</p>
+<p>1.安装Solr,<br>方法一，下载源码，编译，安装，这个单独介绍<br>方法二，下载二进制文件，解压，即可。</p>
+<p>2.启动Solr<br>进入example目录,允许 java -jar start.jar，默认监听8983端口，访问<a href="http://localhost:8983/solr看看是否启动。" target="_blank" rel="external">http://localhost:8983/solr看看是否启动。</a><br>若端口被占用，修改启动端口即可，java -Djetty.port=8080 -jar start.jar 。</p>
+<p>3.查询<br>Solr后台，查询表单的参数意义示例<br>字段 值 意义<br>q iPod 查询词<br>fq manu:Belkin 过滤，只显示manu中有Belkin的结果<br>sort price asc 排序，价格从低到高排列<br>start 0 分页参数,相当于mysql中的offset,即从第几条结果开始显示<br>rows 10 分页参数,想到与mysql中的limit,即总共显示几条结果<br>fl name,price,features,score 需要显示的字段<br>df text 默认搜索字段，对于没有制定搜索字段的查询，默认查询text字段<br>wt xml 返回结果显示格式，还有json,csv等多种格式供选择</p>
+<p>4.相关性排序<br>可以对查询词进行加权，改变排序结果，如查询词“iPod power”变成”iPod power^2”，则power的权重是iPod的两倍</p>
+<p>5.分页<br>使用start和rows参数，每页显示条数尽量小，因为需要都去返回字段的值，条数越多，速度越慢</p>
+<p>6.排序<br>对返回结果使用如 price asc等进行排序</p>
+<p>7.提供的搜索组件<br>dismax 如何翻译，待查<br>edismax 如何翻译，待查<br>hl 高亮<br>facet 平面搜索<br>spatial 地理位置搜索<br>spellchecking 拼写检查</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/solr/">solr</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/11/12/Solr-in-Action笔记一/" title="Solr in Action笔记一" itemprop="url">Solr in Action笔记一</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-11-11T16:23:03.000Z" itemprop="datePublished"> 發表於 2014-11-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>Solr in Action是本好书，决定复习一遍。</p>
+<p>为什么需要搜索引擎，或者说搜索引擎有什么特别的地方，需要在应用中用到它？</p>
+<p>搜索引擎有四个主要特征：</p>
+<p>1.文本为中心。</p>
+<p>当用户需要在文本中查找所需要的信息时，基本上就需要用到搜索引擎了。</p>
+<p>2.读多写少<br>搜索引擎的结果为了读做了很多优化，相应的，写数据就会变得慢一些。当应用读多写少，用搜索引擎是比较合适的，而如果写多读少，则应考虑其它方案。</p>
+<p>3.面向文档<br>搜索引擎的一条记录成为一个文档，这个文档是一个整体，不需要依赖其它信息。</p>
+<p>4.灵活的模式<br>意思是说，引擎中的记录不要求结构都一样，每条记录所具有的字段可以不同</p>
+<p>搜索的基本应用：<br>1.关键词查询<br>2.相关性排序<br>相关性排序是搜索引擎区别与其它查询的重要特征，相关性排序也是一个非常重要的研究方向。</p>
+<p>Solr是什么？<br>简单来说,Solr就是Lucene的一个外壳。底层，Solr使用Lucene来索引和查询数据，外层，Solr提供灵活的配置文件，避免像Lucene那样编写代码来定义字段类型。此外，Solr还提供一些功能，如高亮，缓存，分布式等。</p>
+<p>为什么选择Solr?<br>因为Solr在稳定性，可扩展性，容错性三个方面都做的非常出色。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/solr/">solr</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/11/08/Solr索引升级错误/" title="Solr索引升级错误" itemprop="url">Solr索引升级错误</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-11-08T07:53:58.000Z" itemprop="datePublished"> 發表於 2014-11-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>最近需要将Solr从1.4升级到4.8，于是需要将索引数据进行升级，而1.4无法直接升级到4.8，需要经过如下转化。从1.4升级到3.6，3.6升级到4.0，4.0升级到4.8。有几个引擎的数据升级很顺利，可是也有那么几个引擎的数据升级过程中出现了错误。</p>
+<p>错误都出现在4.0升级到4.8时。调用栈如下：<br>Caused by: java.lang.IllegalArgumentException: maxValue must be non-negative (got: -1)<br>        at org.apache.lucene.util.packed.PackedInts.bitsRequired(PackedInts.java:1180)<br>        at org.apache.lucene.codecs.lucene41.ForUtil.bitsRequired(ForUtil.java:243)<br>        at org.apache.lucene.codecs.lucene41.ForUtil.writeBlock(ForUtil.java:164)<br>        at org.apache.lucene.codecs.lucene41.Lucene41PostingsWriter.addPosition(Lucene41PostingsWriter.java:368)<br>        at org.apache.lucene.codecs.PostingsConsumer.merge(PostingsConsumer.java:123)<br>        at org.apache.lucene.codecs.TermsConsumer.merge(TermsConsumer.java:164)<br>        at org.apache.lucene.codecs.FieldsConsumer.merge(FieldsConsumer.java:72)<br>        at org.apache.lucene.index.SegmentMerger.mergeTerms(SegmentMerger.java:389)<br>        at org.apache.lucene.index.SegmentMerger.merge(SegmentMerger.java:112)<br>        at org.apache.lucene.index.IndexWriter.mergeMiddle(IndexWriter.java:4132)<br>        at org.apache.lucene.index.IndexWriter.merge(IndexWriter.java:3728)<br>        at org.apache.lucene.index.ConcurrentMergeScheduler.doMerge(ConcurrentMergeScheduler.java:405)<br>        at org.apache.lucene.index.ConcurrentMergeScheduler$MergeThread.run(ConcurrentMergeScheduler.java:482)</p>
+<p>看代码后，在PostingsConsumer 120行附近，final int position = postingsEnum.nextPosition();，这个position是负的，所以报错。看这附近的代码，知道是对索引词的在文档中的位置信息进行压缩。可是词在文档中的位置不应该是负的，于是报错。问题是，为什么这里会出现负的位置，只能解释是数据问题。一个解决的办法是跳过为负的位置，如此升级确实成功了，只是不知道有没有什么副作用。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/solr/">solr</a><a href="/tags/升级/">升级</a><a href="/tags/索引/">索引</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
+  </nav>
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Lucene/" title="Lucene">Lucene<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/搜索引擎/" title="搜索引擎">搜索引擎<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/搜索引擎/" title="搜索引擎">搜索引擎<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/" title="数学">数学<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/" title="数据结构">数据结构<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/未分类/" title="未分类">未分类<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/欧拉工程/" title="欧拉工程">欧拉工程<sup>60</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>21</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/算法/" title="算法">算法<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/编程/" title="编程">编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编程/" title="编程">编程<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络编程/" title="网络编程">网络编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件安装/" title="软件安装">软件安装<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/欧拉工程/" title="欧拉工程">欧拉工程<sup>58</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/C名题百则/" title="C名题百则">C名题百则<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/solr/" title="solr">solr<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/素数/" title="素数">素数<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx-for-chinese/" title="Sphinx-for-chinese">Sphinx-for-chinese<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx/" title="Sphinx">Sphinx<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/筛法/" title="筛法">筛法<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动态规划/" title="动态规划">动态规划<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/索引/" title="索引">索引<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/米勒-拉宾/" title="米勒-拉宾">米勒-拉宾<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/更新/" title="更新">更新<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/回文数/" title="回文数">回文数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/阶乘/" title="阶乘">阶乘<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/全位数/" title="全位数">全位数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/增量索引/" title="增量索引">增量索引<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Lucene/" title="Lucene">Lucene<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分布式/" title="分布式">分布式<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分词/" title="分词">分词<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/幂方/" title="幂方">幂方<sup>3</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 兼济天下则达 <br/>
+			独善其身则穷</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="robinjia">robinjia</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>

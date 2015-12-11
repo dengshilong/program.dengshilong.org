@@ -1,0 +1,680 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>安装Maven | 邓世龙的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="robinjia">
+    
+
+    
+    <meta name="description" content="很早之前，在写第一个Servlet时，一直配置不成功，写一个Hello World!都成问题，于是转而奔向PHP，最近由于工作需要，要重新拾起Java那套东西。因为是用Maven做的管理，于是要安装Maven，到网上找参考资料，竟没安装好，于是到官网找解答，最终找到。
+安装Maven之前，已经假设你安装好JDK.有一点需要注意的是,Maven3.2要求JDK1.6及以上,Maven3.0/3.1则">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安装Maven">
+<meta property="og:url" content="http://program.dengshiong.org/2014/03/08/安装Maven/index.html">
+<meta property="og:site_name" content="邓世龙的学习笔记">
+<meta property="og:description" content="很早之前，在写第一个Servlet时，一直配置不成功，写一个Hello World!都成问题，于是转而奔向PHP，最近由于工作需要，要重新拾起Java那套东西。因为是用Maven做的管理，于是要安装Maven，到网上找参考资料，竟没安装好，于是到官网找解答，最终找到。
+安装Maven之前，已经假设你安装好JDK.有一点需要注意的是,Maven3.2要求JDK1.6及以上,Maven3.0/3.1则">
+<meta property="og:image" content="http://program.dengshilong.org/wp-content/uploads/2014/03/Maven插件安装.png">
+<meta property="og:image" content="http://program.dengshilong.org/wp-content/uploads/2014/03/Maven-Installations配置.png">
+<meta property="og:image" content="http://program.dengshilong.org/wp-content/uploads/2014/03/Maven-Installations配置结果.png">
+<meta property="og:updated_time" content="2015-12-10T06:07:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="安装Maven">
+<meta name="twitter:description" content="很早之前，在写第一个Servlet时，一直配置不成功，写一个Hello World!都成问题，于是转而奔向PHP，最近由于工作需要，要重新拾起Java那套东西。因为是用Maven做的管理，于是要安装Maven，到网上找参考资料，竟没安装好，于是到官网找解答，最终找到。
+安装Maven之前，已经假设你安装好JDK.有一点需要注意的是,Maven3.2要求JDK1.6及以上,Maven3.0/3.1则">
+
+    
+    <link rel="alternative" href="/atom.xml" title="邓世龙的学习笔记" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="邓世龙的学习笔记" title="邓世龙的学习笔记"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="邓世龙的学习笔记">邓世龙的学习笔记</a></h1>
+				<h2 class="blog-motto">兼济天下则达,独善其身则穷</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:program.dengshiong.org">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/03/08/安装Maven/" title="安装Maven" itemprop="url">安装Maven</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-03-08T04:10:01.000Z" itemprop="datePublished"> 發表於 2014-03-08</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			
+		
+		</div>
+		
+		<p>很早之前，在写第一个Servlet时，一直配置不成功，写一个Hello World!都成问题，于是转而奔向PHP，最近由于工作需要，要重新拾起Java那套东西。因为是用Maven做的管理，于是要安装Maven，到网上找参考资料，竟没安装好，于是到官网找解答，最终找到。</p>
+<p>安装Maven之前，已经假设你安装好JDK.有一点需要注意的是,Maven3.2要求JDK1.6及以上,Maven3.0/3.1则要求JDK1.5及以上，否则会出现版本错误</p>
+<p>1.下载Maven</p>
+<p>到官网<a href="http://maven.apache.org/下载Maven,当前最新稳定版本为3.2.1" target="_blank" rel="external">http://maven.apache.org/下载Maven,当前最新稳定版本为3.2.1</a></p>
+<p>对于Windows系统，下载Maven 3.2.1 (Binary zip)</p>
+<p>2.解压Maven,配置环境变量</p>
+<p>将Maven解压，这里假设放在d:\apache-maven-3.2.1</p>
+<p>之后进行环境变量配置，</p>
+<p>在系统变量中增加M2_HOME,值为d:\apache-maven-3.2.1</p>
+<p>在系统变量中增加M2,值为%M2_HOME%\bin</p>
+<p>如果已经存在用户变量Path，则在值的前面增加%M2%； 注意一定要加上这个分号</p>
+<p>如果不存在用户变量Path,则新建它，并赋值为%M2%</p>
+<p>3.测试Maven</p>
+<p>在命令行中执行mvn –version，在我的电脑上显示如下,</p>
+<p>Apache Maven 3.2.1 (ea8b2b07643dbb1b84b6d16e1f08391b666bc1e9; 2014-02-15T01:37:5</p>
+<p>2+08:00)</p>
+<p>Maven home: d:\apache-maven-3.2.1</p>
+<p>Java version: 1.6.0_15, vendor: Sun Microsystems Inc.</p>
+<p>Java home: D:\Java\jdk1.6.0\jre</p>
+<p>Default locale: zh_CN, platform encoding: GBK</p>
+<p>OS name: “windows 7”, version: “6.1”, arch: “x86”, family: “windows”</p>
+<p>如果不是这样，看看环境变量是否配置正确，以及JDK版本是否匹配</p>
+<p>4.Eclipse的Maven插件安装</p>
+<p>在插件安装上，网上的资料很多已经过时了，因为都是很早之前的链接。顺着官网找到了eclipse的Maven插件安装链接<a href="http://download.eclipse.org/technology/m2e/releases/" target="_blank" rel="external">http://download.eclipse.org/technology/m2e/releases/</a></p>
+<p>我用的是Eclipse Kepler.在Help-&gt;Install new software中，将以上安装链接加入，名字为Maven，之后即可下载插件</p>
+<p><a href="http://program.dengshilong.org/wp-content/uploads/2014/03/Maven插件安装.png" target="_blank" rel="external"><img src="http://program.dengshilong.org/wp-content/uploads/2014/03/Maven插件安装.png" alt="Maven插件安装"></a></p>
+<p>5.配置Maven插件</p>
+<p>在Window-&gt;Preferences中,选择Maven</p>
+<p><a href="http://program.dengshilong.org/wp-content/uploads/2014/03/Maven-Installations配置.png" target="_blank" rel="external"><img src="http://program.dengshilong.org/wp-content/uploads/2014/03/Maven-Installations配置.png" alt="Maven-Installations配置"></a></p>
+<p>点击Installations,此时还是用插件自带的Maven版本3.0.4,而且Global settings是空的我们需要添加自己安装的版本，点击Add,打开D:\apache-maven-3.2.1即可，最终结果如下：</p>
+<p><a href="http://program.dengshilong.org/wp-content/uploads/2014/03/Maven-Installations配置结果.png" target="_blank" rel="external"><img src="http://program.dengshilong.org/wp-content/uploads/2014/03/Maven-Installations配置结果.png" alt="Maven-Installations配置结果"></a></p>
+<p>此时Maven插件将会使用安装的Maven3.2.1版本</p>
+<p>之后点击User Settings,可以看到如下结果</p>
+<p>这里也许最让你迷惑的是这三个概念，Global Settings, User Settings,以及Local Repository。因为我也未深入理解，所以也只能在这里说说我的理解。简单来说，</p>
+<p>Global Settings就是一些全局设置，设置了中央jar仓库的位置等等.</p>
+<p>User Settings设置了用户私有jar仓库的位置等等.</p>
+<p>Local Repository是本地jar仓库的位置.</p>
+<p>假设你现在在开发一个应用，它需要使用一个jar,则Maven会先到Local Repository中寻找，如果没找到这个jar,则它会到User Settings中设置的用户私有jar仓库中查找，如果还是没找到，则到Global Settings设置的中央jar仓库中查找，如果还是没找到，Maven将报错，指示jar未找到。</p>
+<p>网上还有介绍另外一种方法，也就是先去下载Eclipse的Maven插件，之后再将插件导入到Eclipse, 只是因为直接用URL的方法已经解决了安装问题，所以没有尝试。</p>
+<p>6.Hello World例子</p>
+<p>之后用《Maven by Example》中的一个例子来介绍安装介绍。命令行进入Eclipse工作目录，我这里是d:\workspace,执行以下命令</p>
+<p>mvn archetype:generate -DgroupId=org.sonatype.mavenbook -DartifactId=simple -Dpackage=org.sonatype.mavenbook -Dversion=1.0-SNAPSHOT</p>
+<p>之后敲几次回车，一个最简单的HelloWorld项目就建立好了。</p>
+<p>之后cd simple进入simple目录，如果你有兴趣，可以看看Maven生成的内容，</p>
+<p>其目录结构如下</p>
+<p>simple/</p>
+<p>simple/pom.xml</p>
+<p>simple/src/main</p>
+<p>simple/src/main/java</p>
+<p>simple/src/test</p>
+<p>simple/src/test/java</p>
+<p>其中src/main存放源文件,src/test存放测试文件,pom.xml为Maven提供编译信息，</p>
+<p>执行mvn install，编译,测试，打包项目</p>
+<p>执行java -cp target/simple-1.0-SNAPSHOT.jar org.sonatype.mavenbook.App</p>
+<p>看到输出的 Hello World！</p>
+<p>事实上，在命令行中，一个困惑是如何选择新建项目的类型，命令行里一共列出了九百多种，而很难知道哪个编号对应的是哪一种项目类型。</p>
+<p>关于Maven的更多内容可以去sonatype官网下载《Maven by Example》,绝对值得一看。</p>
+<p>参考文章：</p>
+<p><a href="http://www.blogjava.net/fancydeepin/archive/2012/07/13/eclipse_maven3_plugin.html" target="_blank" rel="external">http://www.blogjava.net/fancydeepin/archive/2012/07/13/eclipse_maven3_plugin.html</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/软件安装/">软件安装</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Maven/">Maven</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://program.dengshiong.org/2014/03/08/安装Maven/" data-title="安装Maven | 邓世龙的学习笔记" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/03/24/在C++的sort排序中永远让比较函数对相等的值返回false/" title="在C++的sort排序中永远让比较函数对相等的值返回false">
+  <strong>上一篇：</strong><br/>
+  <span>
+  在C++的sort排序中永远让比较函数对相等的值返回false</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2013/12/26/用select实现精确定时器/"  title="用select实现精确定时器">
+ <strong>下一篇：</strong><br/> 
+ <span>用select实现精确定时器
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Lucene/" title="Lucene">Lucene<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/搜索引擎/" title="搜索引擎">搜索引擎<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/搜索引擎/" title="搜索引擎">搜索引擎<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/" title="数学">数学<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/" title="数据结构">数据结构<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/未分类/" title="未分类">未分类<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/欧拉工程/" title="欧拉工程">欧拉工程<sup>60</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>21</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/算法/" title="算法">算法<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/编程/" title="编程">编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编程/" title="编程">编程<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络编程/" title="网络编程">网络编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件安装/" title="软件安装">软件安装<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/欧拉工程/" title="欧拉工程">欧拉工程<sup>58</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/C名题百则/" title="C名题百则">C名题百则<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/solr/" title="solr">solr<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/素数/" title="素数">素数<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx-for-chinese/" title="Sphinx-for-chinese">Sphinx-for-chinese<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx/" title="Sphinx">Sphinx<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/筛法/" title="筛法">筛法<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动态规划/" title="动态规划">动态规划<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/索引/" title="索引">索引<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/米勒-拉宾/" title="米勒-拉宾">米勒-拉宾<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/更新/" title="更新">更新<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/回文数/" title="回文数">回文数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/阶乘/" title="阶乘">阶乘<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/全位数/" title="全位数">全位数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/增量索引/" title="增量索引">增量索引<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Lucene/" title="Lucene">Lucene<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分布式/" title="分布式">分布式<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分词/" title="分词">分词<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/幂方/" title="幂方">幂方<sup>3</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 兼济天下则达 <br/>
+			独善其身则穷</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="robinjia">robinjia</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

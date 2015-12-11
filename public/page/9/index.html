@@ -1,0 +1,1190 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>邓世龙的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="robinjia">
+    
+
+    
+    <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="邓世龙的学习笔记">
+<meta property="og:url" content="http://program.dengshiong.org/page/9/index.html">
+<meta property="og:site_name" content="邓世龙的学习笔记">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="邓世龙的学习笔记">
+<meta name="twitter:description">
+
+    
+    <link rel="alternative" href="/atom.xml" title="邓世龙的学习笔记" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="邓世龙的学习笔记" title="邓世龙的学习笔记"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="邓世龙的学习笔记">邓世龙的学习笔记</a></h1>
+				<h2 class="blog-motto">兼济天下则达,独善其身则穷</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:program.dengshiong.org">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/04/14/用Sphinx提供的klist处理文章更新和删除/" title="用Sphinx提供的klist处理文章更新和删除" itemprop="url">用Sphinx提供的klist处理文章更新和删除</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-04-14T05:18:16.000Z" itemprop="datePublished"> 發表於 2014-04-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>在前面的介绍中，都没有处理更新和删除问题，这里有必要说说。在<a href="http://program.dengshilong.org/2014/04/11/关于sphinx引擎的一些想法/" target="_blank" rel="external">关于sphinx引擎的一些想法</a>中说过公司所用的引擎中，处理更新和删除的办法是在索引中增加一个属性来标志这条记录是否失效，每次做增量时，就要去主索引和增量索引中更改相应id的属性值，这确实可以解决问题。不过并不是一个很好的解决办法，Sphinx的作者也说过这种方法既麻烦又容易出错。既然有更新和删除这个需求，必然会提供解决的办法，这个办法就是kilst。所谓的klist，就是kill list,按照字面理解，就是删除列表。我们只需要在增量索引中保存一个id列表，搜索时，如果在主索引中搜到相关文档，而文档的id存在于增量索引的id列表中，则这个文档将被丢弃。</p>
+<p>这里有一个需要注意的是，当文章被删除时，仅仅通过增量抓取，在增量索引中并不能知道主索引中哪一个文档被删除了，所以这就必须在表中文档被删除时，能够记录下被删除的id，这就需要用到触发器，也需要建立一个辅助表来保存这些id。辅助表的建立如下：</p>
+<p><div>create table sphinxklist(</div></p>
+<p><div>        id integer not null,</div></p>
+<p><div>        ts timestamp not null</div></p>
+<p><div>);</div><br>触发器的建立如下：</p>
+<p><div>DELIMITER //</div></p>
+<p><div>CREATE TRIGGER sphinx_kill</div></p>
+<p><div>AFTER DELETE ON wp_posts</div></p>
+<p><div>FOR EACH ROW</div></p>
+<p><div>BEGIN</div></p>
+<p><div>        INSERT INTO sphinxklist VALUES (OLD.ID, NOW());</div></p>
+<p><div>END</div></p>
+<p><div>//</div><br>有了这些准备工作后，我们就可以使用klist了，事实上在之前的配置文件的基础上，只需要修改一点点内容就好了。首先修改主索引</p>
+<p><div>source srcmain : base{</div></p>
+<p><div>        sql_query_pre = SET NAMES utf8</div></p>
+<p><div>        sql_query_pre = SET SESSION query_cache_type=OFF</div></p>
+<p><div>        sql_query_pre = UPDATE sphinx_helper SET main_tmp_maxts=NOW() WHERE appid=’blog_search’;</div></p>
+<p><div>        sql_query = \</div></p>
+<p><div>                SELECT ID, post_title, post_content, UNIX_TIMESTAMP(post_modified) AS post_modified FROM wp_posts WHERE \</div></p>
+<p><div>                        post_status=’publish’ AND post_modified &lt; (SELECT main_tmp_maxts FROM sphinx_helper WHERE appid=’blog_search’);</div></p>
+<p><div>        sql_query_post_index = UPDATE sphinx_helper SET main_maxts=main_tmp_maxts WHERE appid=’blog_search’;</div></p>
+<p><div>        sql_query_post_index = DELETE FROM sphinxklist WHERE ts &lt; (SELECT main_maxts FROM sphinx_helper WHERE appid=’blog_search’);</div></p>
+<p><div>        sql_attr_timestamp = post_modified</div></p>
+<p><div>        sql_field_string = post_title</div></p>
+<p><div>}</div><br>可以看到，相对于之前的配置，这里只添加了一行<br>sql_query_post_index = DELETE FROM sphinxklist WHERE ts &lt; (SELECT main_maxts FROM sphinx_helper WHERE appid=’blog_search’);<br>添加这行是为了防止之前运行引擎时留下的id再次被使用。<br>之后修改临时索引：</p>
+<p><div>source srcdelta_temp : srcmain {</div></p>
+<p><div>        sql_query_pre = SET NAMES utf8</div></p>
+<p><div>        sql_query_pre = SET SESSION query_cache_type=OFF</div></p>
+<p><div>        sql_query_pre = SET @maxtsdelta:=NOW();</div></p>
+<p><div>        sql_query_pre = UPDATE sphinx_helper SET delta_tmp_maxts=@maxtsdelta WHERE appid=’blog_search’;</div></p>
+<p><div>        sql_query = SELECT ID, post_title, post_content, UNIX_TIMESTAMP(post_modified) AS post_modified FROM wp_posts WHERE \</div></p>
+<p><div>                post_status=’publish’ AND post_modified &gt;= (SELECT main_maxts FROM sphinx_helper WHERE appid=’blog_search’)\</div></p>
+<p><div>                AND post_modified &lt; @maxtsdelta;</div></p>
+<p><div>        sql_query_killlist = SELECT ID FROM wp_posts WHERE post_modified &gt;= (SELECT main_maxts FROM sphinx_helper WHERE \</div></p>
+<p><div>                appid=’blog_search’) AND post_modified &lt; @maxtsdelta UNION SELECT id FROM sphinxklist;</div></p>
+<p><div>        sql_query_post_index = UPDATE sphinx_helper SET delta_maxts=delta_tmp_maxts WHERE appid=’blog_search’;</div></p>
+<p><div>}</div><br>也只是添加了一行，也就是将这次抓取的id与sphinxlist中的id合并。<br>之后还需要修改Shell脚本</p>
+<p><div>#!/bin/bash</div></p>
+<p><div>baseDir=/home/long/sphinxforchinese/blog_search</div></p>
+<p><div>conf=$baseDir/etc/blog_search.conf</div></p>
+<p><div>binDir=$baseDir/bin</div></p>
+<p><div>cd $binDir</div></p>
+<p><div>while [ true ]</div></p>
+<p><div>do</div></p>
+<p><div>        #./indexer -c $conf –merge-klists –rotate –merge delta deltaTemp</div></p>
+<p><div>        ./indexer -c $conf  –merge-klists –rotate –merge delta delta_temp</div></p>
+<p><div>        if [ “$?” -eq “0” ]; then</div></p>
+<p><div>                cat $baseDir/script/post_merge.sql | mysql -u root –password=123456 blog</div></p>
+<p><div>                ./indexer -c $conf –rotate delta_temp</div></p>
+<p><div>        fi</div></p>
+<p><div>        sleep 60</div></p>
+<p><div>done</div><br>这个脚本相对于原来的只增加了–merge-klists这个参数，这个参数的意义是，将delta_temp合并到delta时，并不会删除delta的klist,而是将delta_temp的klist和delta的klist合并，这正是我们想要的。经过这样的变化，一个可以处理更新和删除的main+delta索引就建好了。</p>
+<p>感谢Sphinx团队，感谢Sphinx-for-chinese团队，给我们提供了一个这么好用的开源引擎。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Klist/">Klist</a><a href="/tags/Klists/">Klists</a><a href="/tags/Sphinx/">Sphinx</a><a href="/tags/Sphinx-for-chinese/">Sphinx-for-chinese</a><a href="/tags/删除/">删除</a><a href="/tags/更新/">更新</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/04/14/用Sphinx建立main+delta索引(下篇)/" title="用Sphinx建立main+delta索引(下篇)" itemprop="url">用Sphinx建立main+delta索引(下篇)</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-04-14T05:16:11.000Z" itemprop="datePublished"> 發表於 2014-04-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <div>在<a href="http://program.dengshilong.org/2014/04/14/用sphinx建立maindelta索引上篇/" target="_blank" rel="external">上篇</a>中，我们介绍了一种建立主索引和增量索引的方法，这种方法有一种不足之处就是会改变主索引，因为每次增量索引都会与主索引合并成新的主索引。为此，我们可以想出另一种解决的办法，每次只改变增量索引，这就需要另外再建立一个临时索引。</div><br><div></div><br><div><br><div>这里只需要改变少量地方，一个是增量索引，另外还需新增一个临时索引，具体配置如下：</div><br><div><br><div>source srcdelta : srcmain{</div><br><div>        sql_query_pre = SET NAMES utf8</div><br><div>        sql_query_pre = SET SESSION query_cache_type=OFF</div><br><div>        sql_query = SELECT ID, post_title, post_content, UNIX_TIMESTAMP(post_modified) AS post_modified FROM wp_posts WHERE \</div><br><div>                post_status=’publish’ limit 0;</div><br><div>        sql_query_post_index =</div><br><div>}</div><br><div>source srcdelta_temp : srcmain {</div><br><div>        sql_query_pre = SET NAMES utf8</div><br><div>        sql_query_pre = SET SESSION query_cache_type=OFF</div><br><div>        sql_query_pre = SET @maxtsdelta:=NOW();</div><br><div>        sql_query_pre = UPDATE sphinx_helper SET delta_tmp_maxts=@maxtsdelta WHERE appid=’blog_search’;</div><br><div>        sql_query = SELECT ID, post_title, post_content, UNIX_TIMESTAMP(post_modified) AS post_modified FROM wp_posts WHERE \</div><br><div>                post_status=’publish’ AND post_modified &gt;= (SELECT main_maxts FROM sphinx_helper WHERE appid=’blog_search’)\</div><br><div>                AND post_modified &lt; @maxtsdelta;</div><br><div>        sql_query_post_index = UPDATE sphinx_helper SET delta_maxts=delta_tmp_maxts WHERE appid=’blog_search’;</div><br><div>}</div><br><div>index delta_temp : main{</div><br><div>        source = srcdelta_temp</div><br><div>        path = /home/long/sphinxforchinese/blog_search/var/data/delta_temp</div><br><div>}</div><br></div><br><div>实际上，我们是先建立一个空的增量索引，之后临时索引中的数据慢慢合并到增量索引中。在这里，增量索引很像上篇中的主索引，而临时索引则像上篇中的增量索引。</div><br><div>此时我们需要修改dist_blog_search,即增加临时索引</div><br><div><br><div><br><div>index dist_blog_search {</div><br><div>    type = distributed</div><br><div>    local = main</div><br><div>    local = delta</div><br><div>    local = delta_temp</div><br><div>    agent_connect_timeout = 1000</div><br><div>    agent_query_timeout = 3000</div><br></div><br><div>}</div><br></div><br><div>此后还需改变Shell脚本的内容</div><br><div><br><div>#!/bin/bash</div><br><div>baseDir=/home/long/sphinxforchinese/blog_search</div><br><div>conf=$baseDir/etc/main_delta_temp.conf</div><br><div>binDir=$baseDir/bin</div><br><div>cd $binDir</div><br><div>while [ true ]</div><br><div>do</div><br><div>        ./indexer -c $conf  –rotate –merge delta delta_temp</div><br><div>        if [ “$?” -eq “0” ]; then</div><br><div>                cat $baseDir/script/post_merge.sql | mysql -u root –password=123456 blog</div><br><div>                ./indexer -c $conf –rotate delta_temp</div><br><div>        fi</div><br><div>        sleep 60</div><br><div>done</div><br></div><br><div>事实上，改变的内容还是很少的。经过这样的改变，我们就无需再改变主索引了。第一次建立主索引后，就一直保持不变，变化的是增量索引。</div><br></div>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Sphinx-for-chinese/">Sphinx-for-chinese</a><a href="/tags/临时索引/">临时索引</a><a href="/tags/增量索引/">增量索引</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/04/14/用Sphinx建立main+delta索引(上篇)/" title="用Sphinx建立main+delta索引(上篇)" itemprop="url">用Sphinx建立main+delta索引(上篇)</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-04-14T05:14:18.000Z" itemprop="datePublished"> 發表於 2014-04-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>虽然只建立主索引就可以满足许多应用，但当数据非常多时，每次都重建索引是一件非常耗时的事情，而且每次重建都会浪费CPU，这也是极为不好的。考虑这样一种情况，在数据库中一共有1千万个文档，而每天只新增一万个文档，如果每次都要重建索引，则第一次重建时，是1001万个文档，第二次时是1002万个文档，这都非常耗时的。如果建好主索引后，只对这些新增的一万个数据建一个增量索引，之后把它合并到主索引中，所需的时间将缩短。所以建立main+delta索引是一个不错的选择。</p>
+<div></div><br><div>这里依然以之前的博客搜索为例。为了便于做增量，我们需要记录每次抓取的时间，而为了持久保存这个时间，我们需要在数据中建立一个辅助表，建表语句如下</div><br><div><br><div>create table sphinx_helper(</div><br><div>        appid varchar(300) not null primary key,</div><br><div>        main_maxts datetime,</div><br><div>        main_tmp_maxts datetime,</div><br><div>        delta_maxts datetime,</div><br><div>        delta_tmp_maxts datetime</div><br><div>);</div><br><div>insert into sphinx_helper (appid) values (‘blog_search’);</div><br><div>在wp_posts表中, post_modified这个时间字段是随着每次文章的更新而自动变化的，所以可以使用它来做增量。主要思路就是用一个值来保存上次增量索引的时间，当需要再做增量索引时，则只需索引从这个保存的时间到现在这段时间里的数据。在sphinx_helper中，这个值用main_maxts来标示。对于主索引，写成配置文件如下，</div><br><div><br><div>source base{</div><br><div>        type = mysql</div><br><div>        sql_host = localhost</div><br><div>        sql_user = root</div><br><div>        sql_pass = 123456</div><br><div>        sql_db = blog</div><br><div>        sql_port = 3306</div><br><div>}</div><br><div>source srcmain : base{</div><br><div>        sql_query_pre = SET NAMES utf8</div><br><div>        sql_query_pre = SET SESSION query_cache_type=OFF</div><br><div>        sql_query_pre = UPDATE sphinx_helper SET main_tmp_maxts=NOW() WHERE appid=’blog_search’;</div><br><div>        sql_query = \</div><br><div>                SELECT ID, post_title, post_content, UNIX_TIMESTAMP(post_modified) AS post_modified FROM wp_posts WHERE \</div><br><div>                        post_status=’publish’ AND post_modified &lt; (SELECT main_tmp_maxts FROM sphinx_helper WHERE appid=’blog_search’);</div><br><div>        sql_query_post_index = UPDATE sphinx_helper SET main_maxts=main_tmp_maxts WHERE appid=’blog_search’;</div><br><div>        sql_attr_timestamp = post_modified</div><br><div>        sql_field_string = post_title</div><br><div></div><br><div>}</div><br><div></div><br><div>以上就是主索引的配置，之所以需要将NOW()得到的时间保存到数据库中，之后在sql_query_post_index中取出来用，是因为sql_query_post_index和sql_query不是用一个数据连接。而之所以在sql_query_post_index里才更新main_maxts，是为了保证只有在索引成功建立后才更新这个值。而对于增量索引的配置，则如下：</div><br><div></div><br><div>source srcdelta : srcmain {</div><br><div>        sql_query_pre = SET NAMES utf8</div><br><div>        sql_query_pre = SET SESSION query_cache_type=OFF</div><br><div>        sql_query_pre = SET @maxtsdelta:=NOW();</div><br><div>        sql_query_pre = UPDATE sphinx_helper SET delta_tmp_maxts=@maxtsdelta WHERE appid=’blog_search’;</div><br><div>        sql_query = SELECT ID, post_title, post_content, UNIX_TIMESTAMP(post_modified) AS post_modified FROM wp_posts WHERE \</div><br><div>                post_status=’publish’ AND post_modified &gt;= (SELECT main_maxts FROM sphinx_helper WHERE appid=’blog_search’)\</div><br><div>                AND post_modified &lt; @maxtsdelta;</div><br><div>        sql_query_post_index = UPDATE sphinx_helper SET delta_maxts=delta_tmp_maxts WHERE appid=’blog_search’;</div><br><div>}</div><br><div>在sql_query中可以看到，每次增量索引的数据都是在[max_maxts, NOW()]之间，而只在sql_query_post_index中更新delta_maxts也是基于上述理由。剩下的配置如下：</div><br><div>index main {</div><br><div>        source = srcmain</div><br><div>        path = /home/long/sphinxforchinese/blog_search/var/data/main</div><br><div>        docinfo = extern</div><br><div>        charset_type = utf-8</div><br><div>        chinese_dictionary = /home/long/sphinxforchinese/blog_search/etc/xdict</div><br><div>}</div><br><div>index delta : main {</div><br><div>        source = srcdelta</div><br><div>        path = /home/long/sphinxforchinese/blog_search/var/data/delta</div><br><div>}</div><br><div><br><div>index dist_blog_search {</div><br><div>        type = distributed</div><br><div>        local = main</div><br><div>        local = delta</div><br><div>        agent_connect_timeout = 1000</div><br><div>        agent_query_timeout = 3000</div><br><div>}</div><br></div><br><div>这里我们多了一个dist_blog_search，它是结合main和delta的搜索结果，在客户端中搜索时，我们使用dist_blog_search这个索引的结果。剩下的配置与只有主索引时相同，这里就不累述了。</div><br></div><br><div><br><div></div><br><div>写好配置文件后，还需要有一个步骤。因为我们的策略是每隔一段时间将增量索引与主索引合并，当合并之后，我们需要更新main_maxts这个值。如果我们是每个60秒做一次增量索引，这需要写一个shell脚本，脚本如下：</div><br></div><br><div><br><div>#!/bin/bash</div><br><div>baseDir=/home/long/sphinxforchinese/blog_search</div><br><div>conf=$baseDir/etc/main_delta.conf</div><br><div>binDir=$baseDir/bin</div><br><div>cd $binDir</div><br><div>while [ true ]</div><br><div>do</div><br><div>        ./indexer -c $conf –rotate –merge main delta</div><br><div>        if [ “$?” -eq “0” ]; then</div><br><div>                cat $baseDir/script/post_merge.sql | mysql -u root –password=123456 blog</div><br><div>                ./indexer -c $conf –rotate delta</div><br><div>        fi</div><br><div>        sleep 60</div><br><div>done</div><br></div><br><div>先执行</div><br><div> ./indexer -c $conf –rotate –merge main delta</div><br><div>这句是将主索引和增量索引合并，当合并成功时，则需要到数据库中修改main_maxts这个值，这个句子在post_merge.sql中，post_merge.sql的内容如下：</div><br><div><br><div>UPDATE sphinx_helper SET main_maxts=delta_maxts\</div><br><div>        WHERE appid=’blog_search’;</div><br></div><br><div>之后进行增量抓取</div><br><div>./indexer -c $conf –rotate delta</div><br><div>这里说说–rotate这个选项，这个选项非常有用。在主索引和增量索引合并时，indexer程序会将这两个索引合并成一个索引，当合并成功后，程序会发送一个SIGHUP信号给searchd，之后searchd就好去加载这个新的索引。</div><br><div></div><br><div>到这里，一个main+delta的索引就完成了。</div><br><div></div><br><div></div><br><div></div><br></div>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Sphinx/">Sphinx</a><a href="/tags/Sphinx-for-chinese/">Sphinx-for-chinese</a><a href="/tags/delta/">delta</a><a href="/tags/main/">main</a><a href="/tags/增量索引/">增量索引</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/04/14/用Sphinx建立只有主索引的引擎/" title="用Sphinx建立只有主索引的引擎" itemprop="url">用Sphinx建立只有主索引的引擎</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-04-14T05:12:11.000Z" itemprop="datePublished"> 發表於 2014-04-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>因为一直都对Wordpress自带的搜索功能略有微词，可是又不想去改它，想想自己的博客一天都没有一个人会访问，更不用说这个搜索功能了。因为现在学习使用Sphinx-for-chinese，拿博客的数据来练练手。</p>
+<p>先从最简单的情况开始，以后再一步一步的完善功能，这样才符合学习的线路，从易到难，而不是一开始就给你一个很完善的模型，然后改改路径就好了。最简单的情况就是只有一个主索引，然后隔一段时间重建索引。得益于Sphinx的高效，建索引的速度非常快，在文档中说达到了10M/s, 按照一篇文章为4KB计算，一秒钟可以给250篇文章建索引了，对于博客来说，已经足够了。对于其它的应用，当数据不多时，只有一个主索引也是可以的。</p>
+<p>这里只使用了wp_posts表中的数据，只是用了ID, post_title, post_content, post_modified四个字段，所以非常的简单，直接上配置文件</p>
+<p><div>source base{</div></p>
+<p><div>        type = mysql</div></p>
+<p><div>        sql_host = localhost</div></p>
+<p><div>        sql_user = root</div></p>
+<p><div>        sql_pass = 123456</div></p>
+<p><div>        sql_db = blog</div></p>
+<p><div>        sql_port = 3306</div></p>
+<p><div>}</div></p>
+<p><div>source srcmain : base{</div></p>
+<p><div>        sql_query_pre = SET NAMES utf8</div></p>
+<p><div>        sql_query_pre = SET SESSION query_cache_type=OFF</div></p>
+<p><div>        sql_query = \</div></p>
+<p><div>                SELECT ID, post_title, post_content, UNIX_TIMESTAMP(post_modified) AS post_modified FROM wp_posts WHERE \</div></p>
+<p><div>                        post_status=’publish’ AND post_modified &lt; NOW();</div></p>
+<p><div>        sql_attr_timestamp = post_modified</div></p>
+<p><div>        sql_field_string = post_title</div></p>
+<p><div></div></p>
+<p><div>}</div></p>
+<p><div>index main {</div></p>
+<p><div>        source = srcmain</div></p>
+<p><div>        path = /home/long/sphinxforchinese/blog_search/var/data/main</div></p>
+<p><div>        docinfo = extern</div></p>
+<p><div>        charset_type = utf-8</div></p>
+<p><div>        chinese_dictionary = /home/long/sphinxforchinese/blog_search/etc/xdict</div></p>
+<p><div>}</div></p>
+<p><div>indexer {</div></p>
+<p><div>        mem_limit = 32M</div></p>
+<p><div>}</div></p>
+<p><div></div></p>
+<p><div>searchd {</div></p>
+<p><div>        listen = 9300</div></p>
+<p><div>        log = /home/long/sphinxforchinese/blog_search/var/log/searchd.log</div></p>
+<p><div>        query_log = /home/long/sphinxforchinese/var/log/query.log</div></p>
+<p><div>        read_timeout = 5</div></p>
+<p><div>        max_children = 30</div></p>
+<p><div>        pid_file = /home/long/sphinxforchinese/var/log/searchd.pid</div></p>
+<p><div>        max_matches = 1000</div></p>
+<p><div>        seamless_rotate = 1</div></p>
+<p><div>        preopen_indexes = 1</div></p>
+<p><div>        unlink_old = 1</div></p>
+<p><div>        workers = threads</div></p>
+<p><div>        binlog_path = /home/long/sphinxforchinese/var/data</div></p>
+<p><div>}</div></p>
+<p><pre></pre><br>相关配置选项的意义可以查看示例，写的非常的详细。这里没有对post_content进行定义，因为只想对这个字段建索引，并不想保存它的原始内容，所以这里使用了默认行为，也就是只建索引。<br>建好索引，搜索跑步的相关文章，得到如下结果<br>1. document=41, weight=2661, post_title=跑步一周年, post_modified=Sun Apr 7 10:11:56 2013<br>2. document=286, weight=2660, post_title=跑步两周年, post_modified=Fri Jan 4 12:49:47 2013<br>3. document=537, weight=1642, post_title=写在广州马拉松之前, post_modified=Sat Nov 9 00:00:45 2013<br>4. document=39, weight=1632, post_title=看棒球英豪漫画, post_modified=Sun Apr 7 09:57:34 2013<br>5. document=2, weight=1626, post_title=关于我, post_modified=Fri Jun 14 19:49:08 2013<br>6. document=565, weight=1626, post_title=2013广州马拉松纪实, post_modified=Sun Nov 24 22:10:57 2013<br>7. document=43, weight=1617, post_title=三个月来的小结, post_modified=Sun Apr 7 10:10:22 2013<br>8. document=56, weight=1617, post_title=价值博客们, post_modified=Sun Apr 7 09:52:51 2013<br>9. document=205, weight=1617, post_title=2012扬州马拉松纪实, post_modified=Tue Apr 2 11:29:04 2013<br>10. document=5, weight=1602, post_title=2011年的阅读, post_modified=Tue May 29 11:19:49 2012<br>11. document=305, weight=1602, post_title=羽毛球心结, post_modified=Mon Apr 8 08:33:37 2013<br>12. document=40, weight=1574, post_title=通关manufactoria, post_modified=Sun Apr 7 10:01:06 2013<br>13. document=233, weight=1574, post_title=当了一回胃扩张, post_modified=Fri Jul 20 15:46:35 2012<br>搜索结果还行吧。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Sphinx/">Sphinx</a><a href="/tags/Sphinx-for-chinese/">Sphinx-for-chinese</a><a href="/tags/主索引/">主索引</a><a href="/tags/速度/">速度</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/04/13/mysqli_fetch_all函数/" title="mysqli_fetch_all函数" itemprop="url">mysqli_fetch_all函数</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-04-13T13:15:45.000Z" itemprop="datePublished"> 發表於 2014-04-13</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>许多情况下，都需要将mysql的查询结果转成一个数组，这个就可以遍历数组来显示，查询结果。在我的开发环境里，我使用mysqli_fetch_all函数,使用方法如下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$result</span> = mysqli_query(<span class="variable">$con</span>, <span class="variable">$sql</span>);</span><br><span class="line"><span class="variable">$posts</span> =  mysqli_fetch_all(<span class="variable">$result</span>, MYSQLI_ASSOC);</span><br></pre></td></tr></table></figure>
+<p>加上MYSQLI_ASSOC是为了使返回的是关联数组,之后就可以遍历$posts数组。当将这段代码放到线上环境时，发现没有结果，最后才知道原来是mysqli_fetch_all函数无法使用。 google之后才知道,mysqli_fetch_all这个函数只存在于mysqlnd中，也就是PHP的原生MySQL驱动中。原来链接MySQL存在两套驱动,一套是libmysql,一套是mysqlnd。本来mysqlnd是不存在的,后来因为mysql到了Oracle手上之后,驱动的认证就有些问题了,于是PHP开发组自己开发了一套mysql驱动。</p>
+<p>可是在linux下，安装mysqli时还是默认使用libmysql，所以要么就得重新安装mysqli模块,使用mysqlnd驱动安装，或者自己来实现mysqli_fetch_all的功能。暂时先自己实现类似的功能。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$result</span> = mysqli_query(<span class="variable">$con</span>, <span class="variable">$sql</span>);</span><br><span class="line"><span class="variable">$posts</span> = <span class="keyword">array</span>();</span><br><span class="line"><span class="keyword">while</span>(<span class="variable">$row</span> = mysqli_fetch_array(<span class="variable">$result</span>)) &#123;</span><br><span class="line">    <span class="variable">$posts</span>[] = <span class="variable">$row</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id=""><a href="#" class="headerlink" title="<a href=" https:="" dev.mysql.com="" downloads="" connector="" php-mysqlnd="" "=""><em> </em></a>"><a href="https://dev.mysql.com/downloads/connector/php-mysqlnd/" target="_blank" rel="external"><em> </em></a></h3>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/PHP/">PHP</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/mysqli/">mysqli</a><a href="/tags/mysqli-fetch-all/">mysqli_fetch_all</a><a href="/tags/mysqlnd/">mysqlnd</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/04/12/MySQL的timestamp类型/" title="MySQL的timestamp类型 " itemprop="url">MySQL的timestamp类型 </a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-04-12T07:03:30.000Z" itemprop="datePublished"> 發表於 2014-04-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>在数据库应用中，时间字段是极为常用的，而timestamp因为有一个很好的特性，所以经常用到。例如将timestamp设置为NOT NULL DEFAULT CURRENT_TIMESTAMP时，在数据第一次插入时，时间会自动设置为当前时间。</p>
+<p>而如果再加上ON UPDATE CURRENT_TIMESTAMP，也就是将timestamp类型设置为 NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP，这样在更新数据时，就会自动更新为当前时间。如此，就没有必要在更新数据时，使用now函数。</p>
+<p>最近在做一个项目，令我意外的是，一个同事竟然不知道有这个类型，所以在更新数据时，他要使用now函数。他说在数据结构设计时，不会关心具体数据库提供的特性。即便如此，我还是认为，数据结构设计还是要接地气的。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/数据库/">数据库</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/MySQL/">MySQL</a><a href="/tags/timestamp/">timestamp</a><a href="/tags/自动更新/">自动更新</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/04/11/搭建Sphinx-for-chinese引擎时遇到的问题/" title="搭建Sphinx-for-chinese引擎时遇到的问题" itemprop="url">搭建Sphinx-for-chinese引擎时遇到的问题</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-04-11T01:00:08.000Z" itemprop="datePublished"> 發表於 2014-04-11</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>在<a href="http://program.dengshilong.org/2014/04/11/关于sphinx引擎的一些想法/" target="_blank" rel="external">关于sphinx引擎的一些想法</a>说过用Sphinx给同事搭引擎，可是那是建立在之前的配置文件之上，我只要依葫芦画瓢，改一改路径以及查询语句就搞定了，实质上没学到什么东西。在我看来，要想真正了解它，还是得重新造轮子，从头到尾自己搭一遍，在这个过程中出现了许多奇怪的错误，在这里记录一下。</p>
+<p>1.checking for clock_gettime in -lrt…<br>这是我遇到的第一个问题，事实证明，这根本不是问题。到Sphinx-for-chinese下载了编译包，开始编译，之后就卡在了这里。刚开始以为是缺少librt，然而我在lib中找到了这个链接库。将编译包放在其它机器上编译，又是可以通过的，百思不得其解。只好到Sphinx-fro-chinese的QQ群里发问，黑猫给出解答是要将librt所在路径加入到etc/ld.so.conf，并运行ldconfig命令。按照他的办法，结果运行ldconfig命令时卡住了，于是可以断定是机器的问题。</p>
+<p>2.ERROR: cannot find MySQL include files.<br>这个问题比较好解决，就是缺少MySQL的库文件。因为虚拟机装的是Ubuntu，只要运行以下命令就好了。<br>sudo apt-get install libmysql++-dev libmysqlclient15-dev checkinstall<br>如果是其它系统，相信也是类似的方法。如果已经有库文件了，则只需要将路径加入到/etc/ld.so.conf中，并执行ldconfig命令</p>
+<p>3.index ‘test1’: search error: query too complex, not enough stack (thread_stack=1217498K or higher required).<br>这也是一个很奇怪的错误。我是按照文档中给出的例子建好索引，之后用命令行工具，也就是search要搜索的，结果就出现了这个错误。在网上搜索这个错误，没找到有用的信息，于是又求助于Sphinx-for-chinese群，群里的人说是因为命令行存在问题，用客户端搜就没问题。于是用客户端搜果然没问题，可是我还是无法释怀，因为之前公司的引擎中，用命令行是没有问题的。于是对照着公司用的引擎中的配置文件，发现配置文件中没有这一行，在自己的配置文件中注释掉这行后，果然没问题了。<br>所以对于这个错误的解决办法就是，将sql_query_info = SELECT * FROM documents WHERE id=$id这行注释掉.<br>这个确实太坑人了，连官方的配置文件都会出错，得浪费多少人的时间。</p>
+<p>4.ERROR: index ‘main’: No fields in schema - will not index.<br>光运行例子是不行的，还是得自己写一些东西，于是将自己的博客文章来搜索。用了Wordpress中wp_posts表中的数据，我只用的四个字段ID,post_title,post_content,post_modified,将post_title,post_content定义成sql_attr_string,sql_attr_timestamp,结果就出现了这个错误。在网上找了，发现在官方bug报告中有提到这个问题<br><a href="http://sphinxsearch.com/bugs/view.php?id=1632" target="_blank" rel="external">http://sphinxsearch.com/bugs/view.php?id=1632</a><br>管理员说，引擎中需要一个全文索引字段，否则就没有东西需要索引了，这样它就不会建索引。管理员建议定义为sql_field_string,这样就会对这个字段既索引又保存内容。对于我的配置，我并不想保存post_content这个字段，所以不想将它定义为sql_field_string,那怎样才能让它只被所以呢？看过文档之后，才知道默认情况下，是会被索引。这也是为什么，在上面的帖子中，将sql_attr_string = text注释掉就可以建索引了。所以我只能说管理员也没有真正理解这个错误的原因，看来不能迷信权威啊。</p>
+<p>5.FATAL: there must be 2 indexes to merge specified<br>这个是在测试Klist的时，出现的。文档中说，当合并两个索引时，使用–merge-klists就可以将两个索引的klist合并，于是我在合并时加上了这个参数。具体如下：<br>./indexer -c $conf ?–rotate –merge –merge-klists delta deltaTemp<br>运行时就出现这个错误，我纳闷了，明明官方文档中说加入这个参数是没问题的。到网上找资料，有人是用–merge-killlists这个参数，试过之后，同样报这个错误。无奈之际，将–merge-klist参数放到–rotate前面，<br>./indexer -c $conf –merge-klists –rotate –merge delta deltaTemp<br>奇迹出现了，这次没有报错。我只能说，这真是个坑。</p>
+<p><em>《I__ntroduction to Search with Sphinx》</em>写的还是非常不错的，毕竟是Sphinx的作者，表达能力和写作能力自然非同凡响，关于Sphinx的知识，许多都来自本书。等有时间了，可以将引擎的搭建过程写一写，应该可以帮助一些人。这次搭建过程，我学到了许多，虽然用的是开源的引擎，但真要从头到尾搭建一个引擎，并提供可靠的服务，并不是那么容易的，还是得多实践才行。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Klist/">Klist</a><a href="/tags/Sphinx/">Sphinx</a><a href="/tags/Sphinx-for-chinese/">Sphinx-for-chinese</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/04/11/关于Sphinx引擎的一些想法/" title="关于Sphinx引擎的一些想法" itemprop="url">关于Sphinx引擎的一些想法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-04-11T00:58:37.000Z" itemprop="datePublished"> 發表於 2014-04-11</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>因为自留地越来越像我的心情博客了，于是决定将学习笔记都记录在这个博客上，于是将之前关于Sphinx的一些文章全部转移到这里。</p>
+<p>最近一个星期都在看Sphinx搜索引擎的文档,并和组里的一个同事合作为公司的企业空间搜索建立索引，提供搜索服务，所以对于Sphinx有了一些了解，顺便几下来，以后用到了可以再看看。</p>
+<p>先八卦一下，Sphinx首先是俄罗斯人Andrew Aksyonoff开发的全文搜索引擎，开源之后有其他人参与进来，功能更加强大了。俄罗斯人还是真是厉害，之前是Nginx,现在是Sphinx。可是Sphinx不支持中文，所以要下载Sphinxforchinese才可以用。</p>
+<p>Sphinx的数据源主要来自数据库，如Mysql,这也是最常见的方式。以下主要写给公司配置引擎时的一些体会。</p>
+<p>1.一般使用都是一个主索引和增量索引，主索引建立后一直不变，变化的是增量索引，搜索的结果为合并主索引和增量索引的搜索结果。每隔一段时间就到数据源中抓取数据，保存在一个tmp索引中，然后这个tmp索引和增量索引合并，当然也可以隔一段时间就将增量索引和主索引合并，但这个时间间隔最好长一些。</p>
+<p>2.建索引需要的数据分布在许多个表上，所以要先写爬虫将这些表的数据从数据库中抓取出来，存到另一个表中。之后在Sphin的配置文件中，数据就可以来自这个新建的表。这个新建的表最好有一个自动变化的时间字段，也就是每次在这个表中插入数据或更新数据，这个时间自动都会变化，这个字段将用于增量索引。另外还需要建一个表来保存上一次抓取的时间，从这个时间往后，抓取新的数据。</p>
+<p>3.默认情况下，从数据源中选出的数据都是建索引的。而默认情况下，对于建索引的数据,Sphinx将不会保存原始数据，如果需要Sphinx既建索引，又要保存数据，在配置文件中，将这个字段写为sql_field_string。对于时间类型，在sql_query中select数据时，就要用函数unix_timestamp将它转为整形的时间戳，在配置文件中，要将这个字段写为sql_attr_timestamp，这样在客户端中调用api转化时间时才会准确。</p>
+<p>4.sql_query_post和sql_query_post_index是有区别的。前者是当Sphinx从数据库中得到数据后，立刻就会运行，而后者只有当索引真正成功建立后才会运行，这个区别还是很重要的。对于真正严格的程序，不应该在sql_query_pre和sql_query_post中更新增量时间，而应该在sql_query_post_index中更新增量时间。还有一个区别是sql_query_post和sql_query_post_index是存在与两个不同的tcp连接中，因为Sphinx从数据库中得到数据后去建索引，将会花费很长时间，所以它会将数据库连接关闭，等到索引建好之后，再去连接数据库，所以sql_query_post_index会在另一个连接中</p>
+<p>5.对于可以使用id来做增量索引的数据，需要将这次增量的最大id保存到数据库中。一个很诱人的做法是，将这次增量的最大id保存在一个值中，然后在sql_query_post_index中将这个值保存到数据库中，这其实是不对的。因为上一条中说过，sql_query_post_index会在另一个连接中，所以之前连接中的值在这个连接中失效了。一个做法是将增量的最大id保存到数据库中一个tmp字段中，等到索引建成功后，在sql_query_post_index中，将这个最大id从数据库中读出，写到用于做增量索引的字段中。</p>
+<p>6.事实上，比较难的一点是在于数据有更新的情况下，如何处理。当数据有更新时，在主索引中原来的数据将会失效，但是搜索时还是会搜到它。一个解决的办法是将原来的数据标示为删除，这就需要一个标示字段了。这个办法是我组长想出来的，在sql_query中就给它添加一个字段，标示未删除的。每次增量索引结束后，就通过每条记录的id(在Sphinx中，会给每条记录一个id)，将主索引中相应的记录标示为删除。在搜索时，只需要搜索出标示为未删除的就可以了。对于官方文档中，我还没有看到如何解决这个问题的介绍。</p>
+<p>7.如果能写一个程序来自动生成配置文件，那就再好不过了。上次我是手动输的，既容易出错，有耗眼力和精力。</p>
+<p>整个过程最重要的还是将分布在多个表中的数据合并为一个表以及处理更新这两步上，如果能解决这两个问题，一个可用的全文搜索就完成了。暂时先写到这里，等以后有了新的体会再补充。</p>
+<p>看来是我错了，文档中有说到数据更新这个问题，是用Klist,具体可以看文档。看Sphinx的源码很不舒服，因为可恶的匈牙利命名。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Sphinx/">Sphinx</a><a href="/tags/增量索引/">增量索引</a><a href="/tags/更新/">更新</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/03/31/如何判断一个数是否是素数/" title="如何判断一个数是否是素数" itemprop="url">如何判断一个数是否是素数</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-03-31T12:16:40.000Z" itemprop="datePublished"> 發表於 2014-03-31</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>这个问题对于学习编程的人来说不陌生，但并没有想象中那么简单，这里面还是很深的。一般来说是用比这个数小的素数去除，如果都不能整除，则是素数。可是这种方法必须要求你知道比这个数小的所有素数，所以我觉得不是很实用。</p>
+<p>去年找实习时，微软的面试官也问了我这题。刚开始只想到最基础的方法，假设需要判断的是n, 如果n是2则是素数，如果n是1或者是大于2的偶数，则是素数，如果n是大于2的奇数，则从2开始到 n的平方根，如果n可以被其中任何一个整除则这个数不是素数，否则是素数。</p>
+<p>之后面试官问还有没有更好的方法，考虑之后，想到《C语言名题百则精选中曾提到过一种方法，对于大于等于6的数，都可以表示成6n,6n + 1,6n + 2, 6n + 3, 6n + 4, 6n + 5,其中只有6n + 1和6n + 5是素数，所以对于大于6的数，如果不能被2 ， 3 ， 5整除，则只需用6n + 1和6n + 5这些数去除。</p>
+<p>最近在做欧拉工程第58题，我先生成一个很大的素数表，然后来判断是否是素数，可是这个题目中用到的素数实在是太大了，这种方法不实际。之后用了前面两种方法，也是不行，速度太慢了。最后上网找方法，找到了米勒-拉宾素性测试法，终于把问题解决了。难道说，当时的面试官是想问这种方法？<br>以下内容来自<a href="http://en.wikipedia.org/wiki/Miller-Rabin_primality_test。这个方法需要用到费马小定理，x^2" target="_blank" rel="external">http://en.wikipedia.org/wiki/Miller-Rabin_primality_test。这个方法需要用到费马小定理，x^2</a> = 1 (mod p)，费马这厮真是有趣，搞出几个定理都不给出证明，这个小定理还好，最要命的是那个大定理，耗费了几百年才被人给出证明。这里空白太少，写不下证明，只好直接拿来用了。</p>
+<p>先给一个引理，当p是素数,若x^2 = 1 (mod p),则x = 1(mod p)或者 x = -1(mod p),这个引理的证明很简单，由x ^ 2 = 1 (mod p)得(x + 1)(x – 1) = 0 （mod p)，而由于p是素数，所以x + 1 = 0 (mod p)或者x – 1 = 0 (mod p).</p>
+<p>现在设n是一个素数且n &gt; 2,则 n – 1一定是偶数，并且可以表示成2 ^s <em> d的形式，其中s和d都为正整数，且d是奇数。那么对于任意2 &lt;= a &lt; n,<br> a^d = 1 (mod n)或者a^(2^r </em> d) = - 1(mod n),其中0 &lt;= r &lt;= s – 1。</p>
+<p>证明如下：<br> 由费马小定理可知，当n是素数时<br> a^(n – 1) = 1 (mod n), 我们将n – 1表示成2^s <em> d,再由上面的引理得，如果我们对n – 1进行开方，则可以得到a^(2^(s – 1) </em>d)=1 (mod n)或者a^(2^(s-1) *d) = -1 (mod n),如果是后者，则已经满足了，如果是前者，则继续这个开方过程，如果我们一直都是得到1，最终就是<br> a^d = 1(mod n).</p>
+<p>而米勒-拉宾测试法就是用了这个定理的逆否命题。也就是，如果 a^d != 1 (mod n)且a^(2^r *d) != -1 (mod n)对于所有的0&lt;=r&lt;=s-1,则n不是素数。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/数学/">数学</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/米勒-拉宾/">米勒-拉宾</a><a href="/tags/素数/">素数</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/03/30/欧拉工程-问题60/" title="欧拉工程-问题60" itemprop="url">欧拉工程-问题60</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-03-30T04:06:26.000Z" itemprop="datePublished"> 發表於 2014-03-30</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>原题链接<a href="http://projecteuler.net/problem=60" target="_blank" rel="external">http://projecteuler.net/problem=60</a></p>
+<h2 id="Prime_pair_sets"><a href="#Prime_pair_sets" class="headerlink" title="Prime pair sets"></a>Prime pair sets</h2><p>The primes 3, 7, 109, and 673, are quite remarkable. By taking any two primes and concatenating them in any order the result will always be prime. For example, taking 7 and 109, both 7109 and 1097 are prime. The sum of these four primes, 792, represents the lowest sum for a set of four primes with this property.</p>
+<p>Find the lowest sum for a set of five primes for which any two primes concatenate to produce another prime.</p>
+<p>素数对集合</p>
+<p>素数3，7，109和673非常有特色。取其中任意两个素数，以任意顺序链接起来都是素数。例如，取7和109，7109和1097都是素数。这四个素数的和792，代表着具有这种特征的四素数集中的最小和。</p>
+<p>求具有取其中任意两个素数，连接起来都是素数的五素数集的最小和。</p>
+<p>解答：</p>
+<p>依然是暴力解决。唯一需要注意的是，判断素数的方法必须使用米勒-拉宾素性测试方法，否则速度无法接受。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/欧拉工程/">欧拉工程</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/米勒-拉宾/">米勒-拉宾</a><a href="/tags/素数判定/">素数判定</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <a class="extend prev" rel="prev" href="/page/8/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/10/">Next<span></span></a>
+  </nav>
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Lucene/" title="Lucene">Lucene<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/搜索引擎/" title="搜索引擎">搜索引擎<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/搜索引擎/" title="搜索引擎">搜索引擎<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/" title="数学">数学<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/" title="数据结构">数据结构<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/未分类/" title="未分类">未分类<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/欧拉工程/" title="欧拉工程">欧拉工程<sup>60</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>21</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/算法/" title="算法">算法<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/编程/" title="编程">编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编程/" title="编程">编程<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络编程/" title="网络编程">网络编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件安装/" title="软件安装">软件安装<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/欧拉工程/" title="欧拉工程">欧拉工程<sup>58</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/C名题百则/" title="C名题百则">C名题百则<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/solr/" title="solr">solr<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/素数/" title="素数">素数<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx-for-chinese/" title="Sphinx-for-chinese">Sphinx-for-chinese<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx/" title="Sphinx">Sphinx<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/筛法/" title="筛法">筛法<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动态规划/" title="动态规划">动态规划<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/索引/" title="索引">索引<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/米勒-拉宾/" title="米勒-拉宾">米勒-拉宾<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/更新/" title="更新">更新<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/回文数/" title="回文数">回文数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/阶乘/" title="阶乘">阶乘<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/全位数/" title="全位数">全位数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/增量索引/" title="增量索引">增量索引<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Lucene/" title="Lucene">Lucene<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分布式/" title="分布式">分布式<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分词/" title="分词">分词<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/幂方/" title="幂方">幂方<sup>3</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 兼济天下则达 <br/>
+			独善其身则穷</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="robinjia">robinjia</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>

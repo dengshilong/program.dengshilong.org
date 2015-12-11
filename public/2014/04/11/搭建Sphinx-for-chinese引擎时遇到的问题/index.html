@@ -1,0 +1,625 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>搭建Sphinx-for-chinese引擎时遇到的问题 | 邓世龙的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="robinjia">
+    
+
+    
+    <meta name="description" content="在关于sphinx引擎的一些想法说过用Sphinx给同事搭引擎，可是那是建立在之前的配置文件之上，我只要依葫芦画瓢，改一改路径以及查询语句就搞定了，实质上没学到什么东西。在我看来，要想真正了解它，还是得重新造轮子，从头到尾自己搭一遍，在这个过程中出现了许多奇怪的错误，在这里记录一下。
+1.checking for clock_gettime in -lrt…这是我遇到的第一个问题，事实证明，这根本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建Sphinx-for-chinese引擎时遇到的问题">
+<meta property="og:url" content="http://program.dengshiong.org/2014/04/11/搭建Sphinx-for-chinese引擎时遇到的问题/index.html">
+<meta property="og:site_name" content="邓世龙的学习笔记">
+<meta property="og:description" content="在关于sphinx引擎的一些想法说过用Sphinx给同事搭引擎，可是那是建立在之前的配置文件之上，我只要依葫芦画瓢，改一改路径以及查询语句就搞定了，实质上没学到什么东西。在我看来，要想真正了解它，还是得重新造轮子，从头到尾自己搭一遍，在这个过程中出现了许多奇怪的错误，在这里记录一下。
+1.checking for clock_gettime in -lrt…这是我遇到的第一个问题，事实证明，这根本">
+<meta property="og:updated_time" content="2015-12-10T06:07:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="搭建Sphinx-for-chinese引擎时遇到的问题">
+<meta name="twitter:description" content="在关于sphinx引擎的一些想法说过用Sphinx给同事搭引擎，可是那是建立在之前的配置文件之上，我只要依葫芦画瓢，改一改路径以及查询语句就搞定了，实质上没学到什么东西。在我看来，要想真正了解它，还是得重新造轮子，从头到尾自己搭一遍，在这个过程中出现了许多奇怪的错误，在这里记录一下。
+1.checking for clock_gettime in -lrt…这是我遇到的第一个问题，事实证明，这根本">
+
+    
+    <link rel="alternative" href="/atom.xml" title="邓世龙的学习笔记" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="邓世龙的学习笔记" title="邓世龙的学习笔记"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="邓世龙的学习笔记">邓世龙的学习笔记</a></h1>
+				<h2 class="blog-motto">兼济天下则达,独善其身则穷</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:program.dengshiong.org">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/04/11/搭建Sphinx-for-chinese引擎时遇到的问题/" title="搭建Sphinx-for-chinese引擎时遇到的问题" itemprop="url">搭建Sphinx-for-chinese引擎时遇到的问题</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-04-11T01:00:08.000Z" itemprop="datePublished"> 發表於 2014-04-11</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			
+		
+		</div>
+		
+		<p>在<a href="http://program.dengshilong.org/2014/04/11/关于sphinx引擎的一些想法/" target="_blank" rel="external">关于sphinx引擎的一些想法</a>说过用Sphinx给同事搭引擎，可是那是建立在之前的配置文件之上，我只要依葫芦画瓢，改一改路径以及查询语句就搞定了，实质上没学到什么东西。在我看来，要想真正了解它，还是得重新造轮子，从头到尾自己搭一遍，在这个过程中出现了许多奇怪的错误，在这里记录一下。</p>
+<p>1.checking for clock_gettime in -lrt…<br>这是我遇到的第一个问题，事实证明，这根本不是问题。到Sphinx-for-chinese下载了编译包，开始编译，之后就卡在了这里。刚开始以为是缺少librt，然而我在lib中找到了这个链接库。将编译包放在其它机器上编译，又是可以通过的，百思不得其解。只好到Sphinx-fro-chinese的QQ群里发问，黑猫给出解答是要将librt所在路径加入到etc/ld.so.conf，并运行ldconfig命令。按照他的办法，结果运行ldconfig命令时卡住了，于是可以断定是机器的问题。</p>
+<p>2.ERROR: cannot find MySQL include files.<br>这个问题比较好解决，就是缺少MySQL的库文件。因为虚拟机装的是Ubuntu，只要运行以下命令就好了。<br>sudo apt-get install libmysql++-dev libmysqlclient15-dev checkinstall<br>如果是其它系统，相信也是类似的方法。如果已经有库文件了，则只需要将路径加入到/etc/ld.so.conf中，并执行ldconfig命令</p>
+<p>3.index ‘test1’: search error: query too complex, not enough stack (thread_stack=1217498K or higher required).<br>这也是一个很奇怪的错误。我是按照文档中给出的例子建好索引，之后用命令行工具，也就是search要搜索的，结果就出现了这个错误。在网上搜索这个错误，没找到有用的信息，于是又求助于Sphinx-for-chinese群，群里的人说是因为命令行存在问题，用客户端搜就没问题。于是用客户端搜果然没问题，可是我还是无法释怀，因为之前公司的引擎中，用命令行是没有问题的。于是对照着公司用的引擎中的配置文件，发现配置文件中没有这一行，在自己的配置文件中注释掉这行后，果然没问题了。<br>所以对于这个错误的解决办法就是，将sql_query_info = SELECT * FROM documents WHERE id=$id这行注释掉.<br>这个确实太坑人了，连官方的配置文件都会出错，得浪费多少人的时间。</p>
+<p>4.ERROR: index ‘main’: No fields in schema - will not index.<br>光运行例子是不行的，还是得自己写一些东西，于是将自己的博客文章来搜索。用了Wordpress中wp_posts表中的数据，我只用的四个字段ID,post_title,post_content,post_modified,将post_title,post_content定义成sql_attr_string,sql_attr_timestamp,结果就出现了这个错误。在网上找了，发现在官方bug报告中有提到这个问题<br><a href="http://sphinxsearch.com/bugs/view.php?id=1632" target="_blank" rel="external">http://sphinxsearch.com/bugs/view.php?id=1632</a><br>管理员说，引擎中需要一个全文索引字段，否则就没有东西需要索引了，这样它就不会建索引。管理员建议定义为sql_field_string,这样就会对这个字段既索引又保存内容。对于我的配置，我并不想保存post_content这个字段，所以不想将它定义为sql_field_string,那怎样才能让它只被所以呢？看过文档之后，才知道默认情况下，是会被索引。这也是为什么，在上面的帖子中，将sql_attr_string = text注释掉就可以建索引了。所以我只能说管理员也没有真正理解这个错误的原因，看来不能迷信权威啊。</p>
+<p>5.FATAL: there must be 2 indexes to merge specified<br>这个是在测试Klist的时，出现的。文档中说，当合并两个索引时，使用–merge-klists就可以将两个索引的klist合并，于是我在合并时加上了这个参数。具体如下：<br>./indexer -c $conf ?–rotate –merge –merge-klists delta deltaTemp<br>运行时就出现这个错误，我纳闷了，明明官方文档中说加入这个参数是没问题的。到网上找资料，有人是用–merge-killlists这个参数，试过之后，同样报这个错误。无奈之际，将–merge-klist参数放到–rotate前面，<br>./indexer -c $conf –merge-klists –rotate –merge delta deltaTemp<br>奇迹出现了，这次没有报错。我只能说，这真是个坑。</p>
+<p><em>《I__ntroduction to Search with Sphinx》</em>写的还是非常不错的，毕竟是Sphinx的作者，表达能力和写作能力自然非同凡响，关于Sphinx的知识，许多都来自本书。等有时间了，可以将引擎的搭建过程写一写，应该可以帮助一些人。这次搭建过程，我学到了许多，虽然用的是开源的引擎，但真要从头到尾搭建一个引擎，并提供可靠的服务，并不是那么容易的，还是得多实践才行。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Klist/">Klist</a><a href="/tags/Sphinx/">Sphinx</a><a href="/tags/Sphinx-for-chinese/">Sphinx-for-chinese</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://program.dengshiong.org/2014/04/11/搭建Sphinx-for-chinese引擎时遇到的问题/" data-title="搭建Sphinx-for-chinese引擎时遇到的问题 | 邓世龙的学习笔记" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/04/12/MySQL的timestamp类型/" title="MySQL的timestamp类型 ">
+  <strong>上一篇：</strong><br/>
+  <span>
+  MySQL的timestamp类型 </span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/04/11/关于Sphinx引擎的一些想法/"  title="关于Sphinx引擎的一些想法">
+ <strong>下一篇：</strong><br/> 
+ <span>关于Sphinx引擎的一些想法
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Lucene/" title="Lucene">Lucene<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/搜索引擎/" title="搜索引擎">搜索引擎<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/搜索引擎/" title="搜索引擎">搜索引擎<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/" title="数学">数学<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/" title="数据结构">数据结构<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/未分类/" title="未分类">未分类<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/欧拉工程/" title="欧拉工程">欧拉工程<sup>60</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>21</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/算法/" title="算法">算法<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/编程/" title="编程">编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编程/" title="编程">编程<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络编程/" title="网络编程">网络编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件安装/" title="软件安装">软件安装<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/欧拉工程/" title="欧拉工程">欧拉工程<sup>58</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/C名题百则/" title="C名题百则">C名题百则<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/solr/" title="solr">solr<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/素数/" title="素数">素数<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx-for-chinese/" title="Sphinx-for-chinese">Sphinx-for-chinese<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx/" title="Sphinx">Sphinx<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/筛法/" title="筛法">筛法<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动态规划/" title="动态规划">动态规划<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/索引/" title="索引">索引<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/米勒-拉宾/" title="米勒-拉宾">米勒-拉宾<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/更新/" title="更新">更新<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/回文数/" title="回文数">回文数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/阶乘/" title="阶乘">阶乘<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/全位数/" title="全位数">全位数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/增量索引/" title="增量索引">增量索引<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Lucene/" title="Lucene">Lucene<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分布式/" title="分布式">分布式<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分词/" title="分词">分词<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/幂方/" title="幂方">幂方<sup>3</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 兼济天下则达 <br/>
+			独善其身则穷</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="robinjia">robinjia</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

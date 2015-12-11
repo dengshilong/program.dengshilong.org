@@ -1,0 +1,1082 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>邓世龙的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="robinjia">
+    
+
+    
+    <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="邓世龙的学习笔记">
+<meta property="og:url" content="http://program.dengshiong.org/page/8/index.html">
+<meta property="og:site_name" content="邓世龙的学习笔记">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="邓世龙的学习笔记">
+<meta name="twitter:description">
+
+    
+    <link rel="alternative" href="/atom.xml" title="邓世龙的学习笔记" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="邓世龙的学习笔记" title="邓世龙的学习笔记"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="邓世龙的学习笔记">邓世龙的学习笔记</a></h1>
+				<h2 class="blog-motto">兼济天下则达,独善其身则穷</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:program.dengshiong.org">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/05/27/find查找目录下的所有shell脚本/" title="find查找目录下的所有shell脚本" itemprop="url">find查找目录下的所有shell脚本</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-05-27T05:47:28.000Z" itemprop="datePublished"> 發表於 2014-05-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>使用命令find . -name *.sh查找当前目录下的所有shell脚本，提示find: 路径必须在表达式之前</p>
+<p>之后改成find . -name “*.sh”,可行。find结合sed就可以将需要的文件进行替换。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/shell/">shell</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/find/">find</a><a href="/tags/shell/">shell</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/05/26/登陆框获取焦点/" title="登陆框获取焦点" itemprop="url">登陆框获取焦点</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-05-25T16:46:19.000Z" itemprop="datePublished"> 發表於 2014-05-26</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>在登陆后台的时候，要输入用户名和密码，此时希望打开页面，焦点就直接停留在用户名输入框，这样就可以省去移动鼠标的麻烦。</p>
+<p>如以下一个登陆表单。</p>
+<p>[html]</p>
+<p><form action="login.php" method="post" name="login"><br>    用户名：<input name="username" type="text" value=""><br>    密码：<input name="password" type="password"><br>    <input type="submit" value="登陆"><br></form><br>[/html]</p>
+<p>此时可以编写如下javascript:</p>
+<p>[javascript]<br>window.onload = function() {<br>    if (document.forms.login.username.value == “”) {<br>        document.forms.login.username.focus();<br>    } else {<br>        document.forms.login.password.focus();<br>    }<br>}<br>[/javascript]</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Javascript/">Javascript</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/html/">html</a><a href="/tags/javascript/">javascript</a><a href="/tags/焦点/">焦点</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/05/25/收到金融学结业证书/" title="收到金融学结业证书" itemprop="url">收到金融学结业证书</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-05-25T03:14:21.000Z" itemprop="datePublished"> 發表於 2014-05-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>今天收到了金融学的结业证书，心中的一个结也解开了。两年前就选修这门课，可是由于时间因素，没有学完，心中一直耿耿于怀。今年抽空把这么课学完，并拿到了结业证书。</p>
+<p>事实上，学完之后，很多知识又忘记了。可是上完这么课后，我知道了，股票是一个好东西。</p>
+<p><a href="http://program.dengshilong.org/wp-content/uploads/2014/05/金融学结业证书.png" target="_blank" rel="external"><img src="http://program.dengshilong.org/wp-content/uploads/2014/05/金融学结业证书.png" alt="金融学结业证书"></a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/未分类/">未分类</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/股票/">股票</a><a href="/tags/金融学/">金融学</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/05/15/smarty使用的注意点/" title="smarty使用的注意点" itemprop="url">smarty使用的注意点</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-05-15T14:09:11.000Z" itemprop="datePublished"> 發表於 2014-05-15</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>因为不会写MVC，所以只好使用模版，而在PHP中，一般使用Smarty.以下是自己在使用过程中，遇到的一些问题，以及需要注意的地方。</p>
+<p>1.一般评论都是通过一个textarea输入，在显示的时候需要将换行幅\n替换成标签,当尝试使用replace : ‘\n’ : ‘<br>‘’时，一直不可行，后来才知道，原来有nl2br这个函数。</p>
+<p>2.对于使用addslashes过滤的内容，则需要使用stripslashes将添加的\去掉。</p>
+<p>3.对于left_delimiter和right_delimiter的选择，我的经验是{ {和}}比较好，对于&lt;{和}&gt;最好不用，否则会遇到很多问题。</p>
+<p>4. 使用判断语句如{ {if}} { {elseif}} { {else}} { {/if}}时，千万不能在{ {和关键字中留出空格，否则会出错。如写成{ { /if }} { { else }}这些都会出错.</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/PHP/">PHP</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/smarty/">smarty</a><a href="/tags/换行/">换行</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/05/11/金融学公开课结业/" title="金融学公开课结业" itemprop="url">金融学公开课结业</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-05-11T10:12:34.000Z" itemprop="datePublished"> 發表於 2014-05-11</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>经过三个月的时间，金融学公开课终于告一个段落了。两年之前就选修过这门课，可是当时由于时间问题，还是未能完成，一直心有不甘。现在工作之后，腾出周末的时间选修了这门课，所以想好好学完这门课。</p>
+<p>这门课整体来说难度不大，只有到了统计部分才发现有点难度，这时也才知道以前学的数理统计还是有用的，可是我已经忘的差不多了。幸亏Gautam Kaul教导有方，对这部分总算有个了解。</p>
+<p>我的感悟是，学习的过程最重要还是要做笔记和练习，否则太容易忘记了，即便是当时已经弄懂了，过了很久之后，还是会忘记当初的想法，就像现在，即使已经学完了，很多内容又忘的差不多了，真是可恶。可是有一点还是不能忘记的，那就是价值的创造是来自于伟大的想法，而金融运作并不创造价值。</p>
+<p>下面是自己用Python写的一些函数，还是很实用的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pv</span><span class="params">(rate,nper,pmt,fv=<span class="number">0</span>)</span>:</span></span><br><span class="line">     v = pmt * (( <span class="number">1</span> + rate) ** nper - <span class="number">1</span>) / rate / ( (<span class="number">1</span> + rate) ** nper)</span><br><span class="line">     v += fv / ((<span class="number">1</span> + rate) ** nper)</span><br><span class="line">     <span class="keyword">return</span> v</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pmt</span><span class="params">(rate,nper,pv,fv=<span class="number">0</span>)</span>:</span></span><br><span class="line">     p = pv * ((<span class="number">1</span> + rate) ** nper ) * rate / ((<span class="number">1</span> + rate) ** nper - <span class="number">1</span>)</span><br><span class="line">     p += fv * rate / ((<span class="number">1</span> + rate) ** nper - <span class="number">1</span>)</span><br><span class="line">     <span class="keyword">return</span> p</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fv</span><span class="params">(rate,nper,pmt,pv=<span class="number">0</span>)</span>:</span></span><br><span class="line">    v = pmt * ((<span class="number">1</span> + rate) ** nper - <span class="number">1</span>) / rate</span><br><span class="line">    v += pv / ((<span class="number">1</span> + rate) ** nper)</span><br><span class="line">    <span class="keyword">return</span> v</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">paf</span><span class="params">(r,n,g)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1.0</span> / (r - g) * (<span class="number">1</span> - (<span class="number">1</span> + g) ** n / (<span class="number">1</span> + r) **n)</span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/未分类/">未分类</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/公开课/">公开课</a><a href="/tags/金融学/">金融学</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/05/06/解决Error:-searchd-error:-offset-out-of-bounds问题/" title="解决Error: searchd error: offset out of bounds问题" itemprop="url">解决Error: searchd error: offset out of bounds问题</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-05-06T11:42:39.000Z" itemprop="datePublished"> 發表於 2014-05-06</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>因为项目需要用到分页功能，所以需要用到SetLimits函数，结果就出现了Error: searchd error: offset out of bounds (offset=9500, max_matches=1000)</p>
+<p>于是找原因，发现配置文件中有max_matches这个选项，于是将它改为10000,可是依然出现Error: searchd error: offset out of bounds (offset=9500, max_matches=1000)错误，真是莫名其妙的错误，仔细看了SetLimits的函数说明以及SphinxClient.java,才知道使用SetLimits这个函数时，如果没有提供max_matches这个参数的值，则max_matches默认为1000,而9500超过了1000,所以溢出了。</p>
+<p>现在终于明白原因，也就是说使用Sphinx一共可以在两个地方设置max_matches,一个是在searchd,也就是引擎端，提供给searchd的配置文件中进行设置；而在SphinxClient中,也就是客户端，如果在SetLimits函数中没有设置max_matches,则默认使用1000.这里有一点需要注意的是，客户端的max_matches一定要小于服务器端，否则会报错。而offset也一定要小于客户端的max_matches,这样offset才不会溢出。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/SetLimits/">SetLimits</a><a href="/tags/Sphinx/">Sphinx</a><a href="/tags/max-matches/">max_matches</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/04/28/TCP建立连接时的三次握手/" title="TCP建立连接时的三次握手" itemprop="url">TCP建立连接时的三次握手</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-04-27T23:57:35.000Z" itemprop="datePublished"> 發表於 2014-04-28</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>TCP建立连接时一般要发送三次包，也就是俗称的三次握手。首先客户端向服务器端发送一个建立连接请求，告诉服务器自己的序列号；服务器收到这个请求包后，进行确认，同时告诉客户端自己的序列号；之后客户端对这个包进行确认。如果一切正常，三次握手就已经完成。</p>
+<p>在网络状况不好的时候，如果在发送的过程中任意一个包丢失会怎样呢？</p>
+<p>首先来看看第一个包。这种情况显而易见，如果客户端建立连接的请求包丢失，那么服务器端根本不知道有这么一个请求，客户端只有重新发送这个包。</p>
+<p>再来看看第二个包。这种情况也是显而易见，如果服务器的确认包丢失，那么客户端无法知道服务器是否收到这个请求，此时服务器端必须再次发送这个确认包。</p>
+<p>最后来看看第三个包。这种情况就不是那么显而易见了。如果客户端的确认包丢失，一个明显的解决办法是客户端再次发送这个确认包，然而这是不可行的，因为即使再次发送，客户端依然不知道服务器端是否收到这个确认包。解决的办法是服务器端再次发送三次握手的第二个包。这样就可以说明服务器端没有收到客户端的确认包，所以它需要再次发送第二个包，当客户端再次收到这个包时，也就知道自己此前发送的确认包丢失了，于是再次发送确认包。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/网络编程/">网络编程</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/TCP/">TCP</a><a href="/tags/三次握手/">三次握手</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/04/27/shell的一些特殊变量/" title="shell的一些特殊变量" itemprop="url">shell的一些特殊变量</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-04-27T14:44:43.000Z" itemprop="datePublished"> 發表於 2014-04-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>有些时候，想让脚步运行在后台中，而且只存在一个这样的脚步，这时一种可行的方法是将脚步的运行的进程ID写在一个文件中，当再次运行这个脚步时，去读取这个文件，读出ID，如果这个ID有进程在运行，就退出。这时需要知道进程ID，而在shell中，它是一个特殊变量，也就是$$.当运行shell脚步时，$$就是输出进程ID。</p>
+<p>而有些时候，在shell中会编写一些函数，并返回结果，这是需要一个变量保存函数运行结果。这个变量就是$?.</p>
+<p>而又有些时候，在shell中想知道运行脚步的名字，这个变量就是$0.</p>
+<p>还有许多很有用的特殊变量，只是我不知道还有哪些。google之后可以知道，只是很好奇的是，这些人是怎么知道这些变量的呢？</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/shell/">shell</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/shell/">shell</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/04/24/追踪query-too-complex-not-enough-stack错误/" title="追踪query too complex not enough stack错误" itemprop="url">追踪query too complex not enough stack错误</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-04-24T13:37:21.000Z" itemprop="datePublished"> 發表於 2014-04-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>很早之前，在使用Sphinx搭建搜索服务时，遇到这个问题，到Sphinx for Chinese的群里请教，没有得到满意的答案，于是将sql_query_info 这个选项注释掉，就没有报错了。今天正好有时间，于是着手找到这个问题的症结，也算是为Sphinx做点贡献。</p>
+<p>打开源代码，才发现用的是匈牙利命名法，看得不爽。也许因为没有Lucene那么出名，只有两个人在维护这个项目，代码里到处充斥这Fix Me,还好结构还算精良，要不然真不知道从和看起。本来想用GDB调试的，还不太熟练，于是就只好用最原始的printf输出。经过缩小范围，找到了一些蛛丝马迹，<br>在search.cpp中  的第331附近，主要的查询工作就在这里完成的，跳转过去之后<br> if ( !pIndex-&gt;MultiQuery ( &amp;tQuery, pResult, 1, &amp;pTop, NULL ) )<br>锁定了到下面这个函数<br>在sphinx.cpp中 17301 if ( !sphCheckQueryHeight ( tParsed.m_pRoot, pResult-&gt;m_sError ) )<br>继续跳转，到了下面这行<br>在sphinx.cpp中 16404 int64_t iQueryStack = sphGetStackUsed() + iHeight<em>SPH_EXTNODE_STACK_SIZE;<br>输出之后，发现问题出在sphGetStackUsed这个函数里<br>在sphinxstd.cpp 中  1218行 int64_t sphGetStackUsed()<br>继续跳转，<br>sphinxstd.cpp 中  1221行<br>BYTE cStack;<br> BYTE </em> pStackTop = (BYTE*)sphMyStack();<br>线程栈的使用大小就是上面两个值的差，继续查找<br>在sphinxstd.cpp return sphThreadGet ( g_tMyThreadStack );</p>
+<p>这里用到了线程私有数据，看到私有数据的设置还是很正常，所以依然不知道哪里出了问题。于是索性将<br>int64_t iQueryStack = sphGetStackUsed() + iHeight<em>SPH_EXTNODE_STACK_SIZE;<br>这行改成<br>int64_t iQueryStack =  iHeight</em>SPH_EXTNODE_STACK_SIZE;<br>这样sql_query_info就可以使用了，也不会再报query too complex not enough stack错误。<br>可是这个自己查询得到的中文显示出来都是乱码，我认为是没有设置SET NAMES utf8的原因，但又无法在sql_query_info这里添加这句。虽然在sql_query_pre = SET NAMES utf8已经设置了，但是因为不是同一个查询连接，所以无效。</p>
+<p>所以最终我得到解决这个错误的结论，那就是注释掉sql_query_info这个选项。最坑人的是，官方的示例中是开启这个选项的。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Sphinx/">Sphinx</a><a href="/tags/Sphinx-for-chinese/">Sphinx-for-chinese</a><a href="/tags/sql-query-info/">sql_query_info</a><a href="/tags/匈牙利/">匈牙利</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/04/14/Sphinx使用一元分词/" title="Sphinx使用一元分词" itemprop="url">Sphinx使用一元分词</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-04-14T05:19:15.000Z" itemprop="datePublished"> 發表於 2014-04-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>之前说过用Sphinx给同事搭建搜索服务，可是他提了一个要求，也就是文本中有牛皮癣这个词，搜牛皮时也要能搜到牛皮癣，这个要求在经过分词后是不可以完成的。于是只好去寻求一元分词和二元分词的办法。</p>
+<div>在<a href="http://lutaf.com/157.htm这里看到，“" target="_blank" rel="external">http://lutaf.com/157.htm这里看到，“</a> sphinx只要把min_word_len设置为1,并配置charset_table,默认就是单字切分 ”于是试着配置，结果不行。于是只好看文档，在文档中找到，默认情况下，Sphinx已经支持一元分词。</div><br><div>只需设置</div><br><div>charset_type = utf-8 ，</div><br><div> ngram_len = 1，</div><br><div>ngram_chars = U+3000..U+2FA1F</div><br><div>这样，再次搜牛皮时，就可以搜到牛皮癣了。</div>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Sphinx/">Sphinx</a><a href="/tags/Sphinx-for-chinese/">Sphinx-for-chinese</a><a href="/tags/一元分词/">一元分词</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <a class="extend prev" rel="prev" href="/page/7/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/9/">Next<span></span></a>
+  </nav>
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Lucene/" title="Lucene">Lucene<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/搜索引擎/" title="搜索引擎">搜索引擎<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/搜索引擎/" title="搜索引擎">搜索引擎<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/" title="数学">数学<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/" title="数据结构">数据结构<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/未分类/" title="未分类">未分类<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/欧拉工程/" title="欧拉工程">欧拉工程<sup>60</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>21</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/算法/" title="算法">算法<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/编程/" title="编程">编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编程/" title="编程">编程<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络编程/" title="网络编程">网络编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件安装/" title="软件安装">软件安装<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/欧拉工程/" title="欧拉工程">欧拉工程<sup>58</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/C名题百则/" title="C名题百则">C名题百则<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/solr/" title="solr">solr<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/素数/" title="素数">素数<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx-for-chinese/" title="Sphinx-for-chinese">Sphinx-for-chinese<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx/" title="Sphinx">Sphinx<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/筛法/" title="筛法">筛法<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动态规划/" title="动态规划">动态规划<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/索引/" title="索引">索引<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/米勒-拉宾/" title="米勒-拉宾">米勒-拉宾<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/更新/" title="更新">更新<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/回文数/" title="回文数">回文数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/阶乘/" title="阶乘">阶乘<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/全位数/" title="全位数">全位数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/增量索引/" title="增量索引">增量索引<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Lucene/" title="Lucene">Lucene<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分布式/" title="分布式">分布式<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分词/" title="分词">分词<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/幂方/" title="幂方">幂方<sup>3</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 兼济天下则达 <br/>
+			独善其身则穷</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="robinjia">robinjia</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>

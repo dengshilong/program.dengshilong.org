@@ -1,0 +1,1101 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>邓世龙的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="robinjia">
+    
+
+    
+    <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="邓世龙的学习笔记">
+<meta property="og:url" content="http://program.dengshiong.org/page/2/index.html">
+<meta property="og:site_name" content="邓世龙的学习笔记">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="邓世龙的学习笔记">
+<meta name="twitter:description">
+
+    
+    <link rel="alternative" href="/atom.xml" title="邓世龙的学习笔记" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="邓世龙的学习笔记" title="邓世龙的学习笔记"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="邓世龙的学习笔记">邓世龙的学习笔记</a></h1>
+				<h2 class="blog-motto">兼济天下则达,独善其身则穷</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:program.dengshiong.org">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/22/支配值数目/" title="支配值数目" itemprop="url">支配值数目</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-22T07:14:00.000Z" itemprop="datePublished"> 發表於 2015-10-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>已知f[]与g[]两个整数数组，元素已经从小到大排列，请写一个程序，算出f[]中比g[]元素大的对数。换句话说，f[0]比g[]中多少个元素大，f[1]比g[]中多少元素大等，这些值的总和就是要求的答案。</p>
+<p>例如，如果f[]中有1，3，5，7，9，而g[]中有2，3，4，7，8，比g[0]大的有f[1]~f[4], 比g[1]大的有f[2]~f[4]，比g[2]大的有f[2]~f[4]，比g[3]大的有f[4]，比g[4]大的有f[4]，因此答案是4 + 3 + 3 + 1 + 1 = 12</p>
+<p>利用数组已经排好序的这个特性，可以写出高效的程序.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GTCount</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">gtCount</span><span class="params">(<span class="keyword">int</span>[] f, <span class="keyword">int</span>[] g)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> result = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span> (i &lt; f.length &amp;&amp; j &lt; g.length) &#123;</span><br><span class="line">			<span class="keyword">if</span> (f[i] &gt; g[j]) &#123;</span><br><span class="line">				result += f.length - i;</span><br><span class="line">				j++;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				i++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> result;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span>[] f = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>&#125;;</span><br><span class="line">		<span class="keyword">int</span>[] g = &#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">8</span>&#125;;</span><br><span class="line">		System.out.println(gtCount(f, g));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/算法/">算法</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/C名题百则/">C名题百则</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/22/最长平台/" title="最长平台" itemprop="url">最长平台</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-22T06:32:33.000Z" itemprop="datePublished"> 發表於 2015-10-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>最近又把冼镜光的《C语言名题精选百则–技巧篇》拿出来看看，确实不错。</p>
+<p>已知一个已经从小到大排序的数组，这个数组中的一个平台(plateau) 就是连续的一串相同的元素，并且这一串元素不能再延伸。例如，在1，2，2，3，3，3，4，5，5，6中1，2.2，3.3.3，4，5.5，6都是平台。试编写一个程序，接受一个数组，把这个数组中最长的平台找出来。在上面的例子中，3.3.3就是该数组的最长平台。<br>这个问题曾经困扰过计算机科学家David Gries，他给出的方法如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pleateau</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">pleateau</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> length = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (nums[i] == nums[i - length]) &#123;</span><br><span class="line">				length++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> length;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span>[] nums = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">6</span>&#125;;</span><br><span class="line">		System.out.println(pleateau(nums));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>自己想到的方法如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pleateau</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">pleateau</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> length = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span> (i + length &lt; nums.length) &#123;</span><br><span class="line">			<span class="keyword">if</span> (nums[i] == nums[i + length]) &#123;</span><br><span class="line">				length++;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				i += length;</span><br><span class="line">				<span class="keyword">while</span> (i &lt; nums.length &amp;&amp; i &gt; <span class="number">0</span> &amp;&amp;  nums[i] == nums[i - <span class="number">1</span>]) &#123;</span><br><span class="line">					i--;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> length;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span>[] nums = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">6</span>&#125;;</span><br><span class="line">		System.out.println(pleateau(nums));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/算法/">算法</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/C名题百则/">C名题百则</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/01/22/Solr权限控制solrj认证/" title="Solr权限控制solrj认证" itemprop="url">Solr权限控制solrj认证</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2015-01-22T11:44:28.000Z" itemprop="datePublished"> 發表於 2015-01-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>在上篇中，我们通过在jetty中配置，是update需要进行用户名和密码认证，这篇中我们继续介绍如何在solrj中调用update</p>
+<p>*测试添加文档<br>先尝试使用solrj,编写测试程序<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String url = <span class="string">"http://localhost:8989/solr"</span>; </span><br><span class="line">HttpSolrServer server = <span class="keyword">new</span> HttpSolrServer(url); </span><br><span class="line">SolrInputDocume doc1 = <span class="keyword">new</span> SolrInputDocument(); </span><br><span class="line">server.add(docs);</span><br></pre></td></tr></table></figure></p>
+<p>提示401错误,添加用户名和密码:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String url = <span class="string">"http://localhost:8989/solr"</span>; </span><br><span class="line">HttpSolrServer server = <span class="keyword">new</span> HttpSolrServer(url); </span><br><span class="line">HttpClientUtil.setBasicAuth((DefaultHttpClient) server.getHttpClient(), <span class="string">"index"</span>, <span class="string">"update"</span>); </span><br><span class="line">SolrInputDocume doc1 = <span class="keyword">new</span> SolrInputDocument(); </span><br><span class="line">server.add(docs);</span><br></pre></td></tr></table></figure></p>
+<p>提示 NonRepeatableRequestException, Cannot retry request with a non-repeatable request entity. 想跟踪过去,看看错误出自哪里,没办法调到源代码,于是尝试查询.<br><em>测试查询文档<br>将etc/webdefault.xml中对<url-pattern>/update/</url-pattern></em>的限制改成,<url-pattern>/select/*</url-pattern>,编写查询代码,<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String url = <span class="string">"http://localhost:8989/solr"</span>; </span><br><span class="line">HttpSolrServer server = <span class="keyword">new</span> HttpSolrServer(url); </span><br><span class="line">SolrQuery query = <span class="keyword">new</span> SolrQuery(); </span><br><span class="line">String q = <span class="string">"*:*"</span>; </span><br><span class="line">query.setQuery(q);</span><br></pre></td></tr></table></figure></p>
+<p>提示401错误,添加用户名和密码:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String url = <span class="string">"http://localhost:8989/solr"</span>; </span><br><span class="line">HttpSolrServer server = <span class="keyword">new</span> HttpSolrServer(url); </span><br><span class="line">SolrQuery query = <span class="keyword">new</span> SolrQuery(); </span><br><span class="line">String q = <span class="string">"*:*"</span>; </span><br><span class="line">query.setQuery(q);</span><br></pre></td></tr></table></figure></p>
+<p>查询成功, </p>
+<p>*问题解决<br>不明白原因,只是猜测post的信息不能反复使用,在setBasicAuth前面有一段说明, “Currently this is not preemtive authentication. So it is<br>not currently possible to do a post request while using this setting.”,意思就是认证过程不是最先进行的,所以现在不能用于post,可是认证<br>过程可以用于get,于是察看get的执行过程,发现它先执行一次,发现要认证,于是再执行一次,而第二次执行时会先执行认证过程. 对于post过程,如果<br>可以执行同样的过程,那就可以达到目的,关键问题是”Cannot retry request with a non-repeatable request entity”,于是查看solr-4470是如何<br>实现的,看到HttpSolrServer里代码如下:<br>    <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (contentStream[<span class="number">0</span>] <span class="keyword">instanceof</span> RequestWriter.LazyContentStream) &#123;</span><br><span class="line">   post.setEntity(<span class="keyword">new</span> InputStreamEntity(contentStream[<span class="number">0</span>].getStream(), -<span class="number">1</span>) &#123;</span><br><span class="line">     <span class="annotation">@Override</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> Header <span class="title">getContentType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">new</span> BasicHeader(<span class="string">"Content-Type"</span>, contentStream[<span class="number">0</span>].getContentType());</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="annotation">@Override</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isRepeatable</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">   &#125;);</span><br><span class="line"> &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">   post.setEntity(<span class="keyword">new</span> InputStreamEntity(contentStream[<span class="number">0</span>].getStream(), -<span class="number">1</span>) &#123;</span><br><span class="line">     <span class="annotation">@Override</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> Header <span class="title">getContentType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">new</span> BasicHeader(<span class="string">"Content-Type"</span>, contentStream[<span class="number">0</span>].getContentType());</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="annotation">@Override</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isRepeatable</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>修改成<br>     <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">HttpEntity entity = <span class="keyword">new</span> InputStreamEntity(contentStream[<span class="number">0</span>].getStream(), -<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Header <span class="title">getContentType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BasicHeader(<span class="string">"Content-Type"</span>, contentStream[<span class="number">0</span>].getContentType());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isRepeatable</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;</span><br><span class="line">entity = <span class="keyword">new</span> BufferedHttpEntity(entity);</span><br></pre></td></tr></table></figure></p>
+<p>在生产环境中，可以添加参数控制是否需要entity = new BufferedHttpEntity(entity);和<br>HttpClientUtil.setBasicAuth((DefaultHttpClient) server.getHttpClient(), “index”, “update”);这两句</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/security/">security</a><a href="/tags/solr/">solr</a><a href="/tags/solrj/">solrj</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/01/20/Solr权限控制/" title="Solr权限控制" itemprop="url">Solr权限控制</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2015-01-20T13:47:37.000Z" itemprop="datePublished"> 發表於 2015-01-20</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>有些情况下，想给Solr增加权限控制，这样就不会被随意更新和删除。关于这点，在<a href="https://wiki.apache.org/solr/SolrSecurity" target="_blank" rel="external">https://wiki.apache.org/solr/SolrSecurity</a>有详细的描述。觉得最坑人的一点是Solr-4470还没resolved。不管它，先使用Jetty添加权限控制</p>
+<p>下载已经编译好的solr-4.8.0,进入example目录<br>编辑etc/webdefault.xml,添加如下内容:</p>
+<p>[html]</p>
+<p><security-constraint><br>    <web-resource-collection><br>      <web-resource-name>Solr authenticated application</web-resource-name><br>      <url-pattern>/update/*</url-pattern><br>    </web-resource-collection><br>    <auth-constraint><br>      <role-name>update-role</role-name><br>    </auth-constraint><br>  </security-constraint></p>
+<p>  <login-config><br>    <auth-method>BASIC</auth-method><br>    <realm-name>Solr Update</realm-name><br>  </login-config><br>   [/html]</p>
+<p>编辑 etc/jetty.xml, 添加如下内容：</p>
+<p>[html]<br> <call name="addBean"><br>      <arg><br>        <new class="org.eclipse.jetty.security.HashLoginService"><br>          <set name="name">Solr Update</set><br>          <set name="config"><systemproperty name="jetty.home" default=".">/etc/realm.properties</systemproperty></set><br>          <set name="refreshInterval">0</set><br>        </new><br>      </arg><br>    </call><br>     [/html]</p>
+<p>增加 etc/realm.properties,写入如下内容，也就是用户名，密码以及角色：</p>
+<p>[html]index: update, update-role[/html]</p>
+<p>启动solr,到exampledocs目录下执行./post.sh solr.xml,返回401错误，说明未认证。修改post.sh,在调用curl时加上用户名和密码，如下：<br>curl –user index:update $URL –data-binary @$f -H ‘Content-type:application/xml’</p>
+<p>再次执行./post.sh solr.xml,执行成功，到solr后台查看,可以看到添加文件成功,说明认证设置成功</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/security/">security</a><a href="/tags/solr/">solr</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/01/16/Lucene中扩展codec功能/" title="Lucene中扩展codec功能" itemprop="url">Lucene中扩展codec功能</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2015-01-16T13:04:44.000Z" itemprop="datePublished"> 發表於 2015-01-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>从Lucene4.0开始，提供了扩展codec功能，这个功能主要是留给想自己定义索引格式的开发者。<br>在此之前，有必要了解codec主要的作用，codec相关的类主要作用是读写索引。 而通过实现FilterCodec，可以很方便的定义自己的codec。 这个方便主要是可以将许多读写索引部分交给已有的codec实现，而只实现自己需要改进的部分。当然如果这样还不能满足需求 可以重新写一个codec。 </p>
+<p>写个简单的例子更容易懂，<br>在Codec.java中，可以看到，读写索引主要实现以下几个方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** Encodes/decodes postings */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> PostingsFormat <span class="title">postingsFormat</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/** Encodes/decodes docvalues */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> DocValuesFormat <span class="title">docValuesFormat</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/** Encodes/decodes stored fields */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> StoredFieldsFormat <span class="title">storedFieldsFormat</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/** Encodes/decodes term vectors */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> TermVectorsFormat <span class="title">termVectorsFormat</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/** Encodes/decodes field infos file */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> FieldInfosFormat <span class="title">fieldInfosFormat</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/** Encodes/decodes segment info file */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> SegmentInfoFormat <span class="title">segmentInfoFormat</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/** Encodes/decodes document normalization values */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> NormsFormat <span class="title">normsFormat</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/** Encodes/decodes live docs */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> LiveDocsFormat <span class="title">liveDocsFormat</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p>一个纯文本保存索引的codec是SimpleTextCodec,这个codec的主要目的是用来学习</p>
+<p>下面定义自己的codec<br><figure class="highlight"><figcaption><span>class HexinCodec extends FilterCodec &#123;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">    final private FieldInfosFormat myTermFieldInfoFormat;&#10;    public HexinCodec() &#123;&#10;        super(&#34;HexinCodec&#34;, new Lucene46Codec());&#10;        myTermFieldInfoFormat = new SimpleTextFieldInfosFormat();&#10;    &#125;&#10;    public FieldInfosFormat fieldInfosFormat() &#123;&#10;        return myTermFieldInfoFormat;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最后，还是让上面的例子跑起来，首先下载Lucene4.8.0的源码，之后在codecs/src/java下新建包org.apache.lucene.codecs.hexin,<br>在这个包下面新建类HexinCodec.java,复制上面的代码。<br>之后编写测试用的建索引程序Index.java<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.hexin;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.analysis.Analyzer;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.analysis.standard.StandardAnalyzer;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.codecs.Codec;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.codecs.hexin.HexinCodec;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.codecs.lucene46.Lucene46Codec;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.codecs.simpletext.SimpleTextCodec;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.document.Document;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.document.Field;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.document.TextField;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.index.IndexWriter;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.index.IndexWriterConfig.OpenMode;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.index.IndexWriterConfig;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.store.FSDirectory;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.util.Version;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Index</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">//Codec codec = new SimpleTextCodec();</span></span><br><span class="line">        Codec codec = <span class="keyword">new</span> HexinCodec();</span><br><span class="line">        <span class="comment">//Codec codec = new Lucene46Codec();</span></span><br><span class="line">        String INDEX_DIR = <span class="string">"e:\\index"</span>;</span><br><span class="line">        Analyzer analyzer = <span class="keyword">new</span> StandardAnalyzer(Version.LUCENE_48);</span><br><span class="line">        IndexWriterConfig iwc = <span class="keyword">new</span> IndexWriterConfig(Version.LUCENE_48, analyzer);</span><br><span class="line">        iwc.setCodec(codec);</span><br><span class="line">        IndexWriter writer = <span class="keyword">null</span>;</span><br><span class="line">        iwc.setOpenMode(OpenMode.CREATE);</span><br><span class="line">        iwc.setUseCompoundFile(<span class="keyword">false</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            writer = <span class="keyword">new</span> IndexWriter(FSDirectory.open(<span class="keyword">new</span> File(INDEX_DIR)), iwc);</span><br><span class="line">            Document doc = <span class="keyword">new</span> Document();</span><br><span class="line">            doc.add(<span class="keyword">new</span> TextField(<span class="string">"title"</span>, <span class="string">"who are you, you are a man"</span>, Field.Store.YES));</span><br><span class="line">            doc.add(<span class="keyword">new</span> TextField(<span class="string">"content"</span>, <span class="string">"A long way to go there. Please drive a car"</span>, Field.Store.NO));</span><br><span class="line">            writer.addDocument(doc);</span><br><span class="line">            doc = <span class="keyword">new</span> Document();</span><br><span class="line">            doc.add(<span class="keyword">new</span> TextField(<span class="string">"title"</span>, <span class="string">"are you sure"</span>, Field.Store.YES));</span><br><span class="line">            doc.add(<span class="keyword">new</span> TextField(<span class="string">"content"</span>, <span class="string">"He is a good man. He is a driver"</span>, Field.Store.NO));</span><br><span class="line">            writer.addDocument(doc);</span><br><span class="line">            writer.commit();</span><br><span class="line">            writer.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编写测试用的搜索例子Search.java<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.hexin;</span><br><span class="line"><span class="keyword">import</span> java.io.File; </span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.codecs.Codec;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.codecs.simpletext.SimpleTextCodec;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.document.Document;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.index.DirectoryReader;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.index.IndexReader;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.index.Term;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.search.IndexSearcher;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.search.Query;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.search.TermQuery;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.search.ScoreDoc;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.search.TopDocs;</span><br><span class="line"><span class="keyword">import</span> org.apache.lucene.store.FSDirectory;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Search</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Search</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">        String index = <span class="string">"e:\\index"</span>;</span><br><span class="line">        IndexReader reader = DirectoryReader.open(FSDirectory.open(<span class="keyword">new</span> File(index)));</span><br><span class="line">        IndexSearcher searcher = <span class="keyword">new</span> IndexSearcher(reader);</span><br><span class="line">        String queryString = <span class="string">"driver"</span>;</span><br><span class="line">        Query query = <span class="keyword">new</span> TermQuery(<span class="keyword">new</span> Term(<span class="string">"content"</span>, queryString));</span><br><span class="line">        System.out.println(<span class="string">"Searching for: "</span> + query.toString());</span><br><span class="line">        Date start = <span class="keyword">new</span> Date();</span><br><span class="line">        TopDocs results = searcher.search(query, <span class="keyword">null</span>, <span class="number">100</span>);</span><br><span class="line">        Date end = <span class="keyword">new</span> Date();</span><br><span class="line">        System.out.println(<span class="string">"Time: "</span>+(end.getTime()-start.getTime())+<span class="string">"ms"</span>);</span><br><span class="line">        ScoreDoc[] hits = results.scoreDocs;</span><br><span class="line">        <span class="keyword">int</span> numTotalHits = results.totalHits;</span><br><span class="line">        System.out.println(numTotalHits + <span class="string">" total matching documents"</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; hits.length; i++) &#123;</span><br><span class="line">            String output = <span class="string">""</span>;</span><br><span class="line">            Document doc = searcher.doc(hits[i].doc);</span><br><span class="line">            output += <span class="string">"doc="</span>+hits[i].doc+<span class="string">" score="</span>+hits[i].score;</span><br><span class="line">            String title = doc.get(<span class="string">"title"</span>);</span><br><span class="line">            <span class="keyword">if</span> (title != <span class="keyword">null</span>) &#123;</span><br><span class="line">                output += <span class="string">" "</span> + title;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(output);</span><br><span class="line">        &#125;</span><br><span class="line">        reader.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在Eclipse中运行Index.java,此时会报错<br>A SPI class of type org.apache.lucene.codecs.Codec with name ‘Lucene46’ does not exist. You need to add the corresponding<br>JAR file supporting this SPI to your classpath.The current classpath supports the following names:[]</p>
+<p>问过定坤后，知道一个解决的办法是去官网下载已经编译过的Lucene二进制包,将其中的META-INF拷贝到core/src/java目录下，写上下面两行<br>org.apache.lucene.codecs.simpletext.SimpleTextCodec<br>org.apache.lucene.codecs.hexin.HexinCodec<br>此时即可运行通过。查看索引文件，有一个fld结尾的文件，其内容为文本文件,保存着字段值,这个文件就是通过SimpleTextCodec写入的，<br>而其它文件则是通过Lucene46Codec写入的。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Lucene/">Lucene</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Lucene/">Lucene</a><a href="/tags/codec/">codec</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/12/27/自动脚本登录服务器/" title="自动脚本登录服务器" itemprop="url">自动脚本登录服务器</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-12-27T02:59:49.000Z" itemprop="datePublished"> 發表於 2014-12-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>我们几乎每天都做这样的操作，输入账号和密码登陆跳转机，从跳转机输入帐号和密码登陆目标机器。当然输入账号和密码登陆跳转机可以在SecureCRT这些客户端中建立登录会话解决，可是后面这一步呢？事实上，后面这一步可以写一个脚本解决。</p>
+<p>例如现在需要登录192.168.1.1这台机器,登录用户名和密码都为test，而要登录192.168.1.1，需要先登录到跳板机172.168.1.1,则我们可以新建会话链接192.168.1.1，在其中的会话选项中，ssh2中填上登录172.168.1.1需要的用户名和密码，在登录动作中，我们可以引用一个登录脚本。这里的登录动作指的是登录机器后需要进行的后续操作，在我们这里指的是登录跳板机后需要进行的操作，这当然是登录我们的目标主机了，于是可以写脚本，脚本的内容如下。</p>
+<p>#$language = “VBScript”</p>
+<p>#$interface = “1.0”<br>Sub main<br>  ‘ turn on synchronous mode so we don’t miss any data<br>  crt.Screen.Synchronous = True<br>  crt.Screen.Send “ssh test@192.168.1.1” &amp; VbCr<br>  ‘ Wait for a tring that looks like “password: “ or “Password: “<br>  crt.Screen.WaitForString “assword:”<br>  ‘ Send your password followed by a carriage return<br>  crt.Screen.Send “test” &amp; VbCr<br>  ‘ turn off synchronous mode to restore normal input processing<br>  crt.Screen.Synchronous = False<br>End Sub<br>如此，我们只需要在SecureCRT中点击一下这个会话，就可以登录到192.168.1.1这台服务器了，是不是很方便？</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/shell/">shell</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/12/27/Solr索引升级/" title="Solr索引升级" itemprop="url">Solr索引升级</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-12-27T02:27:18.000Z" itemprop="datePublished"> 發表於 2014-12-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>相信现在很多人还在用Solr1.4,因为Solr1.4许多时候还是满足需求了。可是总有一天会想升级，因为新版本中的一些功能和特性让使用Solr更加方便。而如果要从Solr1.4升级到Solr4.8,可以经过Solr1.4-&gt;Solr3.6-&gt;Solr4.0-&gt;Solr4.8这个步骤.</p>
+<p>从Solr1.4-&gt;Solr3.6，去官网下载Solr3.6,使用需要升级的索引搭建起Solr引擎，执行curl ‘<a href="http://localhost:8983/solr/update?optimize=true&amp;maxSegments=1&amp;waitFlush=false&#39;即可" target="_blank" rel="external">http://localhost:8983/solr/update?optimize=true&amp;maxSegments=1&amp;waitFlush=false&#39;即可</a></p>
+<p>从Solr3.6-&gt;Solr4.0,去官网下载Solr4.0, 将lucene-core-4.0.jar拷贝到某一目录下，如：lib4.0/lucene-core-4.0.jar(注意，可能需要其它的包如：slf-api和log-back相关包，同样拷贝到lib4.0目录下), 之后执行java -cp “lib4.0/*” org.apache.lucene.index.IndexUpgrader -verbose index/, 这里 index目录存放着Solr3.6索引文件。</p>
+<p>从Solr4.0-&gt;Solr4.8, 去官网下载Solr4.8,将lucene-core-4.8拷贝到某一目录下, 如：lib4.0/lucene-core-4.8.jar,之后执行../jdk1.7/bin/java -cp “lib4.8/*” org.apache.lucene.index.IndexUpgrader -delete-prior-commits -verbose index/，这里因为Solr4.8需要用到jdk1.7，所以执行java命令时，必须是jdk1.7。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/solr/">solr</a><a href="/tags/索引/">索引</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/12/27/软连接和硬连接/" title="软连接和硬连接" itemprop="url">软连接和硬连接</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-12-27T02:10:54.000Z" itemprop="datePublished"> 發表於 2014-12-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>软连接和硬链接是Linux中经常用到的，详细介绍可以参考<a href="https://www.ibm.com/developerworks/cn/linux/l-cn-hardandsymb-links/" target="_blank" rel="external">https://www.ibm.com/developerworks/cn/linux/l-cn-hardandsymb-links/</a></p>
+<p>要知道软连接和硬链接的区别，必须知道了解Linux的文件系统设计，这其中就有inode这个概念。一个文件被分为用户数据和元数据，其中用户数据是数据存储的地方，而元数据中的inode则是指向这个地方，而文件名只是便于人们记忆而已。对于inode号，可以使用stat或者ls -i查看.</p>
+<p>一个inode号可以对应多个文件名，这种情况下就是硬链接。因此创建硬链接并不需要拷贝用户数据，也就是不像cp命令那样,新创建一个inode号，所以创建硬链接速度非常快。只是硬链接有一个局限的地方就是只能对文件创建硬链接，并且不能跨越文件系统。需要注意的一个问题是，修改硬连接，原文件的内容也会修改。而修改原文件，也会修改硬连接。</p>
+<p>而创建软连接则会创建新的inode号，只是这个inode号指向的用户数据很特殊，它指向创建软连接的文件。对于软连接，则没有硬链接的那些限制，它可以跨越文件系统，可以对目录创建软链接。只是当把原文件删除后，软连接就变成了死链接了。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/shell/">shell</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/硬链接/">硬链接</a><a href="/tags/软链接/">软链接</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/12/14/Solr-in-Action笔记三/" title="Solr in Action笔记三" itemprop="url">Solr in Action笔记三</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-12-14T14:12:05.000Z" itemprop="datePublished"> 發表於 2014-12-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>Solr关键概念</p>
+<p>1.反向索引<br>2.检索词和布尔查询：<br>并查询：<br>+new +house 或者<br>new AND house<br>或查询：<br>new house 或者<br>new OR house<br>排除查询:<br>new house –rental 或者<br>new house NOT rental<br>短语查询：<br>“new home” OR “new house”<br>3 bedrooms” AND “walk in closet” AND “granite countertops”<br>分组查询：<br>New AND (house OR (home NOT improvement NOT depot NOT grown))<br>(+(buying purchasing -renting) +(home house residence –(+property -bedroom)))</p>
+<p>对于短语查询，之所以可以实现，是因为在反向索引中保存了词在文档中的位置信息。</p>
+<p>3.模糊查询<br>通配符查询：<br>如果需要查询以offic开头的词，只需要查询 offic<em><br>如果要使用通配符在开头的查询，如 </em>ing,则需要将ReversedWildcardFilterFactory添加到字段分析链中</p>
+<p>范围查询：<br>yearsOld:[18 TO 21] 18 &lt;= x &lt;= 21<br>yearsOld:{18 TO 21} 18 &lt; x &lt; 21<br>yearsOld:[18 TO 21} 18 &lt;= x &lt; 21<br>created:[2012-02-01T00:00.0Z TO 2012-08-02T00:00.0Z]</p>
+<p>编辑距离查询：<br>administrator~ 默认编辑距离为1<br>administrator~1 编辑距离为1<br>administrator~2  编辑距离为2</p>
+<p>临近查询：<br>“chief officer”~1 距离为1<br>例如: “chief executive officer”, “officer chief”</p>
+<p>4.相关性：<br>Solr默认相关性，距离看文档</p>
+<p>5.准确率和召回率<br>准确率说的是一次查询中，查询结果有多少是相关的比率<br>召回率说的是一次查询中，有多少相关结果被返回的比率</p>
+<p>一般来说，搜索引擎都是尽量在二者中寻求一个平衡</p>
+<p>6.Solr的一些局限<br>Solr无法执行想数据库查询那样复杂的查询<br>当更新一个跨越很多个文档的字段时，Solr将很麻烦<br>对于返回许多文档的查询，Solr的性能将会下降</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/solr/">solr</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/12/13/junit找不到方法/" title="junit找不到方法" itemprop="url">junit找不到方法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-12-13T03:39:20.000Z" itemprop="datePublished"> 發表於 2014-12-13</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>最近迷上了单元测试，在写单元测试时，提示一下错误：<br>java.lang.NoSuchMethodError: junit.framework.ComparisonFailure.getExpected()Ljava/lang/String;</p>
+<p>莫名其妙的，assertFalse怎么可能没有。后来才知道，原来是版本冲突了，因为添加了好多个junit的jar本，而Eclipse只找到最低版本的，将一些低版本的jar去掉就好了。</p>
+<p>添加jar这个问题真是蛋疼，在Eclipse里对引用的jar一个目录一个目录的添加，还要肉眼去把低版本的删除，真是麻烦。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/junit/">junit</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
+  </nav>
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Lucene/" title="Lucene">Lucene<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/搜索引擎/" title="搜索引擎">搜索引擎<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/搜索引擎/" title="搜索引擎">搜索引擎<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/" title="数学">数学<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/" title="数据结构">数据结构<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/未分类/" title="未分类">未分类<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/欧拉工程/" title="欧拉工程">欧拉工程<sup>60</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>21</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/算法/" title="算法">算法<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/编程/" title="编程">编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编程/" title="编程">编程<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络编程/" title="网络编程">网络编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件安装/" title="软件安装">软件安装<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/欧拉工程/" title="欧拉工程">欧拉工程<sup>58</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/C名题百则/" title="C名题百则">C名题百则<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/solr/" title="solr">solr<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/素数/" title="素数">素数<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx-for-chinese/" title="Sphinx-for-chinese">Sphinx-for-chinese<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx/" title="Sphinx">Sphinx<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/筛法/" title="筛法">筛法<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动态规划/" title="动态规划">动态规划<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/索引/" title="索引">索引<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/米勒-拉宾/" title="米勒-拉宾">米勒-拉宾<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/更新/" title="更新">更新<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/回文数/" title="回文数">回文数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/阶乘/" title="阶乘">阶乘<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/全位数/" title="全位数">全位数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/增量索引/" title="增量索引">增量索引<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Lucene/" title="Lucene">Lucene<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分布式/" title="分布式">分布式<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分词/" title="分词">分词<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/幂方/" title="幂方">幂方<sup>3</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 兼济天下则达 <br/>
+			独善其身则穷</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="robinjia">robinjia</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>

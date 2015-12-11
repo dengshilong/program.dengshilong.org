@@ -1,0 +1,627 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>MMSEG分词 | 邓世龙的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="robinjia">
+    
+
+    
+    <meta name="description" content="很早之前就知道MMSEG分词算法，网上也有各种语言的实现。最近了解Sphinx-for-Chinese的分词后，才知道它也是使用的MMSEG，并且CoreSeek也是使用的MMSEG。也许MMSEG是互联网上使用知名度最高的分词算法了吧，因为它简单并且高效。
+更进一步了解后，知道MMSEG是台湾人蔡志浩提出来的。蔡志浩是一位心理学教师，在美国伊利诺伊读博士期间，选修了语言学，在这个过程中，随手写了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MMSEG分词">
+<meta property="og:url" content="http://program.dengshiong.org/2014/07/08/MMSEG分词/index.html">
+<meta property="og:site_name" content="邓世龙的学习笔记">
+<meta property="og:description" content="很早之前就知道MMSEG分词算法，网上也有各种语言的实现。最近了解Sphinx-for-Chinese的分词后，才知道它也是使用的MMSEG，并且CoreSeek也是使用的MMSEG。也许MMSEG是互联网上使用知名度最高的分词算法了吧，因为它简单并且高效。
+更进一步了解后，知道MMSEG是台湾人蔡志浩提出来的。蔡志浩是一位心理学教师，在美国伊利诺伊读博士期间，选修了语言学，在这个过程中，随手写了">
+<meta property="og:updated_time" content="2015-12-10T06:07:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MMSEG分词">
+<meta name="twitter:description" content="很早之前就知道MMSEG分词算法，网上也有各种语言的实现。最近了解Sphinx-for-Chinese的分词后，才知道它也是使用的MMSEG，并且CoreSeek也是使用的MMSEG。也许MMSEG是互联网上使用知名度最高的分词算法了吧，因为它简单并且高效。
+更进一步了解后，知道MMSEG是台湾人蔡志浩提出来的。蔡志浩是一位心理学教师，在美国伊利诺伊读博士期间，选修了语言学，在这个过程中，随手写了">
+
+    
+    <link rel="alternative" href="/atom.xml" title="邓世龙的学习笔记" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="邓世龙的学习笔记" title="邓世龙的学习笔记"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="邓世龙的学习笔记">邓世龙的学习笔记</a></h1>
+				<h2 class="blog-motto">兼济天下则达,独善其身则穷</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:program.dengshiong.org">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/07/08/MMSEG分词/" title="MMSEG分词" itemprop="url">MMSEG分词</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="robinjia" target="_blank" itemprop="author">robinjia</a>
+		
+  <p class="article-time">
+    <time datetime="2014-07-08T15:44:38.000Z" itemprop="datePublished"> 發表於 2014-07-08</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			
+		
+		</div>
+		
+		<p>很早之前就知道MMSEG分词算法，网上也有各种语言的实现。最近了解Sphinx-for-Chinese的分词后，才知道它也是使用的MMSEG，并且CoreSeek也是使用的MMSEG。也许MMSEG是互联网上使用知名度最高的分词算法了吧，因为它简单并且高效。</p>
+<p>更进一步了解后，知道MMSEG是台湾人蔡志浩提出来的。蔡志浩是一位心理学教师，在美国伊利诺伊读博士期间，选修了语言学，在这个过程中，随手写了MMSEG。看蔡志浩网站，总是很舒心，因为蔡老师的文笔很好，总会用通俗的语言把问题讲清楚，而且蔡老师的博客涉及范围极广，设计，心理，写作，社会观察，旅游等等。也正是因为他的博客，我才用实名建立自己的博客。以下回归正题。</p>
+<p>MMSEG总的说来就是四个规则。<br>1.最长匹配原则<br>2.最大平均长度<br>3.最小长度方差<br>4.最大单字单词的语素自由度</p>
+<p>算法步骤：<br>1.选定一个分词个数，得到可行的分词情形<br>2.利用4条原则得到最优分词可能<br>3.得到最优分词的第一个词，回到步骤1继续分词</p>
+<p>举个例子最好理解。下面是要对“研究生命起源的原因主要是因为它的重要性”进行分词。<br>1.首先选定分词个数为3，则可以得到可行的分词情形如下：<br>研 究 生<br>研 究 生命<br>研究 生命 起<br>研究 生命 起源<br>研究生 命 起<br>研究生 命 起源<br>2.利用4条原则得到最优分词可能<br>运用第1条原则后，可以得到最优分词可能为一下两条<br>研究 生命 起源<br>研究生 命 起源<br>运用第2条原则，这两个结果相同<br>运用第3条原则，可以得到最优的结果为<br>研究 生命 起源<br>3.从最优结果中得到第一个词，也就是“研究”，之后对“生命起源的原因主要是因为它的重要性”运用相同的步骤进行分词</p>
+<p>有必要对原则4进行解释，这条原则说的是单字的成为语素的自由度。当分到”主要是因为“就会用到。对于”主要是因为“<br>第1步骤中得到：<br>主 要 是<br>主 要是 因为<br>主要 是 因<br>主要 是 因为<br>第2步骤中，由前三条原则，只剩下一下两个<br>主要 是 因为<br>主 要是 因为<br>之后再运用第4条原则，这里单字”是“为独立语素的可能比”主“要大，所以最优结果为<br>主要 是 因为</p>
+<p>见过的MMSEG算法实现中，素心如何天上月的<a href="http://yongsun.me/2013/06/simple-implementation-of-mmseg-with-python/" target="_blank" rel="external">http://yongsun.me/2013/06/simple-implementation-of-mmseg-with-python/</a>无疑是最简明清晰的。Python确实不错，短短100行就把算法的精髓展示出来，并且几乎可以不用写注释了。模仿他的实现，写了一遍。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"><span class="keyword">import</span> codecs</span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> log</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Trie</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">TrieNode</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">            self.value = <span class="number">0</span></span><br><span class="line">            self.trans = &#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.root = self.TrieNode()</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(self, word, value=<span class="number">1</span>)</span>:</span></span><br><span class="line">        cur = self.root</span><br><span class="line">        <span class="keyword">for</span> ch <span class="keyword">in</span> word:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                cur = cur.trans[ch]</span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                cur.trans[ch] = self.TrieNode()</span><br><span class="line">                cur = cur.trans[ch]</span><br><span class="line">        cur.value = value</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_walk</span><span class="params">(self, node, ch)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> ch <span class="keyword">in</span> node.trans:</span><br><span class="line">            node = node.trans[ch]</span><br><span class="line">            <span class="keyword">return</span> node, node.value</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">None</span>, <span class="number">0</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">match_all</span><span class="params">(self, s)</span>:</span></span><br><span class="line">        ret = []</span><br><span class="line">        cur = self.root</span><br><span class="line">        <span class="keyword">for</span> ch <span class="keyword">in</span> s:</span><br><span class="line">            cur, value = self._walk(cur, ch)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> cur:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">if</span> value:</span><br><span class="line">                ret.append(value)</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dict</span><span class="params">(Trie)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, filename)</span>:</span></span><br><span class="line">        super(Dict, self).__init__()</span><br><span class="line">        self.load(filename)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">load</span><span class="params">(self, filename)</span>:</span></span><br><span class="line">        <span class="keyword">with</span> codecs.open(filename, <span class="string">"r"</span>, <span class="string">"utf-8"</span>) <span class="keyword">as</span> f:</span><br><span class="line">            <span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">                word = line.strip()</span><br><span class="line">                self.add(word, word)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CharFreq</span><span class="params">(defaultdict)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, filename)</span>:</span></span><br><span class="line">        super(CharFreq, self).__init__(<span class="keyword">lambda</span>: <span class="number">1</span>)</span><br><span class="line">        self.load(filename)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">load</span><span class="params">(self, filename)</span>:</span></span><br><span class="line">        <span class="keyword">with</span> codecs.open(filename, <span class="string">"r"</span>, <span class="string">"utf-8"</span>) <span class="keyword">as</span> f:</span><br><span class="line">            <span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">                line = line.strip()</span><br><span class="line">                word, freq = line.split(<span class="string">' '</span>)</span><br><span class="line">                self[word] = freq</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MMSEG</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Chunk</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, words, chars)</span>:</span></span><br><span class="line">            self.words = words</span><br><span class="line">            self.lens = map(<span class="keyword">lambda</span> x: len(x), words)</span><br><span class="line">            self.length = sum(self.lens)</span><br><span class="line">            self.average = self.length * <span class="number">1.0</span> / len(words)</span><br><span class="line">            self.variance = sum(map(<span class="keyword">lambda</span> x: (x - self.average) ** <span class="number">2</span>, self.lens)) / len(words)</span><br><span class="line">            self.free = sum(log(float(chars[w])) <span class="keyword">for</span> w <span class="keyword">in</span> self.words <span class="keyword">if</span> len(w) == <span class="number">1</span>)</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">__lt__</span><span class="params">(self, other)</span>:</span></span><br><span class="line">            <span class="keyword">return</span> (self.length, self.average, -self.variance, self.free) &lt; (other.length, other.average, -other.variance, other.free)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, dic, chars)</span>:</span></span><br><span class="line">        self.dic = dic</span><br><span class="line">        self.chars = chars</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__get_chunks</span><span class="params">(self, s, depth=<span class="number">3</span>)</span>:</span></span><br><span class="line">        ret = []</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">__get_chunk</span><span class="params">(self, s, num, seg)</span>:</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> num <span class="keyword">or</span> <span class="keyword">not</span> s:</span><br><span class="line">                <span class="keyword">if</span> seg:</span><br><span class="line">                    ret.append(self.Chunk(seg, self.chars))</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                m = self.dic.match_all(s)</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> m:</span><br><span class="line">                    __get_chunk(self, s[<span class="number">1</span>:], num - <span class="number">1</span>, seg + [s[<span class="number">0</span>]])</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">for</span> w <span class="keyword">in</span> m:</span><br><span class="line">                        __get_chunk(self, s[len(w):], num - <span class="number">1</span>, seg + [w])</span><br><span class="line">        __get_chunk(self, s, depth, [])</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">segment</span><span class="params">(self, s)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> s:</span><br><span class="line">            chunks = self.__get_chunks(s)</span><br><span class="line">            best = max(chunks)</span><br><span class="line">            <span class="keyword">yield</span> best.words[<span class="number">0</span>]</span><br><span class="line">            s = s[len(best.words[<span class="number">0</span>]):]</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    dic = Dict(<span class="string">"dict.txt"</span>)</span><br><span class="line">    chars = CharFreq(<span class="string">'chars.txt'</span>)</span><br><span class="line">    mmseg = MMSEG(dic, chars)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">' '</span>.join(mmseg.segment(<span class="string">u"北京欢迎你"</span>))</span><br><span class="line">    <span class="keyword">print</span> <span class="string">' '</span>.join(mmseg.segment(<span class="string">u"研究生命起源的原因主要是因为它的重要性"</span>))</span><br><span class="line">    <span class="keyword">print</span> <span class="string">' '</span>.join(mmseg.segment(<span class="string">u'开发票'</span>))</span><br><span class="line">    <span class="keyword">print</span> <span class="string">' '</span>.join(mmseg.segment(<span class="string">u'武松杀嫂雕塑是艺术，还是恶俗？大家怎么看的？'</span>))</span><br><span class="line">    <span class="keyword">print</span> <span class="string">' '</span>.join(mmseg.segment(<span class="string">u'陈明真做客《麻辣天后宫》的那期视频哪里有？'</span>))</span><br><span class="line">    <span class="keyword">print</span> <span class="string">' '</span>.join(mmseg.segment(<span class="string">u'压缩技术是解决网络传输负担的 有效技术。数据压缩有无损压缩和有损压缩两种。在搜索引擎中用到的压缩技术属于无损压缩。接下来，我们将先讲解各种倒排索引压缩算法，然后来分析搜索引擎技术中词典和倒排表的压缩。'</span>))</span><br></pre></td></tr></table></figure>
+<p>用到的两个文件<a href="http://program.dengshilong.org/wp-content/uploads/2014/07/dict.txt" target="_blank" rel="external">dict.txt</a>和<a href="http://program.dengshilong.org/wp-content/uploads/2014/07/chars.txt" target="_blank" rel="external">chars.txt</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Python/">Python</a>►<a class="article-category-link" href="/categories/Python/搜索引擎/">搜索引擎</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Python/">Python</a><a href="/tags/mmseg/">mmseg</a><a href="/tags/分词/">分词</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://program.dengshiong.org/2014/07/08/MMSEG分词/" data-title="MMSEG分词 | 邓世龙的学习笔记" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/07/11/给sphinxclient.c增加flush索引到硬盘功能/" title="给sphinxclient.c增加flush索引到硬盘功能">
+  <strong>上一篇：</strong><br/>
+  <span>
+  给sphinxclient.c增加flush索引到硬盘功能</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/07/08/Sphinx-for-Chinese的分词细粒度问题(续)/"  title="Sphinx-for-Chinese的分词细粒度问题(续)">
+ <strong>下一篇：</strong><br/> 
+ <span>Sphinx-for-Chinese的分词细粒度问题(续)
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Lucene/" title="Lucene">Lucene<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/搜索引擎/" title="搜索引擎">搜索引擎<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/搜索引擎/" title="搜索引擎">搜索引擎<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/" title="数学">数学<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/" title="数据结构">数据结构<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/未分类/" title="未分类">未分类<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/欧拉工程/" title="欧拉工程">欧拉工程<sup>60</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>21</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/算法/" title="算法">算法<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/编程/" title="编程">编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编程/" title="编程">编程<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络编程/" title="网络编程">网络编程<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件安装/" title="软件安装">软件安装<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/欧拉工程/" title="欧拉工程">欧拉工程<sup>58</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/C名题百则/" title="C名题百则">C名题百则<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/solr/" title="solr">solr<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/素数/" title="素数">素数<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx-for-chinese/" title="Sphinx-for-chinese">Sphinx-for-chinese<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sphinx/" title="Sphinx">Sphinx<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/筛法/" title="筛法">筛法<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动态规划/" title="动态规划">动态规划<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/索引/" title="索引">索引<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/米勒-拉宾/" title="米勒-拉宾">米勒-拉宾<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/更新/" title="更新">更新<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/回文数/" title="回文数">回文数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/阶乘/" title="阶乘">阶乘<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/全位数/" title="全位数">全位数<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/增量索引/" title="增量索引">增量索引<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Lucene/" title="Lucene">Lucene<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分布式/" title="分布式">分布式<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分词/" title="分词">分词<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/幂方/" title="幂方">幂方<sup>3</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 兼济天下则达 <br/>
+			独善其身则穷</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="robinjia">robinjia</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -8,12 +8,12 @@ categories:
 date: 2014-06-22 16:42:36
 ---
 
-在论坛和网上找了一下，发现django-pagedown可以满足需求，搜索之后，按照https://pypi.python.org/pypi/django-pagedown/0.1.0进行添加。
+在论坛和网上找了一下，发现django-pagedown可以满足需求，搜索之后，按照[https://pypi.python.org/pypi/django-pagedown/0.1.0](https://pypi.python.org/pypi/django-pagedown/0.1.0) 进行添加。
 
 首先是安装
-1\. Get the code: `pip install django-pagedown`
-2\. Add `pagedown` to your `INSTALLED_APPS`
-3\. Make sure to collect the static files: `python manage.py collectstatic --noinput`
+1. Get the code: `pip install django-pagedown`
+2. Add `pagedown` to your `INSTALLED_APPS`
+3. Make sure to collect the static files: `python manage.py collectstatic --noinput`
 
 1.首先pip install django-pagedown下载
 

@@ -21,7 +21,7 @@ sudo apt-get install libmysql++-dev libmysqlclient15-dev checkinstall
 
 3.index 'test1': search error: query too complex, not enough stack (thread_stack=1217498K or higher required).
 这也是一个很奇怪的错误。我是按照文档中给出的例子建好索引，之后用命令行工具，也就是search要搜索的，结果就出现了这个错误。在网上搜索这个错误，没找到有用的信息，于是又求助于Sphinx-for-chinese群，群里的人说是因为命令行存在问题，用客户端搜就没问题。于是用客户端搜果然没问题，可是我还是无法释怀，因为之前公司的引擎中，用命令行是没有问题的。于是对照着公司用的引擎中的配置文件，发现配置文件中没有这一行，在自己的配置文件中注释掉这行后，果然没问题了。
-所以对于这个错误的解决办法就是，将sql_query_info = SELECT * FROM documents WHERE id=$id这行注释掉.
+所以对于这个错误的解决办法就是，将`sql_query_info = SELECT * FROM documents WHERE id=$id`这行注释掉.
 这个确实太坑人了，连官方的配置文件都会出错，得浪费多少人的时间。
 
 4.ERROR: index 'main': No fields in schema - will not index.
@@ -36,4 +36,4 @@ sudo apt-get install libmysql++-dev libmysqlclient15-dev checkinstall
 ./indexer -c $conf --merge-klists --rotate --merge delta deltaTemp
 奇迹出现了，这次没有报错。我只能说，这真是个坑。
 
-_《I__ntroduction to Search with Sphinx》_写的还是非常不错的，毕竟是Sphinx的作者，表达能力和写作能力自然非同凡响，关于Sphinx的知识，许多都来自本书。等有时间了，可以将引擎的搭建过程写一写，应该可以帮助一些人。这次搭建过程，我学到了许多，虽然用的是开源的引擎，但真要从头到尾搭建一个引擎，并提供可靠的服务，并不是那么容易的，还是得多实践才行。
+《Introduction to Search with Sphinx》写的还是非常不错的，毕竟是Sphinx的作者，表达能力和写作能力自然非同凡响，关于Sphinx的知识，许多都来自本书。等有时间了，可以将引擎的搭建过程写一写，应该可以帮助一些人。这次搭建过程，我学到了许多，虽然用的是开源的引擎，但真要从头到尾搭建一个引擎，并提供可靠的服务，并不是那么容易的，还是得多实践才行。

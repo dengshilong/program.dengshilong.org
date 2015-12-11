@@ -56,9 +56,11 @@ public:
 };
 ```
 
-在2296行,virtual int GetMaxCodepointLength () const { return m_tLC.GetMaxCodepointLength(); }后面添加如下方法成员：
-``` cvirtual BYTE *              ProcessParsedWord();```
-在2303行，Darts::DoubleArray::result_pair_type    m_pResultPair[256];后面添加如下数据成员：
+在2296行,`virtual int GetMaxCodepointLength () const { return m_tLC.GetMaxCodepointLength(); }`后面添加如下方法成员：
+```
+ cvirtual BYTE *              ProcessParsedWord();
+```
+在2303行，`Darts::DoubleArray::result_pair_type    m_pResultPair[256];`后面添加如下数据成员：
 ``` c
 /*****add by luodongshan for indexer*****/
         int totalParsedWordsNum; //总共需要处理的词
@@ -101,7 +103,7 @@ BYTE * CSphTokenizer_UTF8Chinese<IS_QUERY>::ProcessParsedWord() {
     return NULL;
 }
 ```
-在6785行， bool bGotSoft = false; // hey Beavis he said soft huh huhhuh 后面增加如下代码：
+在6785行， `bool bGotSoft = false; // hey Beavis he said soft huh huhhuh `后面增加如下代码：
 ``` c
         if (isIndexer && isParserEnd) { //使用MMSEG分词结束，处理细粒度分词得到的词
                 return ProcessParsedWord();
@@ -175,7 +177,9 @@ BYTE * CSphTokenizer_UTF8Chinese<IS_QUERY>::ProcessParsedWord() {
                 /***add by dengsl 2014/06/24****/
 ```
 在6903行，将
-``` creturn NULL;```
+``` c
+return NULL;
+```
 修改为
 ``` c
 /* dengsl */

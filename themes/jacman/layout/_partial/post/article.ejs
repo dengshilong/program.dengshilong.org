@@ -4,6 +4,7 @@
   <% } %>
 	<article itemprop="articleBody"> 
 		<%- partial('header') %>
+	<%- partial('pagination') %>
 	<div class="article-content">
 		<% if( table&&(item.toc !== false) && theme.toc.article){ %>
 		<div id="toc" class="toc-article">

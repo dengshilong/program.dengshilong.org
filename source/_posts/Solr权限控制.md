@@ -12,8 +12,7 @@ date: 2015-01-20 21:47:37
 
 下载已经编译好的solr-4.8.0,进入example目录
 编辑etc/webdefault.xml,添加如下内容:
-
-[html]
+```
 <security-constraint>
     <web-resource-collection>
       <web-resource-name>Solr authenticated application</web-resource-name>
@@ -28,11 +27,10 @@ date: 2015-01-20 21:47:37
     <auth-method>BASIC</auth-method>
     <realm-name>Solr Update</realm-name>
   </login-config>
-   [/html]
 
+```
 编辑 etc/jetty.xml, 添加如下内容：
-
-[html]
+```
  <Call name="addBean">
       <Arg>
         <New class="org.eclipse.jetty.security.HashLoginService">
@@ -42,12 +40,11 @@ date: 2015-01-20 21:47:37
         </New>
       </Arg>
     </Call>
-     [/html]
-
+```
 增加 etc/realm.properties,写入如下内容，也就是用户名，密码以及角色：
-
-[html]index: update, update-role[/html]
-
+```
+index: update, update-role
+```
 启动solr,到exampledocs目录下执行./post.sh solr.xml,返回401错误，说明未认证。修改post.sh,在调用curl时加上用户名和密码，如下：
 curl --user index:update $URL --data-binary @$f -H 'Content-type:application/xml'
 

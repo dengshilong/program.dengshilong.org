@@ -5,7 +5,6 @@ tags:
   - 分词
 id: 786
 categories:
-  - Python
   - 搜索引擎
 date: 2014-07-08 23:44:38
 ---

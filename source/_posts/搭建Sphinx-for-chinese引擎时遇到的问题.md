@@ -31,7 +31,9 @@ sudo apt-get install libmysql++-dev libmysqlclient15-dev checkinstall
 
 5.FATAL: there must be 2 indexes to merge specified
 这个是在测试Klist的时，出现的。文档中说，当合并两个索引时，使用--merge-klists就可以将两个索引的klist合并，于是我在合并时加上了这个参数。具体如下：
-./indexer -c $conf ?--rotate --merge --merge-klists delta deltaTemp
+```
+./indexer -c $conf --rotate --merge --merge-klists delta deltaTemp
+```
 运行时就出现这个错误，我纳闷了，明明官方文档中说加入这个参数是没问题的。到网上找资料，有人是用--merge-killlists这个参数，试过之后，同样报这个错误。无奈之际，将--merge-klist参数放到--rotate前面，
 ./indexer -c $conf --merge-klists --rotate --merge delta deltaTemp
 奇迹出现了，这次没有报错。我只能说，这真是个坑。

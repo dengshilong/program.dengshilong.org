@@ -48,11 +48,7 @@ query.setQuery(q);
 查询成功, 
 
 *问题解决 
-不明白原因,只是猜测post的信息不能反复使用,在setBasicAuth前面有一段说明, "Currently this is not preemtive authentication. So it is 
-not currently possible to do a post request while using this setting.",意思就是认证过程不是最先进行的,所以现在不能用于post,可是认证 
-过程可以用于get,于是察看get的执行过程,发现它先执行一次,发现要认证,于是再执行一次,而第二次执行时会先执行认证过程. 对于post过程,如果 
-可以执行同样的过程,那就可以达到目的,关键问题是"Cannot retry request with a non-repeatable request entity",于是查看solr-4470是如何 
-实现的,看到HttpSolrServer里代码如下: 
+不明白原因,只是猜测post的信息不能反复使用,在setBasicAuth前面有一段说明, "Currently this is not preemtive authentication. So it is not currently possible to do a post request while using this setting.",意思就是认证过程不是最先进行的,所以现在不能用于post,可是认证过程可以用于get,于是察看get的执行过程,发现它先执行一次,发现要认证,于是再执行一次,而第二次执行时会先执行认证过程. 对于post过程,如果 可以执行同样的过程,那就可以达到目的,关键问题是"Cannot retry request with a non-repeatable request entity",于是查看solr-4470是如何实现的,看到HttpSolrServer里代码如下: 
  ``` java
  if (contentStream[0] instanceof RequestWriter.LazyContentStream) {
     post.setEntity(new InputStreamEntity(contentStream[0].getStream(), -1) {
@@ -96,5 +92,4 @@ not currently possible to do a post request while using this setting.",意思就
  entity = new BufferedHttpEntity(entity);
  ```
 
-在生产环境中，可以添加参数控制是否需要entity = new BufferedHttpEntity(entity);和 
-HttpClientUtil.setBasicAuth((DefaultHttpClient) server.getHttpClient(), "index", "update");这两句
+在生产环境中，可以添加参数控制是否需要entity = new BufferedHttpEntity(entity);和HttpClientUtil.setBasicAuth((DefaultHttpClient) server.getHttpClient(), "index", "update");这两句

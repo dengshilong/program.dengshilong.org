@@ -21,7 +21,7 @@ function replaceTwoBrace(str){
 e8-af-ad-e8-a8-80-e7-89-b9-e6-80-a7-e8-bf-98-e6-98-af-e6-9c-89-e5-bf-85-e8-a6-81-e5-ad-a6-e4-b9-a0-e7-9a-84.md
 e8-bd-af-e8-bf-9e-e6-8e-a5-e5-92-8c-e7-a1-ac-e8-bf-9e-e6-8e-a5.md
 e8-bf-bd-e8-b8-aaquery-too-complex-not-enough-stack-e9-94-99-e8-af-af.md
-我想这是将URL转化过来的结果，因为URL中，中文是UTF-8编码。这里之所以有问题是因为这样的文件名生成的URL和以前在Wordpress中不一样，因为多一个'-'符号.想通过修改hexo-migrator-wordpress插件来解决,打开index.js, 在128行附近的`post.create(data, next);`, 之后看到`post = hexo.post;`, 然后进入node_modules/hexo/lib/hexo目录，在post.js里看到`fs.writeFile(path, content)`，想通过改这里来解决。后来想想，写个Python脚本,从内容的第一行，也就是title字段抽取出标题也可以解决。于是写了个Python脚本, changePostURL.py
+我想这是将URL转化过来的结果，因为URL中，中文是UTF-8编码。这里之所以有问题是因为这样的文件名生成的URL和以前在Wordpress中不一样，这样之前在搜索引擎索引的文章就不能访问了，因为URL变了。想通过修改hexo-migrator-wordpress插件来解决,打开index.js, 在128行附近的`post.create(data, next);`, 之后看到`post = hexo.post;`, 然后进入node_modules/hexo/lib/hexo目录，在post.js里看到`fs.writeFile(path, content)`，想通过改这里来解决。后来想想，写个Python脚本,从内容的第一行，也就是title字段抽取出标题也可以解决。于是写了个Python脚本, changePostURL.py
 ```
 import os,sys
 

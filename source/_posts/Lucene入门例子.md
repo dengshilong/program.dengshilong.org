@@ -3,7 +3,7 @@ tags:
   - Lucene
 id: 896
 categories:
-  - Lucene
+  - 搜索引擎
 date: 2014-08-27 21:27:13
 ---
 

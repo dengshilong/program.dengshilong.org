@@ -5,6 +5,9 @@ tags:
 因为在这个学习笔记里要贴一些代码，可是Wordpress的编辑器对于代码支持不够好，会改变代码格式，于是决定迁移到对代码支持更好的Hexo.Hexo是用Node.js写的博客系统，类似与Octpress，台湾人写的，很不错。
 
 对于如何搭建Hexo，以及如何迁移Wordpress,可以看官方文档。这里主要说说迁移过程遇到的问题。
+## npm和hexo命令安装后在新开的终端中不能使用
+使用nvm安装npm后，在新开的终端中npm命令不能使用，执行nvm install 4后又可以使用。考虑过之后，发现是没有将npm命令所在的bin目录加到PATH中。执行which npm, 找到npm所在的bin目录, 在用户的.bashrc文件中,将它就加入PATH中即可。如下
+export PATH=/home/long/.nvm/versions/node/v4.2.3/bin:$PATH
 
 ## Template render error: unexpected token: / 
 在[https://github.com/hexojs/hexo/issues/1439](https://github.com/hexojs/hexo/issues/1439)也有类似的问题，原来hexo变量是用两个{和两个}包含起来, 而在一些编程语言中，二维数组会出现用两个{和两个}的情况，所以冲突了。于是修改hexo-migrator-wordpress插件,到存放hexo-migrator-wordpress插件的目录(从博客的根目录进入到node_modules/hexo-migrator-wordpress)下,打开index.js, 增加一个函数

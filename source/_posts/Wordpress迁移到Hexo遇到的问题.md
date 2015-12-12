@@ -1,6 +1,10 @@
 title: Wordpress迁移到Hexo遇到的问题
 date: 2015-12-11 15:53:24
-tags:
+tags: 
+ - Hexo
+ - Wordpress
+categories:
+ - 软件安装
 ---
 因为在这个学习笔记里要贴一些代码，可是Wordpress的编辑器对于代码支持不够好，会改变代码格式，于是决定迁移到对代码支持更好的Hexo.Hexo是用Node.js写的博客系统，类似与Octpress，台湾人写的，很不错。
 

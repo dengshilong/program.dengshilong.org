@@ -1,6 +1,7 @@
 title: vps上部署Hexo
 date: 2015-12-11 20:38:09
-tags:
+tags: Hexo
+categories: 软件安装
 ---
 Hexo一般都是部署到github上去，只是我有vps，干吗不用。
 
@@ -13,7 +14,7 @@ Hexo一般都是部署到github上去，只是我有vps，干吗不用。
 在master上执行git config receive.denyCurrentBranch ignore即可。
 
 ## Hexo生成的css文件没有更新
-不知道什么情况，有时候有更新，有时候又没有更新。所以干脆先执行hexo clean后再执行hexo g。git hooks很实用。
+不知道什么情况，有时候有更新，有时候又没有更新。所以干脆先执行hexo clean后再执行hexo g。另外，git hooks很实用。
 
 现在就可以通过git来发布页面，很有意思。
 

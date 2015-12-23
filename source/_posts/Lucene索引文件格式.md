@@ -1,10 +1,10 @@
-title: Lucene 索引文件格式
+title: Lucene索引文件格式
 tags:
   - Lucene
   - 索引
 id: 959
 categories:
-  - 搜索引擎
+  - Lucene
 date: 2014-11-19 21:56:33
 ---
 

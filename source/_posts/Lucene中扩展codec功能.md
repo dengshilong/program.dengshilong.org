@@ -4,7 +4,7 @@ tags:
   - Lucene
 id: 991
 categories:
-  - 搜索引擎
+  - Lucene
 date: 2015-01-16 21:04:44
 ---
 

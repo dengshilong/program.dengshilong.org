@@ -22,9 +22,7 @@ categories:
 ```
 -Xms256m -Xmx1g -Djava.awt.headless=true -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -XX:+HeapDumpOnOutOfMemoryError -XX:+DisableExplicitGC -Dfile.encoding=UTF-8 -Djna.nosys=true -Des.path.home=/Users/long/program/java/elasticsearch-2.3.0/core
 ```
-
-其中主要是设置es.path.home,我的源程序解压在/Users/long/program/java/elasticsearch-2.3.0,所以es.path.home设置为/Users/long/program/java/elasticsearch-2.3.0/core
-设置Program arguments为start
+其中主要是设置es.path.home,目录位置并没有限制。还有设置Program arguments为start。
 
 
 ## "java.lang.IllegalStateException" jar hell!

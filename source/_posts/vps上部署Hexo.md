@@ -16,6 +16,36 @@ Hexo一般都是部署到github上去，只是我有vps，干吗不用。
 ## Hexo生成的css文件没有更新
 不知道什么情况，有时候有更新，有时候又没有更新。所以干脆先执行hexo clean后再执行hexo g。另外，git hooks很实用。
 
+在git仓库里添加hooks
+```
+GIT_REPO=/home/dengsl/program/nodejs/blog
+ DEPLOY_DIR=/home/dengsl/program/html/blog/note
+
+ # Get the latest commit subject
+ SUBJECT=$(git log -1 --pretty=format:"%s")
+
+ cd $GIT_REPO
+ env -i git reset --hard
+
+ #update or deploy
+ IF_DEPLOY=$( echo $SUBJECT | grep 'deploy')
+ if [ -z "$IF_DEPLOY" ]; then
+     echo >&2 "Success. Repo update only"
+     exit 0;
+ fi
+
+ # Check the deploy dir whether it exists
+ if [ ! -d $DEPLOY_DIR ] ; then
+ echo >&2 "fatal: post-receive: DEPLOY_DIR_NOT_EXIST: \"$DEPLOY_DIR\""
+ exit 1
+ fi
+
+ #deploy static site
+ hexo clean
+ hexo g
+ cp -r public/* $DEPLOY_DIR
+```
+
 现在就可以通过git来发布页面，很有意思。
 
  

@@ -20,10 +20,9 @@ categories:
 
 查看执行./elasticsearch脚本启动时添加的参数，设置VM options为
 ```
--Xms256m -Xmx1g -Djava.awt.headless=true -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -XX:+HeapDumpOnOutOfMemoryError -XX:+DisableExplicitGC -Dfile.encoding=UTF-8 -Djna.nosys=true -Des.path.home=/Users/long/program/java/elasticsearch-2.3.0/core
+-Xms256m -Xmx1g -Djava.awt.headless=true -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -XX:+HeapDumpOnOutOfMemoryError -XX:+DisableExplicitGC -Dfile.encoding=UTF-8 -Djna.nosys=true -Des.path.home=/Users/long/elasticsearch
 ```
-其中主要是设置es.path.home,目录位置并没有限制。还有设置Program arguments为start。
-
+其中主要是设置es.path.home,目录位置并没有限制。设置Program arguments为start
 
 ## "java.lang.IllegalStateException" jar hell!
 

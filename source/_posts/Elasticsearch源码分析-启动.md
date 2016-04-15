@@ -28,5 +28,7 @@ categories:
 * 对于RestController, 进入之后可以看到在registerHandler函数里对不同的request method绑定了不同的handler
 * 对于TransportServer, 默认绑定到9300端口, 这个用来做集群节点间通信
 * 对于HttpServerTransport,在配置里使用NettyHttpServerTransport, 所以这里实际上是得到NettyHttpServerTransport实例, 默认绑定到9200端口, 这个用来处理http请求
+## NettyHttpServerTransport
+进入NettyHttpServerTransport, 在doStart()函数里，看到serverBoostrap是Netty的ServerBootstrap实例,看到`serverBootstrap.setPipelineFactory(configureServerChannelPipelineFactory());`, 查看configureServerChannelPipelineFactory, 知道requestHandler是HttpRequestHandler
 
 这样，差不多就完成了Elasticsearch的启动。

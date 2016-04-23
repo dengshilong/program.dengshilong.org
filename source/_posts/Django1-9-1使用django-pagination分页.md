@@ -14,6 +14,6 @@ categories:
 ## sequence index must be integer, not 'slice'
 这是因为xrange对象不能进行slice操作，进入templatetags,将pagination_tags.py,paginate函数里的page_range = paginator.page_range改为 page_range = list(paginator.page_range)
 
-很郁闷的是，django-pagination的github仓库里的程序没有更新，而且h报TOKEN_BLOCK错误，估计是这个[commit](https://github.com/ericflo/django-pagination/commit/ef5ff95059866e94e89cad912c30497f90442765)中引入的。
+很郁闷的是，django-pagination的github仓库里的程序没有更新，而且报TOKEN_BLOCK错误，估计是这个[commit](https://github.com/ericflo/django-pagination/commit/ef5ff95059866e94e89cad912c30497f90442765)中引入的。
 
 于是只好fork出一份，自己修改。参见[product分支](https://github.com/dengshilong/django-pagination/tree/product)

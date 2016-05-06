@@ -14,7 +14,7 @@ categories:
 ### org.apache.hadoop.mapred.InvalidInputException: Input path does not exist: hdfs://localhost:9000/user/long/README.md
 这是在执行[官方文档例子quickstart例子](http://spark.apache.org/docs/latest/quick-start.html)时遇到，
 ```
->>> textFile = sc.textFile(&quot;README.md&quot;)
+>>> textFile = sc.textFile("README.md")
 >>> textFile.count()
 ```
 一直想不通，后来想到在测试Oryx的例子时，在conf/spark-env.sh里配置了HADOOP_CONF_DIR，把它注释掉即可。

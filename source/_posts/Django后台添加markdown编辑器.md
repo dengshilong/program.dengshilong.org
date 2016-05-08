@@ -17,26 +17,25 @@ date: 2014-06-22 16:42:36
 
 1.首先pip install django-pagedown下载
 
-2.之后添加pagedown到项目的'INSTALLED_APPS‘中，
+2.之后添加pagedown到项目的'INSTALLED_APPS'中，
 
 3.执行命令python manage.py collectstatic --noinput，收集js,css等django-pagedown用到的静态文件。
 
 之后开始添加，我的博客是在blog目录下,在目录里创建forms.py,添加如下内容
 
-``` python
+``` 
 from pagedown.widgets import AdminPagedownWidget
 from django import forms
 from blog.models import Post
 
 class PostForm(forms.ModelForm):
-        content = forms.CharField(widget=AdminPagedownWidget())
-
-        class Meta:
-            model = Post
+    content = forms.CharField(widget=AdminPagedownWidget())
+    class Meta:
+        model = Post
 ```
 
 这里是将content字段设置为markdown编辑，之后在admin.py中添加如下内容：
-``` python
+``` 
 from django.contrib import admin
 from blog.models import Post
 from blog.forms import PostForm

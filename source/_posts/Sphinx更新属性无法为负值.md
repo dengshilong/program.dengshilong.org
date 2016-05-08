@@ -12,26 +12,26 @@ date: 2014-10-19 12:36:08
 离职已经三个多月了，关于Sphinx的知识都快忘的差不多了，所以得赶紧记下来，以备不时之需。
 
 离职前，在Sphinx-for-Chinese讨论组里异常活跃，很热心帮助群里的人解决问题。其中有个问题就是属性更新时无法设置为负值。于是看看Sphinx的更新属性流程。从searchd.cpp的main函数开始,到ServiceMain，TickPreforked,HandleClient,HandleClientSphinx,HandleCommandUpdate在这里看到
-``` c
+``` 
 ARRAY_FOREACH ( i, tUpd.m_dAttrs )
-    {
-        tUpd.m_dAttrs[i] = tReq.GetString().ToLower().Leak();
-        tUpd.m_dTypes[i] = SPH_ATTR_INTEGER;
-        if ( iVer>=0x102 )
+{
+    tUpd.m_dAttrs[i] = tReq.GetString().ToLower().Leak();
+    tUpd.m_dTypes[i] = SPH_ATTR_INTEGER;
+    if ( iVer>=0x102 )
+    {     
+        if ( tReq.GetDword() )
         {     
-            if ( tReq.GetDword() )
-            {     
-                tUpd.m_dTypes[i] = SPH_ATTR_UINT32SET;
-                bMvaUpdate = true;
-            }     
+            tUpd.m_dTypes[i] = SPH_ATTR_UINT32SET;
+            bMvaUpdate = true;
         }     
-    }
+    }     
+}
 ```
 也就是说，这里默认是SPH_ATTR_INTEGER，而在Sphinx里，这个是无符号整型。因为在后面的一个判断语句里，有如下句子
-``` c
+``` 
 } else
 {     
-       tUpd.m_dPool.Add ( tReq.GetDword() );
+    tUpd.m_dPool.Add ( tReq.GetDword() );
 } 
 ```  
 查看GetDword()，就可以知道返回的是无符号整型。

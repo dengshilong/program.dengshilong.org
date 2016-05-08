@@ -36,28 +36,28 @@ date: 2015-10-29 16:40:43
 3bit Gray码的前四个由2bit Gray码从第一个到最后一个在最前面的加上0得到
 3bit Gray码的后四个 可以将2bit Gray从最后一个到第一个在最前面加上1得到
 写成代码如下
-``` java
+``` 
 public class GrayCode {
-	public static List<Integer> grayCode(int n) {
-	     List<Integer> result = new ArrayList<Integer>();
-	     if (n == 0) {
-	    	 result.add(0);
-	     } else {
-	    	 List<Integer> temp = grayCode(n-1);
-	    	 for (Integer i: temp) {
-	    		 result.add(i);
-	    	 }
-	    	 for (int i = temp.size() - 1; i >= 0; i--) {
-	    		 result.add(temp.get(i) + (1 << (n - 1)));
-	    	 }
-	     }
-	     return result;
-	}
-	public static void main(String[] args) {
-		List<Integer> result = grayCode(1);
-		for (Integer i: result) {
-			System.out.println(i);
-		}
-	}
+    public static List<Integer> grayCode(int n) {
+         List<Integer> result = new ArrayList<Integer>();
+         if (n == 0) {
+             result.add(0);
+         } else {
+             List<Integer> temp = grayCode(n-1);
+             for (Integer i: temp) {
+                 result.add(i);
+             }
+             for (int i = temp.size() - 1; i >= 0; i--) {
+                 result.add(temp.get(i) + (1 << (n - 1)));
+             }
+         }
+         return result;
+    }
+    public static void main(String[] args) {
+        List<Integer> result = grayCode(1);
+        for (Integer i: result) {
+            System.out.println(i);
+        }
+    }
 }
 ```

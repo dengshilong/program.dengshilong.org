@@ -16,38 +16,38 @@ date: 2014-07-11 11:35:02
 仔细想想，Sphinx都是用C++写的，而C的API中竟然没有提供这个接口，反倒是其它语言有提供，真是匪夷所思。所幸，代码都是开源的，想要自己有这个接口，自己动手写一个就好了，也许这就是开源的好处。
 
 代码如下：
-``` c
+``` 
 int sphinx_flush_attributes(sphinx_client * client) {
-	char *buf, *req, *p;
-	int req_len = 0;
-	if (!client) {
-		printf("not valid client\n");
-		return -1;
-	}
-	buf = malloc ( 12 + req_len ); // request body length plus 12 header bytes
-	if ( !buf ) {
-		set_error ( client, "malloc() failed (bytes=%d)", req_len );
-		return -1;
-	}
+    char *buf, *req, *p;
+    int req_len = 0;
+    if (!client) {
+        printf("not valid client\n");
+        return -1;
+    }
+    buf = malloc ( 12 + req_len ); // request body length plus 12 header bytes
+    if ( !buf ) {
+        set_error ( client, "malloc() failed (bytes=%d)", req_len );
+        return -1;
+    }
 
-	req = buf;
+    req = buf;
 
-	send_word ( &req, SEARCHD_COMMAND_FLUSHATTRS );
-	send_word ( &req, VER_COMMAND_FLUSHATTRS );
-	send_int ( &req, req_len );
+    send_word ( &req, SEARCHD_COMMAND_FLUSHATTRS );
+    send_word ( &req, VER_COMMAND_FLUSHATTRS );
+    send_int ( &req, req_len );
 
-	// send query, get response
-	if ( !net_simple_query ( client, buf, req_len ) )
-		return -1;
+    // send query, get response
+    if ( !net_simple_query ( client, buf, req_len ) )
+        return -1;
 
-	// parse response
-	if ( client->response_len < 4 ) {
-		set_error ( client, "incomplete reply" );
-		return -1;
-	}
+    // parse response
+    if ( client->response_len < 4 ) {
+        set_error ( client, "incomplete reply" );
+        return -1;
+    }
 
-	p = client->response_start;
-	return unpack_int ( &p );
+    p = client->response_start;
+    return unpack_int ( &p );
 }
 ```
 之后还要添加

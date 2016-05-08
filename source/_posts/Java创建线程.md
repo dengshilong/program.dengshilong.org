@@ -129,38 +129,38 @@ Parent: 1
 查看Thread类的源码就会发现问题的所在.
 ```
 public synchronized void start() {
-        /**
-         * This method is not invoked for the main method thread or "system"
-         * group threads created/set up by the VM. Any new functionality added
-         * to this method in the future may have to also be added to the VM.
-         *
-         * A zero status value corresponds to state "NEW".
-         */
-        if (threadStatus != 0)
-            throw new IllegalThreadStateException();
+    /**
+     * This method is not invoked for the main method thread or "system"
+     * group threads created/set up by the VM. Any new functionality added
+     * to this method in the future may have to also be added to the VM.
+     *
+     * A zero status value corresponds to state "NEW".
+     */
+    if (threadStatus != 0)
+        throw new IllegalThreadStateException();
 
-        /* Notify the group that this thread is about to be started
-         * so that it can be added to the group's list of threads
-         * and the group's unstarted count can be decremented. */
-        group.add(this);
+    /* Notify the group that this thread is about to be started
+     * so that it can be added to the group's list of threads
+     * and the group's unstarted count can be decremented. */
+    group.add(this);
 
-        boolean started = false;
+    boolean started = false;
+    try {
+        start0();
+        started = true;
+    } finally {
         try {
-            start0();
-            started = true;
-        } finally {
-            try {
-                if (!started) {
-                    group.threadStartFailed(this);
-                }
-            } catch (Throwable ignore) {
-                /* do nothing. If start0 threw a Throwable then
-                  it will be passed up the call stack */
+            if (!started) {
+                group.threadStartFailed(this);
             }
+        } catch (Throwable ignore) {
+            /* do nothing. If start0 threw a Throwable then
+              it will be passed up the call stack */
         }
     }
+}
 
-    private native void start0();
+private native void start0();
 ```
 在start方法中调用native方法start0()，虽然看不到它的具体实现，但可以推测这里创建了新的线程，然后调用run方法。而run方法中，则没有创建线程相关的代码
 ```

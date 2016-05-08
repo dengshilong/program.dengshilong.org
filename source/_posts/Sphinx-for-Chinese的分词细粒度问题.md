@@ -30,68 +30,68 @@ int m_iBestWordLength; //最优分词结果的长度
 ```
 
 在6404行附近CSphTokenizer_UTF8Chinese<IS_QUERY>::CSphTokenizer_UTF8Chinese ()这个构造函数中，增加以下语句进行初始化。
-``` c
- char *penv = getenv("IS_INDEXER");
-        if (penv != NULL) {
-                m_isIndexer = 1;
-        } else {
-                m_isIndexer = 0;
-        }
-        m_needMoreParser = false;
+``` 
+char *penv = getenv("IS_INDEXER");
+if (penv != NULL) {
+    m_isIndexer = 1;
+} else {
+    m_isIndexer = 0;
+}
+m_needMoreParser = false;
 ```
 在6706行附近BYTE * CSphTokenizer_UTF8Chinese<IS_QUERY>::GetToken ()函数中int iNum;语句后面增加如下语句
-``` c
-       if(m_isIndexer && m_needMoreParser) { //对最优结果进行进一步细分
-                while (m_pTempCur < m_BestWord + m_iBestWordLength) {
-                        if(m_processedParsedWordsNum == m_totalParsedWordsNum) {
-                                size_t minWordLength = m_pResultPair[0].length;
-                                for(int i = 1; i < m_totalParsedWordsNum; i++) {
-                                        if(m_pResultPair[i].length < minWordLength) {
-                                                minWordLength = m_pResultPair[i].length;
-                                        }
-                                }
-                                m_pTempCur += minWordLength;
-                                m_pText=(Darts::DoubleArray::key_type *)(m_pCur + (m_pTempCur - m_BestWord));
-                                iNum = m_tDa.commonPrefixSearch(m_pText, m_pResultPair, 256, m_pBufferMax-(m_pCur+(m_pTempCur-m_Best
-Word)));
-                                m_totalParsedWordsNum = iNum;
-                                m_processedParsedWordsNum = 0;
-                        } else {
-                                iWordLength = m_pResultPair[m_processedParsedWordsNum].length;
-                                m_processedParsedWordsNum++;
-                                if (m_pTempCur == m_BestWord && iWordLength == m_iBestWordLength) { //是最优分词结果,跳过
-                                        continue;
-                                }
-                                memcpy(m_sAccum, m_pText, iWordLength);
-                                m_sAccum[iWordLength]='\0';
-
-                                m_pTokenStart = m_pCur + (m_pTempCur - m_BestWord);
-                                m_pTokenEnd = m_pCur + (m_pTempCur - m_BestWord) + iWordLength;
-                                return m_sAccum;
-                        }
+``` 
+if(m_isIndexer && m_needMoreParser) { //对最优结果进行进一步细分
+    while (m_pTempCur < m_BestWord + m_iBestWordLength) {
+        if(m_processedParsedWordsNum == m_totalParsedWordsNum) {
+            size_t minWordLength = m_pResultPair[0].length;
+            for(int i = 1; i < m_totalParsedWordsNum; i++) {
+                if(m_pResultPair[i].length < minWordLength) {
+                    minWordLength = m_pResultPair[i].length;
                 }
-                m_pCur += m_iBestWordLength;
-                m_needMoreParser = false;
-                iWordLength = 0;
+            }
+            m_pTempCur += minWordLength;
+            m_pText=(Darts::DoubleArray::key_type *)(m_pCur + (m_pTempCur - m_BestWord));
+            iNum = m_tDa.commonPrefixSearch(m_pText, m_pResultPair, 256, m_pBufferMax-(m_pCur+(m_pTempCur-m_Best
+Word)));
+            m_totalParsedWordsNum = iNum;
+            m_processedParsedWordsNum = 0;
+        } else {
+            iWordLength = m_pResultPair[m_processedParsedWordsNum].length;
+            m_processedParsedWordsNum++;
+            if (m_pTempCur == m_BestWord && iWordLength == m_iBestWordLength) { //是最优分词结果,跳过
+                continue;
+            }
+            memcpy(m_sAccum, m_pText, iWordLength);
+            m_sAccum[iWordLength]='\0';
+
+            m_pTokenStart = m_pCur + (m_pTempCur - m_BestWord);
+            m_pTokenEnd = m_pCur + (m_pTempCur - m_BestWord) + iWordLength;
+            return m_sAccum;
         }
+    }
+    m_pCur += m_iBestWordLength;
+    m_needMoreParser = false;
+    iWordLength = 0;
+}
 ```
 在 iNum = m_tDa.commonPrefixSearch(m_pText, m_pResultPair, 256, m_pBufferMax-m_pCur);语句后面，增加如下语句 
-``` c
-            if(m_isIndexer && iNum > 1) {
-                        m_iBestWordLength=getBestWordLength(m_pText, m_pBufferMax-m_pCur); //使用mmseg得到最优分词结果
-                        memcpy(m_sAccum, m_pText, m_iBestWordLength);
-                        m_sAccum[m_iBestWordLength]='\0';
-                        m_pTokenStart = m_pCur;
-                        m_pTokenEnd = m_pCur + m_iBestWordLength;
+``` 
+if(m_isIndexer && iNum > 1) {
+    m_iBestWordLength=getBestWordLength(m_pText, m_pBufferMax-m_pCur); //使用mmseg得到最优分词结果
+    memcpy(m_sAccum, m_pText, m_iBestWordLength);
+    m_sAccum[m_iBestWordLength]='\0';
+    m_pTokenStart = m_pCur;
+    m_pTokenEnd = m_pCur + m_iBestWordLength;
 
-                        m_totalParsedWordsNum = iNum;
-                        m_needMoreParser = true;
-                        m_processedParsedWordsNum = 0;
-                        memcpy(m_BestWord, m_pText, m_iBestWordLength);
-                        m_BestWord[m_iBestWordLength]='\0';
-                        m_pTempCur = m_BestWord;
-                        return m_sAccum;
-                }
+    m_totalParsedWordsNum = iNum;
+    m_needMoreParser = true;
+    m_processedParsedWordsNum = 0;
+    memcpy(m_BestWord, m_pText, m_iBestWordLength);
+    m_BestWord[m_iBestWordLength]='\0';
+    m_pTempCur = m_BestWord;
+    return m_sAccum;
+}
 ```
 需要修改的地方就这么多。重新编译，生成后indexer后,设置环境变量,export IS_INDEXER=1，重建索引即可。这里需要注意的一点是，必须使用修改代码之前的searchd，这样才会符合我们的需求，如果使用修改代码之后的searchd,搜索西海时，会分成西海，西，海，然后去搜索，这就不是我们想要的。
 

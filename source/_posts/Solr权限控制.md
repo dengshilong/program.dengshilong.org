@@ -31,15 +31,15 @@ date: 2015-01-20 21:47:37
 ```
 编辑 etc/jetty.xml, 添加如下内容：
 ```
- <Call name="addBean">
-      <Arg>
-        <New class="org.eclipse.jetty.security.HashLoginService">
-          <Set name="name">Solr Update</Set>
-          <Set name="config"><SystemProperty name="jetty.home" default="."/>/etc/realm.properties</Set>
-          <Set name="refreshInterval">0</Set>
-        </New>
-      </Arg>
-    </Call>
+<Call name="addBean">
+  <Arg>
+    <New class="org.eclipse.jetty.security.HashLoginService">
+      <Set name="name">Solr Update</Set>
+      <Set name="config"><SystemProperty name="jetty.home" default="."/>/etc/realm.properties</Set>
+      <Set name="refreshInterval">0</Set>
+    </New>
+  </Arg>
+</Call>
 ```
 增加 etc/realm.properties,写入如下内容，也就是用户名，密码以及角色：
 ```

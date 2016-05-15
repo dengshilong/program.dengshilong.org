@@ -20,8 +20,13 @@ There is a problem here, the first time you run the script, it can't select any 
 2. define a statefile.json file before the first time you run the incremental script, set the lastexecutionstart to 0, so that you can select all the data from table.
 ```
 
-今天发现，为何不在，开始时间设置为0，这样就可以做全亮导入了，于是提交了一个新的patch.
+今天发现，为何不在，开始时间设置为0，这样就可以做全量导入了，于是提交了一个新的patch.
+
+### update: 
+后来又提交了一个patch, 现在只要加上statefile, 第一次导入时，开始时间为0，之后就是增量了，方便了不少。
+
 ## 定时导数据
 原计划是在crontab里添加定时执行任务, 所以没看elasticsearch-jdbc提供的schedule功能，但看到issue中有人提到，于是开始解决。最后发现schedule时没有重新加载statefile文件，于是提交了一个patch。这次也把向数据库提交的查询语句打印出来，方便找错。
+
 ## 结束语
 无法删除数据确实是一个很严重的缺陷，看来还是要想办法从binlog里读取数据才行,先这样做吧，以后再优化。

@@ -47,7 +47,7 @@ mapping.json内容
 }
 ```
 
-分词配置可参看
+ik分词配置可参看
 [Elatcissearch中ik添加同义词](
 http://program.dengshilong.org/2016/04/06/Elasticsearch%E4%B8%ADik%E6%B7%BB%E5%8A%A0%E5%90%8C%E4%B9%89%E8%AF%8D/)
 

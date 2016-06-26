@@ -13,7 +13,7 @@ merge有两种方式，一种是fast-forward, 一种是非fast-forward方式。
 * git merge feature 使用fast-forward方式合并feature分支
 * git merge --no-ff feature 使用非fast-forward方式合并。
 
-这两种方式的差别在于是否保留分支合并的信息。为此特意在github上见了一个[test-git](https://github.com/dengshilong/test-git)仓库。
+这两种方式的差别在于是否保留分支合并的信息。为此特意在github上建了一个[test-git](https://github.com/dengshilong/test-git)仓库。
 
 使用`git log --graph`在master分支上查看log时，可以很方便的看出两种方式的区别。这里添加了一些参数，使结果更简洁
 ｀git log --graph --pretty=oneline --abbrev-commit｀

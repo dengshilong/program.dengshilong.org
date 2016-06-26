@@ -19,3 +19,6 @@ categories:
 有一个需要注意的是，在一个分支中stash起来的修改，也可以应用于其它分支。所以git stash apply时一定要注意分支是否匹配。
 
 其实这也隐藏了stash的一个功能。当你在一个分支上进行修改时，发现你想修改的是另外一个分支，此时你不想reset掉修改。stash派上用场了，先git stash将修改保存起来，然后切换到另外一个分支，之后git stash apply, 这样修改就应用与另外一个分支了。
+
+参考资料:
+* [git stash](https://git-scm.com/docs/git-stash)

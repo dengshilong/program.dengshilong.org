@@ -21,3 +21,6 @@ categories:
 此时再次执行`git status`, 就会提示已经落后了， `Your branch is behind 'origin/dev' by 8 commits, and can be fast-forwarded.` 
 
 之后使用merge命令将本地的origin/dev合并到本地的dev中`git merge --no-ff origin/dev`
+
+参考资料:
+* [git fetch](https://git-scm.com/docs/git-fetch)

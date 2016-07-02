@@ -14,3 +14,6 @@ reset命令用于重置到某个状态。
 
 * git reset --hard 
 撤销所有的修改，可以在--hard后添加版本后，表示reset到某个版本
+
+参考资料:
+* [git reset](https://git-scm.com/docs/git-reset)

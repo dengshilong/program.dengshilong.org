@@ -26,3 +26,5 @@ def delete_cache(sender, **kwargs):
 ```
 
 之后在admin后台添加和删除数据时，缓存就会被清除。访问http://127.0.0.1:8000/area/api/city/list/1 时就可以读取到最新的数据 
+
+想自己尝试的可以下载[test-django](https://github.com/dengshilong/test-django)

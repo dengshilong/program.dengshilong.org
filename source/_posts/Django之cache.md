@@ -6,7 +6,7 @@ tags:
 categories:
     - Python
 ---
-在前面的省/市/区(县)的例子中，如果查询某个省下面的市信息是一个常用的操作时，此时可以使用缓存。
+在前面的[省/市/区(县)](http://program.dengshilong.org/2016/07/02/Django%E4%B9%8Bmptt/)的例子中，如果查询某个省下面的市信息是一个常用的操作时，此时可以使用缓存。
 
 Django提供了[cache](https://docs.djangoproject.com/ja/1.9/topics/cache/)功能，只需要进行简单配置就可以使用。缓存可以保存在很多地方，如Memcached, Redis等，这里以Redis为例。
 

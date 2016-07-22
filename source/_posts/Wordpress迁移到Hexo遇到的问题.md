@@ -57,6 +57,8 @@ if __name__ == "__main__":
 ```
 执行`python changePostURL.py source/_posts/`搞定
 
+Update: 该问题有了更好的解决办法，参看[Wordpress迁移Hexo文件名问题](http://program.dengshilong.org/2016/07/22/Wordpress%E8%BF%81%E7%A7%BBHexo%E6%96%87%E4%BB%B6%E5%90%8D%E9%97%AE%E9%A2%98/)
+
 ## HTML实体问题
 在转化出来的文件内容中，有&gt;和&lt;等实体，我想是因为Wordpress编辑器进行了转化。虽然最后的显示结果没有问题，但在Markdown中，我还是希望看到>和<等,于是在hexo-migrator-wordpress中再添加一个函数.
 ```

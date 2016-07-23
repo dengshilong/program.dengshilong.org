@@ -47,7 +47,7 @@ mapping.json内容
 }
 ```
 
-ik分词配置可参看
+分词配置可参看
 [Elatcissearch中ik添加同义词](
 http://program.dengshilong.org/2016/04/06/Elasticsearch%E4%B8%ADik%E6%B7%BB%E5%8A%A0%E5%90%8C%E4%B9%89%E8%AF%8D/)
 
@@ -56,7 +56,45 @@ curl -XGET 'localhost:9200/article/_mapping'
 
 ## elasticsearch-jdbc配置
 
-到elasticsearch-jdbc的bin目录下，查看mysql-blog.sh文件,
+到elasticsearch-jdbc的bin目录下，查看mysql-blog.sh文件, 内容如下
+```
+#!/bin/sh
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+bin=${DIR}/../bin
+lib=${DIR}/../lib
+
+echo '
+{
+    "type" : "jdbc",
+    "jdbc" : {
+        "url" : "jdbc:mysql://localhost:3306/blog",
+        "statefile" : "statefile.json",
+        "schedule" : "0 0-59 0-23 ? * *",
+        "user" : "blog",
+        "password" : "12345678",
+        "sql" : [{
+                "statement": "select id as _id, id, post_title as title, post_content as content from wp_posts where post_status = ? and post_modified > ? ",
+                "parameter": ["publish", "$metrics.lastexecutionstart"]}
+            ],
+        "index" : "article",
+        "type" : "blog",
+         "metrics": {
+            "enabled" : true
+        },
+        "elasticsearch" : {
+             "cluster" : "elasticsearch",
+             "host" : "localhost",
+             "port" : 9300
+        }
+    }
+}
+' | java \
+    -cp "${lib}/*" \
+    -Dlog4j.configurationFile=${bin}/log4j2.xml \
+    org.xbib.tools.Runner \
+    org.xbib.tools.JDBCImporter
+```
 这里主要看两个配置, statefile和schedule,
 
 其中statefile这个配置对于增量导数据一定不能少。因为只有配置了statefile，elasticsearch-jdbc才知道将上次抓取时间存在哪里，才可以做增量索引。

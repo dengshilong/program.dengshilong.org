@@ -2,6 +2,7 @@ title: CentOS6.5安装Ngrok
 date: 2016-08-01 20:39:30
 tags:
     - Ngrok
+    - CentOS
 categories:
     - 软件安装
 ---

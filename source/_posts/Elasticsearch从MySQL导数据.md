@@ -1,7 +1,10 @@
 title: Elasticsearch从MySQL导数据
 date: 2016-04-10 17:00:01
-tags: Elasticsearch MySQL
-categories: 搜索引擎
+tags: 
+    - Elasticsearch 
+    - MySQL
+categories: 
+    - 搜索引擎
 ---
 在Solr和Elasticsearch两个中权衡，最后还是选择了Elasticsearch。虽然之前有Solr开发经验，但是当看过Elasticsearch的配置后，还是投奔Elasticsearch,只能说Solr的配置太复杂了。
 

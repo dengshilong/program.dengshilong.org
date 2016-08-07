@@ -12,7 +12,9 @@ date: 2014-03-25 13:14:43
 man crontab后，没有关于如何编写crontab任务的说明，看到see also crontab(5)后,执行man 5 crontab,发现这里有说明如何编写crontab任务。这样以后就不需要遇到一个问题，就上网找，直接看手册就好了。
 
 一般说来，都是仿照晚上的例子写，如这里[http://www.blogjava.net/xiaomage234/archive/2007/12/26/170490.html](http://www.blogjava.net/xiaomage234/archive/2007/12/26/170490.html)后来才发现，给出的例子中有一个坑。
+```
 * */1 * * * /usr/local/apache/bin/apachectl restart
+```
 每小时重启apache
 这个例子中说每小时重启apache，试着写了之后，才发现每一分钟都会重启。仔细分析后才发现原因,因为第一列是分钟的位置,而使用*号，则代表0-59分钟，于是在一个小时里，0-59分钟都会重启apache,等到59分钟重启apache后，已经过了一小时，于是又回到0分钟，于是apache又重启了。
 

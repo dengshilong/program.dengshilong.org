@@ -4,7 +4,7 @@ tags:
     - Linux
 categories:
 ---
-最近在DigitOcean买了VPS，又开始折腾主机。这次要记录下来。首先从新建用户开始。
+最近在[DigitOcean](www.digitalocean.com/?refcode=7f7443d8d971)买了VPS，又开始折腾主机。这次要记录下来。首先从新建用户开始。
 
 ### 新建用户
 新增用户使用useradd命令，例如新增test用户，执行命令`useradd test`即可。新增用户后，要给用户设置密码，否则无法登录。

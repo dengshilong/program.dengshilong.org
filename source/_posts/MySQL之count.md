@@ -46,3 +46,4 @@ CREATE INDEX is_active ON user (is_active);
 参考资料:
 * [COUNT(*) vs COUNT(col)](https://www.percona.com/blog/2007/04/10/count-vs-countcol/)
 * [在MySQL的InnoDB存储引擎中count(*)函数的优化](https://segmentfault.com/a/1190000003793230)
+* [Why count query runs slower in less data than more data in MyISAM](http://stackoverflow.com/questions/39481876/why-count-query-runs-slower-in-less-data-than-more-data-in-myisam/39482638)

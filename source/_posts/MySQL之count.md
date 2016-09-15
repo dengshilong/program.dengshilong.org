@@ -37,7 +37,7 @@ mysql> select count(*) from sku_pro where is_agent=1;
 ```
 CREATE INDEX is_active ON user (is_active,id);
 ```
-这个不是创建
+值得注意的是，这里不是创建
 ```
 CREATE INDEX is_active ON user (is_active);
 ```

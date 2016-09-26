@@ -7,7 +7,7 @@ categories:
 ---
 国内访问Docker官网镜像很慢，需要修改镜像地址。阿里云的速度不错，注册之后就可以拿到专属加速器地址。
 
-在[阿里云后台](https://cr.console.aliyun.com/#/accelerator)有说明，根据不同系统，版本号，有响应的设置
+在[阿里云后台](https://cr.console.aliyun.com/#/accelerator)有说明，根据不同系统，版本号，有相应的设置
 
 我的Ubuntu上
 ```

@@ -16,5 +16,5 @@ News.objects.filter(pk=self.object.id).update(view_num=F('view_num') + 1)
 Redis确实是好东西，需要深入学习。
 
 参考资料
-* http://redisdoc.com/string/incr.html
-* http://xiewenwei.github.io/blog/2014/07/06/redis-use-pattern-1-counter/
+* [Redis之INCR命令](http://redisdoc.com/string/incr.html)
+* [Redis 使用模式之一：计数器](http://xiewenwei.github.io/blog/2014/07/06/redis-use-pattern-1-counter/)

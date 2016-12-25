@@ -14,5 +14,5 @@ index-url = https://pypi.douban.com/simple
 ```
 
 参考资料
-* [pip Configuration] (https://pip.pypa.io/en/stable/user_guide/#configuration)
+* [pip Configuration](https://pip.pypa.io/en/stable/user_guide/#configuration)
 * [常用的开源镜像站推荐](http://smilejay.com/2015/11/mirrors-sites-for-open-source/)

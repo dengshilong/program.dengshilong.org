@@ -5,14 +5,15 @@ tags:
     - dis
 categories:
 ---
-[dis](https://docs.python.org/3/library/dis.html), 即Disassembler for Python bytecode, 用于Python字节码的反汇编。
-可以用于查看函数的具体执行步骤，例如下面的局部变量的例子
+[dis](https://docs.python.org/3/library/dis.html), 即Disassembler for Python bytecode, 用于Python字节码的反汇编。可以用于查看函数的具体执行步骤，例如下面的局部变量的例子
+
 ```
 def f1(a):
     print(a)
     print(b)
-```   
-得到的  
+```
+得到
+
 ```
   3           0 LOAD_GLOBAL              0 (print)
               3 LOAD_FAST                0 (a)
@@ -26,7 +27,9 @@ def f1(a):
              20 LOAD_CONST               0 (None)
              23 RETURN_VALUE
 ```
+
 执行
+
 ```
 a = 3
 b = 4
@@ -35,6 +38,7 @@ f1(a)
 不会报错，这里第13条是LOAD_GLOBAL，此时有全局变量b.
 
 再看这个例子
+
 ```
 def f2(a):
     print(a)
@@ -42,6 +46,7 @@ def f2(a):
     b=9
 ```
 得到的是
+
 ```
   4           0 LOAD_GLOBAL              0 (print)
               3 LOAD_FAST                0 (a)
@@ -60,6 +65,7 @@ def f2(a):
 ```
 
 执行
+
 ```
 a = 3
 b = 4

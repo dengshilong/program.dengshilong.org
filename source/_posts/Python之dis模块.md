@@ -43,7 +43,7 @@ f1(a)
 def f2(a):
     print(a)
     print(b)
-    b=9
+    b = 9
 ```
 得到的是
 

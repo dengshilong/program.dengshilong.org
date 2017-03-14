@@ -19,6 +19,10 @@ categories:
 ```
 ssh user@host 'mkdir -p .ssh && chmod 700 .ssh && touch .ssh/authorized_keys && chmod 600 .ssh/authorized_keys && cat >> .ssh/authorized_keys' < ~/.ssh/id_rsa.pub
 ```
+如果已经存在.ssh目录，可以执行
+```
+ssh user@host 'chmod 700 .ssh && touch .ssh/authorized_keys && chmod 600 .ssh/authorized_keys && cat >> .ssh/authorized_keys' < ~/.ssh/id_rsa.pub
+```
 之后会提示输入密码，之后就可以不需要密码登录了。
 
 

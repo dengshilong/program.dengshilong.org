@@ -11,7 +11,5 @@ categories:
 ## 参考资料
 * [Zabbix官方文档](https://www.zabbix.com/documentation/3.0/manual/api/reference)
 * [自动化监控Zabbix安装部署之Server端部署](http://www.jianshu.com/p/5a2cb82e243f)
-
 * [自动化监控Zabbix安装部署之agent端部署](http://www.jianshu.com/p/688da06320e8)
-
-[Zabbix使用实践](http://naixwf.github.io/2015/05/18/zabbix-practice/)
+* [Zabbix使用实践](http://naixwf.github.io/2015/05/18/zabbix-practice/)

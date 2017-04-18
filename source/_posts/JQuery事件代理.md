@@ -37,15 +37,15 @@ JQuery的事件代理主要用来解决通过js添加的HTML元素无法监听�
 
 解决这个问题的方法是使用事件代理，原理是利用了事件传播机制。也就是在某一个元素中的事件，如果没有得到处理，一直会向父节点触发，直到根节点。如上面的a元素的click事件，如果没有被捕获，一直会向上触发，路径如下
 
-* <a>
-* <li>
-* <ul #list>
-* <div #container>
-* <body>
-* <html>
+* `<a>`
+* `<li>`
+* `<ul #list>`
+* `<div #container>`
+* `<body>`
+* `<html>`
 * document root
 
-在<ul #list>元素上添加click事件，就可以看到效果。
+在`<ul #list>`元素上添加click事件，就可以看到效果。
 ```
 $( "#list" ).on( "click", function( event ) {
     event.preventDefault();
@@ -53,7 +53,7 @@ $( "#list" ).on( "click", function( event ) {
 });
 ```
 
-最后，如果使用事件代理，我们可以把它绑定到<ul #list>元素，然后通过'a'去找到<a>元素，这样就可以监听通过js添加的HTML元素。
+最后，如果使用事件代理，我们可以把它绑定到`<ul #list>`元素，然后通过'a'去找到`<a>`元素，这样就可以监听通过js添加的HTML元素。
 ```
 $( "#list" ).on( "click",  'a', function( event ) {
     event.preventDefault();

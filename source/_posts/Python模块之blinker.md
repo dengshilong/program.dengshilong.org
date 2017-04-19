@@ -2,10 +2,10 @@ title: Python模块之blinker
 date: 2017-04-19 14:02:51
 tags:
     - Python
-    - blinker
+    - Blinker
 categories:
 ---
-Flask使用[blinker](https://github.com/jek/blinker)来处理信号订阅和发送, 查看文档[blinker](https://pythonhosted.org/blinker/)看看简单的使用方法。
+Flask使用[Blinker](https://github.com/jek/blinker)来处理信号订阅和发送, 查看文档[Blinker](https://pythonhosted.org/blinker/)看看简单的使用方法。
 
 ```
 from blinker import signal

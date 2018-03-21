@@ -11,7 +11,7 @@ def now(self):
     from datetime import datetime
     return datetime.utcnow().replace(tzinfo=self.timezone)
 ```
-改成
+如果写成
 ```
  def now(self):
     """Return the current time and date as a datetime."""
@@ -19,4 +19,15 @@ def now(self):
     return datetime.now(self.timezone) 
 ```
 就没问题了。
-查看[datetime.now](https://docs.python.org/2/library/datetime.html#datetime.datetime.now)的实现, 当tz不为空时, datetime.now(tz) 等于tz.fromutc(datetime.utcnow().replace(tzinfo=tz))。
+查看[datetime.now](https://docs.python.org/2/library/datetime.html#datetime.datetime.now)的实现, 当tz不为空时, datetime.now(tz) 等于tz.fromutc(datetime.utcnow().replace(tzinfo=tz))。所以这是Celery的Bug
+
+但是不能去修改Celery的源码，于是使用评论中提到的解决办法
+```
+class MyCelery(Celery)
+    def now(self):
+        """Return the current time and date as a datetime."""
+        from datetime import datetime
+        return datetime.now(self.timezone)
+
+app = MyCelery()
+```

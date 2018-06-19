@@ -4,7 +4,7 @@ tags:
     - Django
 categories:
 ---
-在编写单元测试时，每次重新创建数据库都花费很长时间，于是在表结果不变的情况下，想使用keepdb参数，即执行
+在编写单元测试时，每次重新创建MySQL数据库表都花费很长时间，于是在表结果不变的情况下，想使用keepdb参数，即执行
 `python manage.py test --keepdb`, 会报如下错误
 
 ```

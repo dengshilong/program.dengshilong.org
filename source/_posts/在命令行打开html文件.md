@@ -11,3 +11,5 @@ categories:
 今天上午搜索之后，发现[Mac下有open命令](https://www.cnblogs.com/willbin/archive/2013/03/19/2968775.html)
 
 于是可以用open -a safari 文件名， 或者也可以用open -a Google\ Chrome 文件名打开
+
+故事还没完，在我向同事展示学习到的黑科技时，同事给出了一种更高效的打开方式，按住Command, 点击文件。

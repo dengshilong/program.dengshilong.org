@@ -20,4 +20,4 @@ categories:
 
 做完这一题后，建议继续作下一题。
 
-解答见[EQCount.java](https://github.com/dengshilong/C100Problem/blob/master/src/chapter1/EQCount.java)
+依然是利用已经排好序的这个特性。解答见[EQCount.java](https://github.com/dengshilong/C100Problem/blob/master/src/chapter1/EQCount.java)

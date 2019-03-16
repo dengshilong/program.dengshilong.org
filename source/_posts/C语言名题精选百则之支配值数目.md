@@ -12,4 +12,4 @@ categories:
 
 说明: 与问题1.1一样，需要特别注意数组f[]与g[]已经排序。如果问题1.1能够做出完美的解答，那么本题也不难，相似的方法就可以得到高效率的程序。
 
-利用数组已经排好序的这个特性，可以写出高效的程序. 解答见[GTCount.java](https://github.com/dengshilong/C100Problem/blob/master/src/chapter1/GTCount.java)
+利用数组已经排好序的这个特性，可以写出高效的程序. 解答见[gt_count.py](https://github.com/dengshilong/C100Problem/blob/master/chapter1/gt_count.py)

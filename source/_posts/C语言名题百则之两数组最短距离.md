@@ -10,4 +10,4 @@ categories:
 
 注意，如果x[]与y[]各有m与n个元素，那么元素之间的距离就一共有m * n个; 事实上往往用不着这么多个值，应该活用x[]与y[]已经排列好的特性，不要把所有的距离都算出来。
 
-依然是利用数组已经排好序的特性。解答见[MinDist.java](https://github.com/dengshilong/C100Problem/blob/master/src/chapter1/MinDist.java)
+依然是利用数组已经排好序的特性。解答见[min_dist.py](https://github.com/dengshilong/C100Problem/blob/master/chapter1/min_dist.py)

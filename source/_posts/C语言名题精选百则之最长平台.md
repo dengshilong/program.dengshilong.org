@@ -4,9 +4,7 @@ tags:
     - C名题百则
 categories:
 ---
-一直都想把冼镜光的《C语言名题精选百则》完整的做一遍，这次还是静下心来好好做做，记下笔记。
-
-最长平台问题(Pleateau)
+冼镜光老师的《C语言名题精选百则》是我最喜欢的一本算法书。大一的时候见到这本书，顿时爱不释手，只是当时水平有限，很多题目做的很吃力，就没有继续做下去了。比较意外的是，这本书印刷的次数竟然很少，有些可惜。还有书中都是用C语言写的，对于专注算法来说，并不是很好，于是决定抽空用Python重写。
 
 已知一个已经从小到大排序的数组，这个数组中的一个平台(plateau) 就是连续的一串相同的元素，并且这一串元素不能再延伸。
 
@@ -23,4 +21,4 @@ categories:
 
 这个问题曾经困扰过 David Gries这位知名的技术机科学家。本题与解答取自David Gries编写的有光程序设计的专著。
 
-解答见[Pleateau.java](https://github.com/dengshilong/C100Problem/blob/master/src/chapter1/Pleateau.java)
+解答见[pleateau.py](https://github.com/dengshilong/C100Problem/blob/master/chapter1/pleateau.py)

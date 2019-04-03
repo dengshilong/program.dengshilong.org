@@ -12,4 +12,4 @@ categories:
 2. 注意到x ^ 4可以用x ^ 2自乘的关系，由此可以大量地降低乘法数目
 3. 连乘n次要n - 1个乘法，能做到只要2log(n)个乘法吗？
 
-解答见[recursion_power](https://github.com/dengshilong/C100Problem/blob/master/chapter2/recursion_power.py)
+解答见[recursion_power.py](https://github.com/dengshilong/C100Problem/blob/master/chapter2/recursion_power.py)

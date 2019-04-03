@@ -12,4 +12,4 @@ categories:
 
 了解了这些观点之后,编写这个程序就不难了。在编写完程序之后,还应该分析一下程序乘了多少次。
 
-解答见［iteration_power](https://github.com/dengshilong/C100Problem/blob/master/chapter2/iteration_power.py)
+解答见[iteration_power.py](https://github.com/dengshilong/C100Problem/blob/master/chapter2/iteration_power.py)

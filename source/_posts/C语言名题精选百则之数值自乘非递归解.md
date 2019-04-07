@@ -1,8 +1,8 @@
 title: C语言名题精选百则之数值自乘非递归解
 date: 2019-04-02 17:06:30
 tags:
-categories:
     - C名题百则
+categories:
 ---
 继续求m ^ n 问题(m与n是正整数)。前面的[数值自乘递归解](http://program.dengshilong.org/2019/03/22/C%E8%AF%AD%E8%A8%80%E5%90%8D%E9%A2%98%E7%B2%BE%E9%80%89%E7%99%BE%E5%88%99%E4%B9%8B%E6%95%B0%E5%80%BC%E8%87%AA%E4%B9%98%E9%80%92%E5%BD%92%E8%A7%A3/)会得到一个递归的程序,请编制一个运算效率同样高的非递归的程序。
 

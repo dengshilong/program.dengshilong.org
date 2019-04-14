@@ -9,4 +9,4 @@ categories:
 说明: 列出一个集合的所有子集有很多做法,题目中并没有要求依某个特定的次序来排列,
 因此是不难做出来的。 因为集合中一共有n个元素,所以总共就会有2 ^ n 个子集; 例如{1, 2, 3} 有如下子集: {} {1} {2} {3} {1, 2} {1, 3} {2, 3} {1, 2, 3}
 
-解答见[direct.py](https://github.com/dengshilong/C100Problem/blob/master/chapter3/direct.py)
+这里没有要求顺序，所以方法很多，随便选一种. 解答见[direct.py](https://github.com/dengshilong/C100Problem/blob/master/chapter3/direct.py)

@@ -56,7 +56,7 @@ if __name__ == "__main__":
 ## delattr
 ```
 
-可以看到c.name和getattr(c, 'name')都会调用`__getattribute__`方法，之后调用`__getattr__`方法，c.data = 'test'会调用`__getattr__`方法，之后c.data只调用了`__getattribute__`方法, del c.data调用了`__delattr__`方法。
+可以看到c.name和getattr(c, 'name')都会调用`__getattribute__`方法，之后调用`__getattr__`方法，c.data = 'test'会调用`__setattr__`方法，之后c.data只调用了`__getattribute__`方法, del c.data调用了`__delattr__`方法。
 
 所以可以总结如下
 * `__getattribute__`在获取属性时都会被调用到

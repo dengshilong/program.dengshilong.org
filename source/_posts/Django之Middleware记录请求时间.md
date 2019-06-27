@@ -33,3 +33,30 @@ class LoggingMiddleware(MiddlewareMixin):
         logger.info(res)
         return response
 ```
+
+之后在Django配置里，LOGGING->formatters里加上
+```
+very_simple:
+    format: '%(message)s'
+```
+LOGGING->handlers里加上
+```
+monitor:
+    level: 'INFO'
+    class: 'logging.handlers.RotatingFileHandler'
+    filename: 'monitor.log'
+    formatter: 'very_simple'
+```
+在LOGGING->loggers里加上
+```
+ 'helper.middleware.logging_middleware':
+    handlers: ['monitor']
+    level: 'INFO'
+    propagate: False
+```
+其中helper.middleware.logging_middleware是LoggingMiddleware这个类的存放位置，
+
+最后在项目settings的MIDDLEWARE的最前面加上'helper.middleware.logging_middleware.LoggingMiddleware'
+
+如此日志就会输出到monitor.log
+

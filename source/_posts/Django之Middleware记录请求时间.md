@@ -4,6 +4,8 @@ tags:
     - Django
 categories:
 ---
+本来觉得没必要写的，但是呢，少年看到这个用法觉得还是挺新奇的，竟然还可以这么玩，于是记录下。
+
 前些天，监控系统那边提了需求，要求应用必须加上访问时长日志，并得知道是谁访问的，于是就想到了使用Django的Middleware. 请求进来的时候记下时间，返回的时候记下时间，两者相减，就是请求的时长。代码如下
 
 ```
@@ -59,4 +61,3 @@ monitor:
 最后在项目settings的MIDDLEWARE的最前面加上'helper.middleware.logging_middleware.LoggingMiddleware'
 
 如此日志就会输出到monitor.log
-

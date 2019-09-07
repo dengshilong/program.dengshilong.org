@@ -1,5 +1,5 @@
-title: Python程序设计入门之metaprogramming
-date: 2019-09-06 21:46:11
+title: Python程序设计进阶之元编程-metaprogramming
+date: 2019-09-07 21:01:30
 tags:
     - Python
 categories:
@@ -369,6 +369,8 @@ Spam.a
 
 学到这里，我脑海里冒出了一个想法，就是为啥这里一定要用metaclass呢? 用继承的方式难道不行吗？于是自己尝试写了个继承的方式, 发现也是跑得通的。
 
+
+
 ```
 # a baseclass
 class debugmeta:
@@ -401,6 +403,8 @@ Base.a
 Spam.__init__
 Spam.a
 ```
+但实际上，这样做法是有问题的，后面等到后面我们来纠正这个问题。
+
 既然如此，那么蔡元楠在《metaclass, 是潘多拉魔盒还是阿拉丁神灯》介绍的yaml的动态序列化和逆序列化的能力又为何要用metaclass实现呢？用继承难道不行吗？于是也写了一个继承的版本, 代码如下。
 ```
 import yaml
@@ -656,6 +660,53 @@ Dragon(name=Cave spider, hp=[2, 6], ac=17, attacks=['BITE', 'HURT'], energy=5000
 ```
 从上面的结果里可以看到, yaml_tag是没有在Dragon类的属性字典里的，即便是Dragon类会从Monster那里继承yaml_tag.
 
-到了这里, 我终于明白为什么yaml要使用metaclass, 而不是继承了。
+回到前面的用基类来实现对所有类使用debugmethods进行装饰的例子。这里因为每次创建对象的时候都会调用`__new__`方法, 会导致多次调用debugmethods装饰器, 这样会导致创建多少个对象, 调用一次类的方法就会输有多次, 测试如下
+
+```
+# a baseclass
+class debugmeta:
+    def __new__(cls, *args, **kwargs):
+        cls = debugmethods(cls)
+        clsobj = object.__new__(cls)
+#         clsobj = debugmethods(clsobj)
+#         print('aaa', type(clsobj), clsobj)
+#         print('aaa', clsobj, type(clsobj), vars(clsobj), dir(clsobj), type(clsobj.a), callable(clsobj.a))
+        return clsobj
+    
+class Base(debugmeta):
+    def a(self):
+        pass
+
+    
+class Spam(Base):
+    def __init__(self, name):
+        self.name = name
+    def a(self):
+        pass
+
+    
+b = Base()
+b.a()
+s = Spam('name')
+s.a()
+print('-------')
+s = Spam('lblb')
+s.a()
+输出如下
+here <class '__main__.Base'>
+Base.a
+here <class '__main__.Spam'>
+Spam.__init__
+Spam.a
+-------
+here <class '__main__.Spam'>
+Spam.__init__
+Spam.__init__
+Spam.a
+Spam.a
+```
+这里Spam类创建了两个对象, 就调用了两次debugmethods, 所以会有多次输出。
+
+到了这里, 我终于明白为什么要用metaclass来解决对于所有类使用debugmethods来装饰的问题，因为在metaclass里实现，则只会调用一次，因为一个类的创建只需要一次。也明白为什么yaml要使用metaclass, 而不是继承了。
 
 总的来说, metaclass并不是什么奇淫巧技，简单来说就是一种改变类创建过程的能力。当然, 绝大多数情况下都不需要用到它。

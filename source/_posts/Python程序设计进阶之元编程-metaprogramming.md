@@ -660,7 +660,7 @@ Dragon(name=Cave spider, hp=[2, 6], ac=17, attacks=['BITE', 'HURT'], energy=5000
 ```
 从上面的结果里可以看到, yaml_tag是没有在Dragon类的属性字典里的，即便是Dragon类会从Monster那里继承yaml_tag.
 
-回到前面的用基类来实现对所有类使用debugmethods进行装饰的例子。这里因为每次创建对象的时候都会调用`__new__`方法, 会导致多次调用debugmethods装饰器, 这样会导致创建多少个对象, 调用一次类的方法就会输有多次, 测试如下
+回到前面的用基类来实现对所有类使用debugmethods进行装饰的例子。这里因为每次创建对象的时候都会调用`__new__`方法, 会导致多次调用debugmethods装饰器, 这样会导致创建多少个对象, 调用一次类的方法就会输出多次, 测试如下
 
 ```
 # a baseclass

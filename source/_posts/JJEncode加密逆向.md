@@ -1,6 +1,7 @@
 title: JJEncode加密逆向
 date: 2022-07-12 20:36:48
 tags:
+    - 逆向
 categories:
 ---
 第一次遇到JJEncode, 代码与如下类似，一堆的奇奇怪怪的字符，特征是结尾有两个括号

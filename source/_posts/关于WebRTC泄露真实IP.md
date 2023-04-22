@@ -11,4 +11,4 @@ categories:
 
 一些知名厂商的反爬方案中就有用到WebRTC这个漏洞，如果使用浏览器采集的时候，发现并发上不去，很有可能是因为WebRTC暴露了真实IP。
 
-网上说解决的办法是安装WebRTC Leak Shield等类似插件，在测试网站上https://ip8.com/webrtc-test可以测试是不是生效，加上代理，安装插件后，测试发现确实生效，没有暴露真实IP。但在https://api.ipify.org/网站上测试的时候，还是发现暴露了真实IP，目前还不知道为啥。
+网上说解决的办法是安装WebRTC Leak Shield等类似插件，在测试网站上[https://ip8.com/webrtc-test](https://ip8.com/webrtc-test)可以测试是不是生效，加上代理，安装插件后，测试发现确实生效，没有暴露真实IP。但在[https://api.ipify.org/](https://api.ipify.org/)网站上测试的时候，还是发现暴露了真实IP，目前还不知道为啥。

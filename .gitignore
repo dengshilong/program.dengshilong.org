@@ -1,2 +1,4 @@
 *.pyc
 public
+.DS_Store
+.idea

@@ -1,0 +1,97 @@
+title: JavaScript中一些常用hook
+date: 2024-07-30 21:21:04
+tags:
+    - JavaScript
+    - hook
+categories:
+---
+# remove debugger
+有些时候想移除debugger
+
+```
+  _Function = Function;
+  Function.prototype.constructor = function(){
+  	if (arguments[0].indexOf('debugger') != -1){
+  		//debugger;
+  		return _Function('');
+  	}
+  	return _Function(arguments[0]);
+  };
+```
+
+# hook cookie
+我们需要快速定位cookie在哪里生成的，需要hook cookie
+
+```
+var cookie_cache = document.cookie;
+Object.defineProperty(document, 'cookie', {
+    get: function() {
+        debugger;
+        console.log('Getting cookie');
+        return cookie_cache;
+    },
+    set: function(val) {
+        debugger;
+        console.log('Setting cookie', val);
+        var cookie = val.split(";")[0];
+        var ncookie = cookie.split("=");
+        var flag = false;
+        var cache = cookie_cache.split("; ");
+        cache = cache.map(function(a){
+            if (a.split("=")[0] === ncookie[0]){
+                flag = true;
+                return cookie;
+            }
+            return a;
+        })
+        cookie_cache = cache.join("; ");
+        if (!flag){
+            cookie_cache += cookie + "; ";
+        }
+        this._value = val;
+        return cookie_cache;
+    },
+});
+```
+
+# hook eval
+有时候我们需要快速定位vm.js在哪里生成的，需要hook eval
+
+```
+window.__eval = window.eval
+var myeval = function(src) {
+    debugger ;
+    console.log('=======eval====')
+    return window.__eval(src)
+}
+Object.defineProperty(window.prototype, 'eval', {
+    value: myeval
+})
+```
+
+# hook random
+有时候我们需要固定随机参数，需要hook random
+
+```
+old_random = Math.random
+window.Math.random =  Math.random = function () {
+        return 0.3
+ };
+```
+
+# hook regex
+有时候我们需要知道代码如何进行格式化检测，需要hook 正则
+
+```
+ RegExp.prototype.my_test = RegExp.prototype.test
+
+let my_regex = function(arguments) {
+    debugger ;
+    console.log(this, arguments)
+    return this.my_test(arguments)
+}
+
+Object.defineProperty(RegExp.prototype, 'test', {
+    value: my_regex
+})
+```

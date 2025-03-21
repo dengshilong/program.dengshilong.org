@@ -6,6 +6,7 @@ tags:
     - 逆向
     - 爬虫
     - 反爬
+    - JavaScript
 categories:
 ---
 听闻sdenv被反爬，垂死病中惊坐起，去看了下sdenv的源码, 整理了下以前写的针对jsdom检测的简单测试代码

@@ -11,6 +11,6 @@ date: 2013-04-11 07:59:12
 [github](https://github.com/dengshilong)
 
 <p style="text-align: center;"><img class="aligncenter  wp-image-772" src="http://www.robinjia.cc/wp-content/uploads/2019/05/author.jpeg" width="300" height="300" />
-<img class="aligncenter  wp-image-772" src="/img/zsxq.jpg" width="300" height="300" />
+<img class="aligncenter  wp-image-772" src="/img/gzh.jpg" width="300" height="300" />
 </p>
   

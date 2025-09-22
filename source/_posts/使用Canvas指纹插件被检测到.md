@@ -1,7 +1,8 @@
 title: 使用Canvas指纹插件被检测到
 date: 2024-01-06 16:53:22
 tags:
-    - 
+    - 指纹
+    - Canvas
 categories:
 ---
 自从知道了网站会采集浏览器设备指纹和WebRTC泄漏真实IP后，在浏览器上常年挂着指纹对抗插件，Canvas Fingerprint Defender，Font Fingerprint Defender，WebGL Fingerprint Defender，WebRTC Network Limiter。突然某天发现自己访问某地图网站时返回了假数据(假数据的形式是不返回围栏边界数据，地址可能出现错误)，在排查问题后，锁定了Canvas Fingerprint Defender插件和WebGL Fingerprint Defender插件，只要打开这两个插件中的任意一个都会返回假数据。

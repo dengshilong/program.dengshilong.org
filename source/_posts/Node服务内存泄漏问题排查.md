@@ -24,10 +24,7 @@ app.get("/dump", (req, res) => {
 
 接下来就是请求服务接口，等它内存泄漏之后，调用这个dump内存接口，生成如Heap.20250710.170608.4721.0.001.heapsnapshot 这种文件。之后打开Chrome 开发者调试工具，在Memory里, 导入内存镜像，开始分析内存泄漏原因。
 
-![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/evGtG8dWjn70ticibbKYgdgnwIsASO4G02uRsarwodo21aOn3dom5iaN7uSLObQHHf9XwrImqSNp6Cz8I8ew0SexQ/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=0)
-
 我们可以看到Retained Size(指的是一个对象被垃圾回收后，能实际释放的内存量) 几乎都在global里, 于是重点排查这里。
-![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/evGtG8dWjn70ticibbKYgdgnwIsASO4G02vQqX26c4tibcpmdc2gx5rSmHZTQU0QowK9udSdcdWW1ZmgptXdicSaDg/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=1)
 
 点开global这里，我们能看到，Retained Size都集中在fetch这个变量，于是我们在代码的最后添加global.fetch = undefined 来释放内存，最终代码如下。之后重启服务，继续测试，内存泄漏问题不再出现， 收工。
 

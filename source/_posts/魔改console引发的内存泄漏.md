@@ -11,7 +11,6 @@ categories:
 
 写完Node服务内存泄漏问题排查一文后，用新的方法，一下子就找到了是console内存泄漏了。困惑的是最右边Retained Size对不上，没搞明白。
 
-![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/evGtG8dWjn7xql43YgnN2xibOCzmcWWmmWs5zPG9APZIuhibzrHR6iaB8ic5OC8OEfKy6ldbfujdMADS3dIAOqibQZg/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=0)
 至于解决的办法也很简单，加上 global.console = undefined 就行了，代码如下
 
 ```
